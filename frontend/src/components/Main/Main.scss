@@ -1,0 +1,28 @@
+main {
+  height: 100%;
+  width: 100%;
+  grid-area: content;
+
+  .newSale {
+    position: fixed;
+    bottom: 5vh;
+    right: 5vh;
+    height: 70px;
+    width: 70px;
+
+    button {
+      height: 100%;
+      width: 100%;
+
+      border: none;
+      border-radius: 50%;
+
+      background-color: var(--purple-500);
+
+      i {
+        color: var(--white-800);
+        font-size: 2rem;
+      }
+    }
+  }
+}

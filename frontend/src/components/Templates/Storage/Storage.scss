@@ -1,0 +1,31 @@
+section {
+    height: 100%;
+    width: 100%;
+  
+    table {
+      tbody {
+        tr {
+          td {
+            button {
+              i {
+                font-size: 1.3rem;
+              }
+  
+              .add {
+                color: green;
+              }
+  
+              .del {
+                color: red;
+              }
+  
+              &:active {
+                border: none;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  

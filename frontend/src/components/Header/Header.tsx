@@ -32,7 +32,7 @@ class Header extends React.Component<any, any> {
               <div className="logo">
                 <img src={Logo} alt="Logo" className="me-3" />
               </div>
-              <p className="m-0">Controle de Vendas</p>
+              <p className="m-0">{this.props.title}</p>
             </div>
           </div>
 

@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./Home.scss";
 
-const Home = () => {
+const Home = (props: any) => {
+  useEffect(() => {
+    props.props.getPath("/");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
     <section className="container d-flex justify-content-around pt-3">
       <div className="card sales d-flex justify-content-center align-items-center col-3">

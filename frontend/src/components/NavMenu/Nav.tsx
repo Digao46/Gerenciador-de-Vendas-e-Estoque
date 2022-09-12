@@ -1,10 +1,10 @@
 import "./Nav.scss";
 import React from "react";
-import { BrowserRouter, Link } from "react-router-dom";
+import { BrowserRouter as Router, Link } from "react-router-dom";
 
 const Nav = () => {
   return (
-    <BrowserRouter>
+    <Router>
       <aside>
         <ul className="text-start">
           <li className="my-4 d-flex justify-content-start">
@@ -41,7 +41,7 @@ const Nav = () => {
           </li>
         </ul>
       </aside>
-    </BrowserRouter>
+    </Router>
   );
 };
 

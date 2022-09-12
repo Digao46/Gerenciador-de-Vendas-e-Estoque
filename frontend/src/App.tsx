@@ -7,7 +7,7 @@ import Main from "./components/Main/Main";
 
 function App() {
   let [path, setPath] = useState("/");
-  let title = "Dashboard";
+  let title = "";
 
   const getPath = (newTitle: string) => {
     setPath(newTitle);
@@ -15,19 +15,19 @@ function App() {
 
   switch (path) {
     case (path = "/"):
-      title = "Dashboard";
+      title = "";
       break;
 
     case (path = "/sales"):
-      title = "Gerenciamento de Vendas";
+      title = "> Gerenciamento de Vendas";
       break;
 
     case (path = "/storage"):
-      title = "Gerenciamento de Estoque";
+      title = "> Gerenciamento de Estoque";
       break;
 
     case (path = "/cash"):
-      title = "Gerenciamento de Caixa";
+      title = "> Gerenciamento de Caixa";
       break;
   }
 

@@ -1,0 +1,28 @@
+:root {
+  --blue-500: #411b76;
+  --blue-800: #2f1355;
+  --white-800: #fff;
+  --black-800: rgb(0, 0, 0);
+}
+
+body,
+html {
+  margin: 0;
+  padding: 0%;
+  height: 100vh;
+  width: 100%;
+}
+
+.App {
+  height: 100vh;
+  width: 100%;
+
+  display: grid;
+  grid-template-columns: 35vh 1fr;
+  grid-template-rows: 15vh 1fr 5vh;
+
+  grid-template-areas:
+    "header header"
+    "menu content"
+    "menu footer";
+}

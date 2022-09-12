@@ -1,0 +1,68 @@
+header {
+  width: 100%;
+  height: 100%;
+  background-color: var(--blue-500);
+
+  color: var(--white-800);
+
+  grid-area: header;
+
+  .logoArea {
+    height: 100%;
+
+    .logo {
+      height: 80px;
+      width: 80px;
+
+      img {
+        height: 100%;
+        width: 100%;
+      }
+    }
+
+    p {
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: var(--white-800);
+    }
+  }
+
+  .navArea {
+    height: 100%;
+
+    .user {
+      p {
+        font-weight: 600;
+        margin: 0;
+      }
+    }
+
+    .userImg {
+      overflow: hidden;
+      height: 40px;
+      width: 40px;
+      border-radius: 50%;
+      border: solid 1px var(--white-800);
+      background-color: var(--white-800);
+
+      img {
+        height: 100% !important;
+        width: 100vw !important;
+      }
+    }
+
+    .btn {
+      margin: 0;
+      padding: 0;
+      width: 20px;
+
+      i {
+        color: var(--white-800);
+      }
+
+      &:active {
+        border: none;
+      }
+    }
+  }
+}

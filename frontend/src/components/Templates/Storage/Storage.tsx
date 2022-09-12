@@ -18,7 +18,7 @@ const Storage = () => {
           <tr>
             <th scope="col">Id</th>
             <th scope="col">Nome</th>
-            <th scope="col">Vendido</th>
+            <th scope="col">Estoque</th>
             <th scope="col">Preço</th>
             <th scope="col">Ações</th>
           </tr>

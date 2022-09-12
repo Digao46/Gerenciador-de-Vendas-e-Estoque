@@ -19,7 +19,7 @@ const Main = () => {
         </Routes>
       </BrowserRouter>
 
-      <div className="newSale">
+      <div className="otherActions">
         <button>
           <i className="fa fa-plus" />
         </button>

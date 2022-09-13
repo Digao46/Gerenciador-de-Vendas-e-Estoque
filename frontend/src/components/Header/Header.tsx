@@ -1,6 +1,6 @@
 import "./Header.scss";
 import React from "react";
-
+import { Link } from "react-router-dom";
 const Logo = require("../../assets/imgs/logo.png");
 
 class Header extends React.Component<any, any> {
@@ -33,7 +33,7 @@ class Header extends React.Component<any, any> {
                 <img src={Logo} alt="Logo" className="me-3" />
               </div>
               <p>
-                <a href="/">Dashboard {this.props.title}</a>
+                <Link to="/">Dashboard {this.props.title}</Link>
               </p>
             </div>
           </div>

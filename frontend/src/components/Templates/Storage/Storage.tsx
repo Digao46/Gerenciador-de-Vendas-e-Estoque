@@ -16,9 +16,9 @@ const Storage = (props: any) => {
   }
 
   useEffect(() => {
+    props.props.getPath("/storage");
     api.get("/sales").then((res) => setStorage(res.data));
 
-    props.props.getPath("/storage");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

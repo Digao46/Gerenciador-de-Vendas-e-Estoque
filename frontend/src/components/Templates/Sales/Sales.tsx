@@ -17,8 +17,8 @@ const Sales = (props: any) => {
 
   useEffect(() => {
     props.props.getPath("/sales");
-
     api.get("/products").then((res) => setSales(res.data));
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

@@ -5,6 +5,8 @@ import Header from "./components/Header/Header";
 import Nav from "./components/NavMenu/Nav";
 import Main from "./components/Main/Main";
 
+import { BrowserRouter as Router } from "react-router-dom";
+
 function App() {
   let [path, setPath] = useState("/");
   let title = "";
@@ -32,11 +34,13 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <Header title={title} />
-      <Nav />
-      <Main getPath={getPath} />
-    </div>
+    <Router>
+      <div className="App">
+        <Header title={title} />
+        <Nav />
+        <Main getPath={getPath} />
+      </div>
+    </Router>
   );
 }
 

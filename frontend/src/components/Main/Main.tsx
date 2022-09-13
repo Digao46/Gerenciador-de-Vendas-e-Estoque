@@ -7,20 +7,20 @@ import Sales from "../Templates/Sales/Sales";
 import Storage from "../Templates/Storage/Storage";
 import Cash from "../Templates/Cash/Cash";
 
-import { Switch, Route, Link } from "react-router-dom";
+import NewProduct from "../Templates/Modal/NewProduct/NewProduct";
+
+import { Switch, Route } from "react-router-dom";
 
 class Main extends React.Component<any, any> {
   constructor(props: any) {
     super(props);
     this.state = {
       isActive: true,
+      newSale: false,
+      isHidden: true,
+      show: "d-none",
     };
   }
-
-  close = () => {
-    this.handleActive();
-    this.handleDropdown();
-  };
 
   handleDropdown = () => {
     this.setState({ isActive: !this.state.isActive });
@@ -33,7 +33,7 @@ class Main extends React.Component<any, any> {
       btn.className = "dropdownArea";
 
       setTimeout(() => {
-        btn.className = "dropdownArea hidden";
+        btn.className = "dropdownArea deactivate";
       }, 500);
     }
   };
@@ -48,6 +48,24 @@ class Main extends React.Component<any, any> {
     } else {
       btn.className = "otherActions";
     }
+  };
+
+  close = () => {
+    this.handleActive();
+    this.handleDropdown();
+  };
+
+  handleNewProductModal = (e: any) => {
+    e.preventDefault();
+    this.setState({ isHidden: !this.state.isHidden });
+
+    if (!this.state.isHidden) {
+      this.setState({ show: "d-none" });
+    } else {
+      this.setState({ show: "d-block" });
+    }
+
+    this.close();
   };
 
   render() {
@@ -68,6 +86,11 @@ class Main extends React.Component<any, any> {
           </Route>
         </Switch>
 
+        <NewProduct
+          handleNewProductModal={this.handleNewProductModal}
+          addClassName={this.state.show}
+        />
+
         <div>
           <div id="dropdownArea" className="dropdownArea d-none">
             <div className="dropdownMenu">
@@ -79,7 +102,7 @@ class Main extends React.Component<any, any> {
                   <div className="iconArea d-flex justify-content-center">
                     <i className="fa fa-dollar-sign" />
                   </div>
-                  <Link to="/">Iniciar Venda</Link>
+                  <p>Iniciar Venda</p>
                 </li>
 
                 <li
@@ -89,7 +112,7 @@ class Main extends React.Component<any, any> {
                   <div className="iconArea d-flex justify-content-center">
                     <i className="fa fa-warehouse" />
                   </div>
-                  <Link to="/">Novo Produto</Link>
+                  <p onClick={this.handleNewProductModal}>Novo Produto</p>
                 </li>
               </ul>
             </div>

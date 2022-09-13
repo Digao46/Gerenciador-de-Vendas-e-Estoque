@@ -31,7 +31,7 @@ main {
     width: 170px;
     animation: fadeOut 0.5s ease-out;
 
-    &.hidden {
+    &.deactivate {
       display: none;
     }
 
@@ -64,11 +64,15 @@ main {
             color: var(--white-800);
           }
 
-          a {
+          p {
             margin: 0;
             padding: 0;
             text-decoration: none;
             color: var(--white-800);
+
+            &:hover {
+              cursor: pointer;
+            }
           }
         }
       }

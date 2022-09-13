@@ -14,12 +14,14 @@ class Header extends React.Component<any, any> {
   handleActive = () => {
     this.setState({ isActive: !this.state.isActive });
 
-    const icon = document.getElementById("btnIcon")!;
+    const btn = document.getElementById("toggleButton")!;
 
     if (this.state.isActive) {
-      icon.className = "fa fa-angle-down";
+      btn.className = "toggleButton active";
+      console.log(btn.className);
     } else {
-      icon.className = "fa fa-angle-right";
+      btn.className = "toggleButton";
+      console.log(btn.className);
     }
   };
 
@@ -46,9 +48,9 @@ class Header extends React.Component<any, any> {
               <div className="userImg me-2 d-flex justify-content-center align-items-center">
                 <img src={Logo} alt="Imagem Usuário" />
               </div>
-              <div className="toggleButton">
-                <button className="btn" onClick={this.handleActive}>
-                  <i id="btnIcon" className="fa fa-angle-right"></i>
+              <div id="toggleButton" className="toggleButton">
+                <button id="btn" className="btn" onClick={this.handleActive}>
+                  <i className="fa fa-angle-right"></i>
                 </button>
               </div>
             </div>

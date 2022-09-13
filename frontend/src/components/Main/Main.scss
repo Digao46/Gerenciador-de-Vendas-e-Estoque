@@ -5,23 +5,41 @@ main {
 
   .otherActions {
     position: fixed;
-    bottom: 5vh;
-    right: 5vh;
+    bottom: 6vh;
+    right: 10vh;
     height: 70px;
     width: 70px;
 
-    button {
+    &.active {
+      .btn {
+        transition: transform 0.8s;
+        transform: rotate(135deg);
+
+        i {
+          color: var(--white-800);
+          font-size: 2rem;
+        }
+      }
+    }
+
+    .btn {
       height: 100%;
       width: 100%;
 
       border: none;
       border-radius: 50%;
-
       background-color: var(--purple-500);
+
+      transition: transform 0.8s;
+      transform: rotate(0deg);
 
       i {
         color: var(--white-800);
         font-size: 2rem;
+      }
+
+      &:hover {
+        background-color: var(--purple-500);
       }
     }
   }

@@ -8,31 +8,56 @@ import Cash from "../Templates/Cash/Cash";
 
 import { Switch, Route } from "react-router-dom";
 
-const Main = (props: any) => {
-  return (
-    <main>
-      <Switch>
-        <Route path="/sales">
-          <Sales props={props} />
-        </Route>
-        <Route path="/storage">
-          <Storage props={props} />
-        </Route>
-        <Route path="/cash">
-          <Cash props={props} />
-        </Route>
-        <Route path="/">
-          <Home props={props} />
-        </Route>
-      </Switch>
+class Main extends React.Component<any, any> {
+  constructor(props: any) {
+    super(props);
+    this.state = {
+      isActive: true,
+    };
+  }
 
-      <div className="otherActions">
-        <button>
-          <i className="fa fa-plus" />
-        </button>
-      </div>
-    </main>
-  );
-};
+  handleActive = () => {
+    this.setState({ isActive: !this.state.isActive });
+
+    const btn = document.getElementById("otherActions")!;
+
+    if (this.state.isActive) {
+      btn.className = "otherActions active";
+    } else {
+      btn.className = "otherActions";
+    }
+  };
+
+  render() {
+    return (
+      <main>
+        <Switch>
+          <Route path="/sales">
+            <Sales props={this.props} />
+          </Route>
+          <Route path="/storage">
+            <Storage props={this.props} />
+          </Route>
+          <Route path="/cash">
+            <Cash props={this.props} />
+          </Route>
+          <Route path="/">
+            <Home props={this.props} />
+          </Route>
+        </Switch>
+
+        <div
+          id="otherActions"
+          className="otherActions"
+          onClick={this.handleActive}
+        >
+          <button className="btn">
+            <i id="fa" className="fa fa-plus" />
+          </button>
+        </div>
+      </main>
+    );
+  }
+}
 
 export default Main;

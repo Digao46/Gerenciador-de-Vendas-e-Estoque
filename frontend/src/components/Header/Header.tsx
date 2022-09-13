@@ -1,6 +1,8 @@
-import "./Header.scss";
 import React from "react";
 import { Link } from "react-router-dom";
+
+import "./Header.scss";
+
 const Logo = require("../../assets/imgs/logo.png");
 
 class Header extends React.Component<any, any> {

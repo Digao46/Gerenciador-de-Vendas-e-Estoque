@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import "./Sales.scss";
-
 import { api } from "../../../services/api";
+
+import "./Sales.scss";
 
 const Sales = (props: any) => {
   const [sales, setSales] = useState<any[]>([]);

@@ -1,12 +1,88 @@
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
 main {
   height: 100%;
   width: 100%;
   grid-area: content;
 
+  .dropdownArea {
+    background-color: var(--purple-800);
+    border-radius: 15px;
+    position: fixed;
+    bottom: 17vh;
+    right: 3vw;
+    height: 100px;
+    width: 170px;
+    animation: fadeOut 0.5s ease-out;
+
+    &.hidden {
+      display: none;
+    }
+
+    .dropdownMenu {
+      height: 100%;
+      width: 100%;
+
+      .listMenu {
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+
+        li {
+          list-style-type: none;
+          height: 30px;
+          margin-right: 15px;
+
+          .iconArea {
+            width: 30px;
+            padding-left: 15px;
+            margin-right: 15px;
+
+            &:hover {
+              text-decoration: none;
+              color: var(--white-800);
+            }
+          }
+          i {
+            color: var(--white-800);
+          }
+
+          a {
+            margin: 0;
+            padding: 0;
+            text-decoration: none;
+            color: var(--white-800);
+          }
+        }
+      }
+    }
+
+    &.active {
+      animation: fadeIn 0.5s ease-in;
+    }
+  }
+
   .otherActions {
     position: fixed;
     bottom: 6vh;
-    right: 10vh;
+    right: 3vw;
     height: 70px;
     width: 70px;
 

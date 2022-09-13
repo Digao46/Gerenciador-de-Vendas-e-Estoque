@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+
 import "./Cash.scss";
 
 const Cash = (props: any) => {

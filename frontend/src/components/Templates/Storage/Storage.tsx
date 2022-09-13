@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import "./Storage.scss";
-
 import { api } from "../../../services/api";
+
+import "./Storage.scss";
 
 const Storage = (props: any) => {
   const [storage, setStorage] = useState<any[]>([]);
@@ -53,6 +53,9 @@ const Storage = (props: any) => {
                 </button>
                 <button className="btn">
                   <i className="edit fa fa-edit me-2" />
+                </button>
+                <button className="btn">
+                  <i className="remove edit fa fa-minus me-2" />
                 </button>
                 <button className="btn">
                   <i className="del fa fa-trash" />

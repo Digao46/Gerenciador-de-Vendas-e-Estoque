@@ -6,20 +6,19 @@ section {
     tbody {
       tr {
         td {
+          .action {
+            height: 100%;
+          }
           button {
             i {
               font-size: 1.3rem;
             }
 
-            .add {
-              color: green;
+            .edit {
+              color: var(--black-800);
             }
 
-            .remove {
-              color: rgb(221, 221, 61);
-            }
-
-            .del {
+            .delete {
               color: red;
             }
 

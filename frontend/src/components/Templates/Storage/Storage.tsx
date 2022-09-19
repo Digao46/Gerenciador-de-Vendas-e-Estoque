@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { api } from "../../../services/api";
+import { Link } from "react-router-dom";
+import { getProducts, getProduct, deleteProduct } from "../../../services/api";
 
 import "./Storage.scss";
 
 const Storage = (props: any) => {
-  const [storage, setStorage] = useState<any[]>([]);
+  const [products, setProducts] = useState<any[]>();
 
-  const totals = document.querySelectorAll("td.total");
+  const totals = document.querySelectorAll(".total");
   let total = 0;
 
   for (let i = 0; i < totals.length; i++) {
@@ -17,58 +18,93 @@ const Storage = (props: any) => {
 
   useEffect(() => {
     props.props.getPath("/storage");
-    api.get("/sales").then((res) => setStorage(res.data));
+
+    getProducts().then((res) => setProducts(res.data));
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [products]);
+
+  const delProduct = (productId: any) => {
+    deleteProduct(productId);
+  };
+
+  const getProductById = (productId: any) => {
+    getProduct(productId).then(props.getProductId(productId));
+  };
 
   return (
     <section className="container d-flex justify-content-center col-10 pt-3">
       <table className="table table-bordered table-striped">
         <thead className="text-center">
           <tr>
-            <th scope="col">Id</th>
+            <th scope="col" className="d-none">
+              Id
+            </th>
             <th scope="col">Nome</th>
             <th scope="col">Estoque</th>
             <th scope="col">Preço de Custo</th>
-            <th scope="col">Total</th>
+            <th scope="col">Preço de Venda</th>
+            <th scope="col">Lucro Unidade</th>
+            <th scope="col">Lucro Total</th>
             <th scope="col">Ações</th>
           </tr>
         </thead>
         <tbody className="text-center">
-          {storage.map((storage) => (
-            <tr key={storage.id}>
-              <th>{storage.id}</th>
-              <td>{storage.name}</td>
-              <td>{storage.storage} un</td>
-              <td>R${storage.costPrice.toFixed(2).replace(".", ",")}</td>
-              <td className="total">
-                {(storage.storage * storage.costPrice)
-                  .toFixed(2)
-                  .replace(".", ",")}
+          {products?.map((product) => (
+            <tr key={product.id}>
+              <td>{product.name}</td>
+              <td>{product.storage} uni</td>
+              <td>
+                R$<span>{product.costPrice.toFixed(2).replace(",", ".")}</span>
               </td>
-              <td className="d-flex justify-content-center">
-                <button className="btn">
-                  <i className="add fa fa-plus me-2" />
-                </button>
-                <button className="btn">
-                  <i className="edit fa fa-edit me-2" />
-                </button>
-                <button className="btn">
-                  <i className="remove edit fa fa-minus me-2" />
-                </button>
-                <button className="btn">
-                  <i className="del fa fa-trash" />
-                </button>
+              <td>
+                R$<span>{product.sellPrice.toFixed(2).replace(",", ".")}</span>
+              </td>
+              <td>
+                R$
+                {(product.sellPrice - product.costPrice)
+                  .toFixed(2)
+                  .replace(",", ".")}
+              </td>
+              <td>
+                R$
+                <span className="total">
+                  {((product.sellPrice - product.costPrice) * product.storage)
+                    .toFixed(2)
+                    .replace(",", ".")}
+                </span>
+              </td>
+              <td>
+                <div className="d-flex">
+                  <button
+                    className="btn"
+                    onClick={() => {
+                      getProductById(product.id);
+                    }}
+                  >
+                    <Link to="/editProduct">
+                      <i className="edit fa fa-edit" />
+                    </Link>
+                  </button>
+
+                  <button
+                    className="btn"
+                    onClick={() => {
+                      delProduct(product.id);
+                    }}
+                  >
+                    <i className="delete fa fa-trash" />
+                  </button>
+                </div>
               </td>
             </tr>
           ))}
 
           <tr>
-            <th colSpan={4} className="text-end">
+            <th colSpan={5} className="text-end">
               TOTAL
             </th>
-            <td> R${total.toFixed(2).replace(".", ",")}</td>
+            <td>R${total.toFixed(2).replace(",", ".")}</td>
           </tr>
         </tbody>
       </table>

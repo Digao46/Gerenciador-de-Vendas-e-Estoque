@@ -8,17 +8,17 @@ import Storage from "../Templates/Storage/Storage";
 import Cash from "../Templates/Cash/Cash";
 
 import NewProduct from "../Templates/Modal/NewProduct/NewProduct";
+import NewSale from "../Templates/Modal/NewSale/NewSale";
+import EditProduct from "../Templates/Modal/EditProduct/EditProduct";
 
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Link } from "react-router-dom";
 
 class Main extends React.Component<any, any> {
   constructor(props: any) {
     super(props);
     this.state = {
       isActive: true,
-      newSale: false,
-      isHidden: true,
-      show: "d-none",
+      productId: 0,
     };
   }
 
@@ -55,17 +55,8 @@ class Main extends React.Component<any, any> {
     this.handleDropdown();
   };
 
-  handleNewProductModal = (e: any) => {
-    e.preventDefault();
-    this.setState({ isHidden: !this.state.isHidden });
-
-    if (!this.state.isHidden) {
-      this.setState({ show: "d-none" });
-    } else {
-      this.setState({ show: "d-block" });
-    }
-
-    this.close();
+  getProductId = (id: number) => {
+    this.setState({ productId: id });
   };
 
   render() {
@@ -75,9 +66,26 @@ class Main extends React.Component<any, any> {
           <Route path="/sales">
             <Sales props={this.props} />
           </Route>
+
           <Route path="/storage">
-            <Storage props={this.props} />
+            <Storage props={this.props} getProductId={this.getProductId} />
           </Route>
+
+          <Route path="/newProduct">
+            <Storage props={this.props} />
+            <NewProduct />
+          </Route>
+
+          <Route path="/editProduct">
+            <Storage props={this.props} />
+            <EditProduct productId={this.state.productId} />
+          </Route>
+
+          <Route path="/newSale">
+            <Sales props={this.props} />
+            <NewSale />
+          </Route>
+
           <Route path="/cash">
             <Cash props={this.props} />
           </Route>
@@ -86,33 +94,22 @@ class Main extends React.Component<any, any> {
           </Route>
         </Switch>
 
-        <NewProduct
-          handleNewProductModal={this.handleNewProductModal}
-          addClassName={this.state.show}
-        />
-
         <div>
           <div id="dropdownArea" className="dropdownArea d-none">
             <div className="dropdownMenu">
               <ul className="listMenu d-flex text-start flex-column justify-content-center">
-                <li
-                  onClick={this.close}
-                  className="newSale d-flex justify-content-start align-items-center my-1"
-                >
+                <li className="newSale d-flex justify-content-start align-items-center my-1">
                   <div className="iconArea d-flex justify-content-center">
                     <i className="fa fa-dollar-sign" />
                   </div>
-                  <p>Iniciar Venda</p>
+                  <Link to="/newSale">Iniciar Venda</Link>
                 </li>
 
-                <li
-                  onClick={this.close}
-                  className="newProduct d-flex justify-content-start align-items-center my-1"
-                >
+                <li className="newProduct d-flex justify-content-start align-items-center my-1">
                   <div className="iconArea d-flex justify-content-center">
                     <i className="fa fa-warehouse" />
                   </div>
-                  <p onClick={this.handleNewProductModal}>Novo Produto</p>
+                  <Link to="/newProduct">Novo Produto</Link>
                 </li>
               </ul>
             </div>

@@ -2,6 +2,8 @@ import axios from "axios";
 
 const url = "http://localhost:8080";
 
+// Storage
+
 const apiStorage = axios.create({ baseURL: url });
 
 export async function getProducts() {
@@ -24,6 +26,24 @@ export async function editProduct(id: number, params: any) {
 
 export async function addProduct(params: any) {
   return await apiStorage.post("/newProduct", {
+    ...params,
+  });
+}
+
+// Sales
+
+const apiSale = axios.create({ baseURL: url });
+
+export async function getSales() {
+  return await apiSale.get("/sales");
+}
+
+export async function getSale(id: any) {
+  return await apiSale.get(`/sales/${id}`);
+}
+
+export async function addSale(params: any) {
+  return await apiSale.post("/newSale", {
     ...params,
   });
 }

@@ -2,25 +2,120 @@ section {
   height: 100%;
   width: 100%;
 
-  table {
-    tbody {
-      tr {
-        td {
-          button {
-            i {
-              font-size: 1.3rem;
-            }
+  .cardTotal {
+    background: linear-gradient(to right, var(--purple-800), var(--purple-500));
+    height: 100px;
 
-            .add {
-              color: green;
-            }
+    .totalLabel {
+      font-size: 0.8rem;
+      font-weight: 400;
+    }
 
-            .del {
-              color: red;
-            }
+    .totalValue {
+      font-size: 2rem;
 
-            &:active {
-              border: none;
+      .moneyLabel {
+        font-size: 1rem;
+        font-weight: 400;
+      }
+    }
+  }
+
+  .mainDiv {
+    height: 60vh;
+    overflow: auto;
+
+    &::-webkit-scrollbar {
+      width: 3px;
+    }
+
+    &::-webkit-scrollbar-track {
+      border-radius: 15px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: var(--purple-500);
+      border: none;
+      border-radius: 20px;
+    }
+
+    .sale {
+      background: linear-gradient(
+        to right,
+        var(--purple-800),
+        var(--purple-500)
+      );
+      height: 110px;
+
+      .saleId {
+        h3 {
+          color: var(--white-800);
+          font-size: 3.5rem;
+          font-weight: 800;
+        }
+      }
+
+      .totalLabel {
+        font-size: 0.8rem;
+        font-weight: 400;
+      }
+
+      .totalValue {
+        font-size: 1.7rem;
+
+        .moneyLabel {
+          font-size: 1rem;
+          font-weight: 400;
+        }
+      }
+    }
+
+    .products {
+      background: linear-gradient(
+        to right,
+        var(--purple-500),
+        var(--purple-800)
+      );
+      height: 110px;
+
+      .title {
+        .itemsLabel {
+          font-size: 0.8rem;
+          font-weight: 400;
+        }
+      }
+
+      .productsList {
+        height: 65%;
+        overflow: auto;
+
+        &::-webkit-scrollbar {
+          width: 3px;
+        }
+
+        &::-webkit-scrollbar-track {
+          border-radius: 15px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+          background-color: var(--white-800);
+          border: none;
+          border-radius: 20px;
+        }
+
+        .productArea {
+          height: 20px;
+          .productName {
+            font-size: 0.9rem;
+          }
+
+          .soldQuantity {
+            font-weight: 700;
+            font-size: 0.9rem;
+
+            .unity {
+              font-weight: 400;
+              font-size: 0.8rem;
             }
           }
         }

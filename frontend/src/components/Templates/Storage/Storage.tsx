@@ -7,15 +7,6 @@ import "./Storage.scss";
 const Storage = (props: any) => {
   const [products, setProducts] = useState<any[]>();
 
-  const totals = document.querySelectorAll(".total");
-  let total = 0;
-
-  for (let i = 0; i < totals.length; i++) {
-    let value: number = parseFloat(totals[i].textContent!);
-
-    total += value;
-  }
-
   useEffect(() => {
     props.props.getPath("/storage");
 
@@ -34,18 +25,14 @@ const Storage = (props: any) => {
 
   return (
     <section className="container d-flex justify-content-center col-10 pt-3">
-      <table className="table table-bordered table-striped">
+      <table className="table table-hover table-bordered table-striped">
         <thead className="text-center">
           <tr>
-            <th scope="col" className="d-none">
-              Id
-            </th>
             <th scope="col">Nome</th>
             <th scope="col">Estoque</th>
             <th scope="col">Preço de Custo</th>
             <th scope="col">Preço de Venda</th>
             <th scope="col">Lucro Unidade</th>
-            <th scope="col">Lucro Total</th>
             <th scope="col">Ações</th>
           </tr>
         </thead>
@@ -67,15 +54,7 @@ const Storage = (props: any) => {
                   .replace(",", ".")}
               </td>
               <td>
-                R$
-                <span className="total">
-                  {((product.sellPrice - product.costPrice) * product.storage)
-                    .toFixed(2)
-                    .replace(",", ".")}
-                </span>
-              </td>
-              <td>
-                <div className="d-flex">
+                <div className="d-flex justify-content-center">
                   <button
                     className="btn"
                     onClick={() => {
@@ -99,13 +78,6 @@ const Storage = (props: any) => {
               </td>
             </tr>
           ))}
-
-          <tr>
-            <th colSpan={5} className="text-end">
-              TOTAL
-            </th>
-            <td>R${total.toFixed(2).replace(",", ".")}</td>
-          </tr>
         </tbody>
       </table>
     </section>

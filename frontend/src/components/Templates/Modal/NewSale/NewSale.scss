@@ -58,6 +58,11 @@
       background-color: green;
       color: var(--white-800);
 
+      a {
+        text-decoration: none;
+        color: var(--white-800);
+      }
+
       &:hover {
         background-color: green;
         color: var(--white-800);
@@ -72,18 +77,57 @@
         list-style-type: none;
         text-decoration: none;
 
+        &::-webkit-scrollbar {
+          width: 3px;
+        }
+
+        &::-webkit-scrollbar-track {
+          border-radius: 15px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+          background-color: var(--purple-500);
+          border: none;
+          border-radius: 20px;
+        }
+
         .itemList {
           max-height: 175px;
           overflow: auto;
 
-          li {
-            .itemName {
-              font-size: 1rem;
-              font-weight: 800;
-            }
+          &::-webkit-scrollbar {
+            width: 3px;
+          }
 
-            .subtotal {
-              font-weight: 600;
+          &::-webkit-scrollbar-track {
+            border-radius: 15px;
+          }
+
+          &::-webkit-scrollbar-thumb {
+            background-color: var(--purple-500);
+            border: none;
+            border-radius: 20px;
+          }
+
+          li {
+            .item {
+              .itemName {
+                font-size: 1rem;
+                font-weight: 800;
+              }
+
+              .btn {
+                color: red;
+
+                &:active {
+                  outline: none;
+                  border: none;
+                }
+              }
+
+              .subtotal {
+                font-weight: 600;
+              }
             }
           }
         }

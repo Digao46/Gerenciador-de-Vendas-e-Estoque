@@ -13,9 +13,6 @@ class NewProduct extends React.Component<any, any> {
       costPrice: "",
       quantity: "",
     };
-
-    // this.handleChange = this.handleChange.bind(this);
-    // this.addNewProduct = this.addNewProduct.bind(this);
   }
 
   handleChange = (e: any) => {

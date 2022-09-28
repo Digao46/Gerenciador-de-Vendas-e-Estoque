@@ -19,6 +19,28 @@ section {
         font-weight: 400;
       }
     }
+
+    .filter {
+      i {
+        font-size: 1.3rem;
+      }
+
+      .dropdownFilter {
+        ul {
+          text-decoration: none;
+          margin: 0;
+          padding: 0;
+
+          li {
+            list-style-type: none;
+
+            &:hover {
+              cursor: pointer;
+            }
+          }
+        }
+      }
+    }
   }
 
   .mainDiv {

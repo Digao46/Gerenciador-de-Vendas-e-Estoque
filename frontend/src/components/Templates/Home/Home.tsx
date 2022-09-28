@@ -1,64 +1,82 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
+import { getProducts, getSales } from "../../../services/api";
 
 import "./Home.scss";
 
-const Home = (props: any) => {
-  useEffect(() => {
-    props.props.getPath("/");
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-  return (
-    <section className="container d-flex justify-content-around pt-3">
-      <div className="card sales d-flex justify-content-center align-items-center col-3">
-        <div className="row w-100 h-80">
-          <div className="col-6 d-flex flex-column align-items-start justify-content-around">
-            <p>Vendas</p>
-            <p className="counter">0</p>
-            <button className="btn">
-              <Link to="/sales">Ver Mais</Link>
-            </button>
-          </div>
+class Home extends React.Component<any, any> {
+  constructor(props: any) {
+    super(props);
+    this.state = {
+      productsLength: 0,
+      salesLength: 0,
+    };
+  }
 
-          <div className="col-6 d-flex justify-content-center align-items-center">
-            <i className="fa fa-dollar-sign" />
+  componentDidMount(): void {
+    this.props.props.getPath("/");
+
+    getProducts().then((res) => this.setState({ productsLength: res.data }));
+    getSales().then((res) => this.setState({ salesLength: res.data }));
+  }
+
+  render() {
+    return (
+      <section className="container d-flex justify-content-around pt-3">
+        <div className="card sales d-flex justify-content-center align-items-center col-3">
+          <div className="row w-100 h-80">
+            <div className="col-6 d-flex flex-column align-items-start justify-content-around">
+              <p>Vendas</p>
+              <p className="counter d-flex ms-4">
+                {this.state.salesLength.length}
+              </p>
+              <button className="btn">
+                <Link to="/sales">Ver Mais</Link>
+              </button>
+            </div>
+
+            <div className="col-6 d-flex justify-content-center align-items-center">
+              <i className="fa fa-dollar-sign" />
+            </div>
           </div>
         </div>
-      </div>
 
-      <div className="card storage d-flex justify-content-center align-items-center col-3">
-        <div className="row w-100 h-80">
-          <div className="col-6 d-flex flex-column align-items-start justify-content-around">
-            <p>Estoque</p>
-            <p className="counter">0</p>
-            <button className="btn">
-              <Link to="/storage">Ver Mais</Link>
-            </button>
-          </div>
+        <div className="card storage d-flex justify-content-center align-items-center col-3">
+          <div className="row w-100 h-80">
+            <div className="col-6 d-flex flex-column align-items-start justify-content-around">
+              <p>Estoque</p>
+              <p className="counter d-flex ms-4">
+                {this.state.productsLength.length}
+              </p>
+              <button className="btn">
+                <Link to="/storage">Ver Mais</Link>
+              </button>
+            </div>
 
-          <div className="col-6 d-flex justify-content-center align-items-center">
-            <i className="fa fa-warehouse" />
-          </div>
-        </div>
-      </div>
-
-      <div className="card cashRegister d-flex justify-content-center align-items-center col-3">
-        <div className="row w-100 h-80">
-          <div className="col-6 d-flex flex-column align-items-start justify-content-around">
-            <p>Caixa</p>
-            <p className="counter">0</p>
-            <button className="btn">
-              <Link to="/cash">Ver Mais</Link>
-            </button>
-          </div>
-
-          <div className="col-6 d-flex justify-content-center align-items-center">
-            <i className="fa fa-cash-register" />
+            <div className="col-6 d-flex justify-content-center align-items-center">
+              <i className="fa fa-warehouse" />
+            </div>
           </div>
         </div>
-      </div>
-    </section>
-  );
-};
+
+        <div className="card cashRegister d-flex justify-content-center align-items-center col-3">
+          <div className="row w-100 h-80">
+            <div className="col-6 d-flex flex-column align-items-start justify-content-around">
+              <p>Caixa</p>
+              <p className="counter d-flex ms-4">0</p>
+              <button className="btn">
+                <Link to="/cash">Ver Mais</Link>
+              </button>
+            </div>
+
+            <div className="col-6 d-flex justify-content-center align-items-center">
+              <i className="fa fa-cash-register" />
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+}
 
 export default Home;

@@ -28,7 +28,7 @@ const Storage = (props: any) => {
       <table className="table table-hover table-bordered table-striped">
         <thead className="text-center">
           <tr>
-            <th scope="col">Nome</th>
+            <th scope="col">Produto</th>
             <th scope="col">Estoque</th>
             <th scope="col">Preço de Custo</th>
             <th scope="col">Preço de Venda</th>
@@ -40,7 +40,15 @@ const Storage = (props: any) => {
           {products?.map((product) => (
             <tr key={product.id}>
               <td>{product.name}</td>
-              <td>{product.storage} uni</td>
+
+              {product.storage < 50 ? (
+                <td className="text-danger">{product.storage} uni</td>
+              ) : product.storage < 100 ? (
+                <td className="text-warning">{product.storage} uni</td>
+              ) : (
+                <td>{product.storage} uni</td>
+              )}
+
               <td>
                 R$<span>{product.costPrice.toFixed(2).replace(",", ".")}</span>
               </td>

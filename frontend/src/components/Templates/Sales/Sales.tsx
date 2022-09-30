@@ -52,7 +52,7 @@ class Sales extends React.Component<any, any> {
     const newDate = this.getDate(date);
 
     const day = newDate.getDate();
-    const month = newDate.getMonth();
+    const month = newDate.getMonth() + 1;
     const year = newDate.getFullYear();
 
     const shownDate = `${day}/${month}/${year}`;

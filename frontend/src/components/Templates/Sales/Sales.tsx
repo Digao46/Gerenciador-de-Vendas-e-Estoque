@@ -43,24 +43,21 @@ class Sales extends React.Component<any, any> {
     }, 10);
   };
 
-  getDate = (item: any) => {
-    const date = new Date(item);
-    return date;
+  getDate = (date: any) => {
+    const newDate = new Date(date);
+    return newDate;
   };
 
-  formatDate = (item: any) => {
-    const date =
-      item[8] +
-      item[9] +
-      "/" +
-      item[5] +
-      item[6] +
-      "/" +
-      item[0] +
-      item[1] +
-      item[2] +
-      item[3];
-    return date;
+  formatDate = (date: any) => {
+    const newDate = this.getDate(date);
+
+    const day = newDate.getDate();
+    const month = newDate.getMonth();
+    const year = newDate.getFullYear();
+
+    const shownDate = `${day}/${month}/${year}`;
+
+    return shownDate;
   };
 
   render() {

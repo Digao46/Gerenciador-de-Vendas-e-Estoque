@@ -50,16 +50,16 @@ const Storage = (props: any) => {
               )}
 
               <td>
-                R$<span>{product.costPrice.toFixed(2).replace(",", ".")}</span>
+                R$<span>{product.costPrice.toFixed(2).replace(".", ",")}</span>
               </td>
               <td>
-                R$<span>{product.sellPrice.toFixed(2).replace(",", ".")}</span>
+                R$<span>{product.sellPrice.toFixed(2).replace(".", ",")}</span>
               </td>
               <td>
                 R$
                 {(product.sellPrice - product.costPrice)
                   .toFixed(2)
-                  .replace(",", ".")}
+                  .replace(".", ",")}
               </td>
               <td>
                 <div className="d-flex justify-content-center">

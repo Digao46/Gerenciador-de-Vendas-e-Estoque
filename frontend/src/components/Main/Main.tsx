@@ -89,6 +89,7 @@ class Main extends React.Component<any, any> {
           <Route path="/cash">
             <Cash props={this.props} />
           </Route>
+
           <Route path="/">
             <Home props={this.props} />
           </Route>

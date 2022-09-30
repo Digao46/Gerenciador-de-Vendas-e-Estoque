@@ -36,11 +36,10 @@ class NewSale extends React.Component<any, any> {
   }
 
   handleChange = (e: any) => {
-    const target = e.target;
-    const name = target.name;
-    const value = target.value;
+    const inputName = e.target.name;
+    const value = e.target.value;
 
-    this.setState({ [name]: value });
+    this.setState({ [inputName]: value });
   };
 
   cancel = (e: any) => {
@@ -54,23 +53,11 @@ class NewSale extends React.Component<any, any> {
     getProduct(selectedId).then((res) => {
       this.setState({
         name: res.data.name,
-        price: res.data.sellPrice.toFixed(2).replace(",", "."),
+        price: res.data.sellPrice.toFixed(2).replace(".", ","),
         storage: res.data.storage,
         id: selectedId,
       });
     });
-  };
-
-  calcTotal = () => {
-    const totals = document.querySelectorAll("span.totalValue");
-    let totalValue = 0;
-
-    for (let i = 0; i < totals.length; i++) {
-      let value: number = parseFloat(totals[i].textContent!);
-
-      totalValue += value;
-    }
-    this.setState({ total: totalValue });
   };
 
   addToCart = (e: any) => {
@@ -89,15 +76,11 @@ class NewSale extends React.Component<any, any> {
     } else {
       this.state.productsInCart.push(product);
     }
-
-    setInterval(() => {
-      this.calcTotal();
-    }, 0o1);
   };
 
   removeFromCart = (id: any) => {
     const newCart = this.state.productsInCart.filter(
-      (item: any) => item.id !== id
+      (product: any) => product.id !== id
     );
 
     this.setState({ productsInCart: newCart });
@@ -132,6 +115,18 @@ class NewSale extends React.Component<any, any> {
   };
 
   render() {
+    setTimeout(() => {
+      const totals = document.querySelectorAll("span.totalValue");
+      let totalValue = 0;
+
+      for (let i = 0; i < totals.length; i++) {
+        let value: number = parseFloat(totals[i].textContent!);
+
+        totalValue += value;
+      }
+      this.setState({ total: totalValue });
+    }, 10);
+
     return (
       <div className="modal d-block d-flex justify-content-center align-items-center">
         <div className="modalFormArea d-flex justify-content-around align-items-center col-8">

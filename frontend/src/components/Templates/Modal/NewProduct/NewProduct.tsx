@@ -59,6 +59,7 @@ class NewProduct extends React.Component<any, any> {
                 name="name"
                 className="inputName col-12 ps-3 mb-4"
                 placeholder="Nome do Produto"
+                required
               />
 
               <div className="d-flex flex-row justify-content-evenly mb-4">
@@ -70,6 +71,7 @@ class NewProduct extends React.Component<any, any> {
                     name="sellPrice"
                     className="sellPrice form-control col-12 ps-1"
                     placeholder="Preço de Venda"
+                    required
                   />
                 </div>
 
@@ -81,6 +83,7 @@ class NewProduct extends React.Component<any, any> {
                     name="costPrice"
                     className="costPrice form-control col-12 ps-1"
                     placeholder="Preço de Compra"
+                    required
                   />
                 </div>
               </div>
@@ -90,6 +93,7 @@ class NewProduct extends React.Component<any, any> {
                 name="quantity"
                 className="inputQuantity col-12 ps-3 mb-4"
                 placeholder="Quantidade"
+                required
               />
 
               <div className="btns d-flex justify-content-end mb-4">

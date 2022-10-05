@@ -53,7 +53,7 @@ class NewSale extends React.Component<any, any> {
     getProduct(selectedId).then((res) => {
       this.setState({
         name: res.data.name,
-        price: res.data.sellPrice.toFixed(2).replace(".", ","),
+        price: res.data.sellPrice.toFixed(2),
         storage: res.data.storage,
         id: selectedId,
       });
@@ -80,7 +80,7 @@ class NewSale extends React.Component<any, any> {
 
   removeFromCart = (id: any) => {
     const newCart = this.state.productsInCart.filter(
-      (product: any) => product.id !== id
+      (item: any) => item.id !== id
     );
 
     this.setState({ productsInCart: newCart });

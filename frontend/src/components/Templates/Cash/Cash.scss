@@ -1,0 +1,12 @@
+section {
+  height: 100%;
+  width: 100%;
+
+  .cashControl {
+    height: 180px;
+    border-radius: 5px;
+    color: var(--white-800);
+
+    background: linear-gradient(to right, var(--purple-800), var(--purple-500));
+  }
+}

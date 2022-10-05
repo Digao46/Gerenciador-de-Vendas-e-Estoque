@@ -22,7 +22,7 @@ section {
 
     .filter {
       i {
-        font-size: 1.3rem;
+        font-size: 1.2rem;
       }
 
       .dropdownFilter {
@@ -33,6 +33,7 @@ section {
 
           li {
             list-style-type: none;
+            font-size: 0.8rem;
 
             &:hover {
               cursor: pointer;
@@ -41,10 +42,30 @@ section {
         }
       }
     }
+
+    .sort {
+      i {
+        font-size: 1.3rem;
+      }
+
+      ul {
+        text-decoration: none;
+        margin: 0;
+        padding: 0;
+
+        li {
+          list-style-type: none;
+
+          &:hover {
+            cursor: pointer;
+          }
+        }
+      }
+    }
   }
 
   .mainDiv {
-    height: 60vh;
+    height: 50vh;
     overflow: auto;
 
     &::-webkit-scrollbar {
@@ -72,7 +93,7 @@ section {
       .saleId {
         h3 {
           color: var(--white-800);
-          font-size: 3.5rem;
+          font-size: 3rem;
           font-weight: 800;
         }
       }

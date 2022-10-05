@@ -1,3 +1,15 @@
+@keyframes floating {
+  0% {
+    transform: rotate(45deg) translate(0, 0);
+  }
+  50% {
+    transform: rotate(45deg) translateX(10px);
+  }
+  100% {
+    transform: rotate(45deg) translate(0, 0);
+  }
+}
+
 :root {
   --purple-500: #411b76;
   --purple-800: #2f1355;
@@ -25,4 +37,17 @@ html {
     "header header"
     "menu content"
     "menu footer";
+}
+
+.info {
+  position: absolute;
+  bottom: 15vh;
+  right: 14.5vh;
+
+  i {
+    color: var(--purple-800);
+    font-size: 1.5rem;
+    animation: floating 2s infinite;
+    // margin-right: 10%;
+  }
 }

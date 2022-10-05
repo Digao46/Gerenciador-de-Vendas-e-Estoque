@@ -1,95 +1,126 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { getProducts, getProduct, deleteProduct } from "../../../services/api";
 
 import "./Storage.scss";
 
-const Storage = (props: any) => {
-  const [products, setProducts] = useState<any[]>();
+class Storage extends React.Component<any, any> {
+  constructor(props: any) {
+    super(props);
+    this.state = {
+      products: 0,
+    };
+  }
 
-  useEffect(() => {
-    props.props.getPath("/storage");
+  componentDidMount(): void {
+    this.getAllProducts().then(() => {
+      this.props.props.getPath("/storage");
+    });
+  }
 
-    getProducts().then((res) => setProducts(res.data));
+  getAllProducts = async () => {
+    await getProducts().then((res) => this.setState({ products: res.data }));
+  };
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [products]);
+  getProductById = (productId: any) => {
+    getProduct(productId).then(this.props.getProductId(productId));
+  };
 
-  const delProduct = (productId: any) => {
+  delProduct = (productId: any) => {
     deleteProduct(productId);
   };
 
-  const getProductById = (productId: any) => {
-    getProduct(productId).then(props.getProductId(productId));
-  };
+  render() {
+    if (!this.state.products) {
+      return (
+        <section className="container d-flex flex-column align-items-center justify-content-center col-10 pt-3">
+          <div>
+            <p> Ainda não existem registros para serem exibidos! </p>
+          </div>
 
-  return (
-    <section className="container d-flex justify-content-center col-10 pt-3">
-      <table className="table table-hover table-bordered table-striped">
-        <thead className="text-center">
-          <tr>
-            <th scope="col">Produto</th>
-            <th scope="col">Estoque</th>
-            <th scope="col">Preço de Custo</th>
-            <th scope="col">Preço de Venda</th>
-            <th scope="col">Lucro Unidade</th>
-            <th scope="col">Ações</th>
-          </tr>
-        </thead>
-        <tbody className="text-center">
-          {products?.map((product) => (
-            <tr key={product.id}>
-              <td>{product.name}</td>
+          <div className="info text-end">
+            <p>Clique aqui</p>
 
-              {product.storage < 50 ? (
-                <td className="text-danger">{product.storage} uni</td>
-              ) : product.storage < 100 ? (
-                <td className="text-warning">{product.storage} uni</td>
-              ) : (
-                <td>{product.storage} uni</td>
-              )}
+            <i className="fa fa-arrow-right"></i>
+          </div>
+        </section>
+      );
+    } else {
+      return (
+        <section className="container d-flex justify-content-center col-10 pt-3">
+          <table className="table table-hover table-bordered table-striped">
+            <thead className="text-center">
+              <tr>
+                <th scope="col">Produto</th>
+                <th scope="col">Estoque</th>
+                <th scope="col">Preço de Custo</th>
+                <th scope="col">Preço de Venda</th>
+                <th scope="col">Lucro Unidade</th>
+                <th scope="col">Ações</th>
+              </tr>
+            </thead>
+            <tbody className="text-center">
+              {this.state.products?.map((product: any) => (
+                <tr key={product.id}>
+                  <td>{product.name}</td>
 
-              <td>
-                R$<span>{product.costPrice.toFixed(2).replace(".", ",")}</span>
-              </td>
-              <td>
-                R$<span>{product.sellPrice.toFixed(2).replace(".", ",")}</span>
-              </td>
-              <td>
-                R$
-                {(product.sellPrice - product.costPrice)
-                  .toFixed(2)
-                  .replace(".", ",")}
-              </td>
-              <td>
-                <div className="d-flex justify-content-center">
-                  <button
-                    className="btn"
-                    onClick={() => {
-                      getProductById(product.id);
-                    }}
-                  >
-                    <Link to="/editProduct">
-                      <i className="edit fa fa-edit" />
-                    </Link>
-                  </button>
+                  {product.storage < 50 ? (
+                    <td className="text-danger">{product.storage} uni</td>
+                  ) : product.storage < 100 ? (
+                    <td className="text-warning">{product.storage} uni</td>
+                  ) : (
+                    <td>{product.storage} uni</td>
+                  )}
 
-                  <button
-                    className="btn"
-                    onClick={() => {
-                      delProduct(product.id);
-                    }}
-                  >
-                    <i className="delete fa fa-trash" />
-                  </button>
-                </div>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </section>
-  );
-};
+                  <td>
+                    R$
+                    <span>
+                      {product.costPrice.toFixed(2).replace(".", ",")}
+                    </span>
+                  </td>
+                  <td>
+                    R$
+                    <span>
+                      {product.sellPrice.toFixed(2).replace(".", ",")}
+                    </span>
+                  </td>
+                  <td>
+                    R$
+                    {(product.sellPrice - product.costPrice)
+                      .toFixed(2)
+                      .replace(".", ",")}
+                  </td>
+                  <td>
+                    <div className="d-flex justify-content-center">
+                      <button
+                        className="btn"
+                        onClick={() => {
+                          this.getProductById(product.id);
+                        }}
+                      >
+                        <Link to="/editProduct">
+                          <i className="edit fa fa-edit" />
+                        </Link>
+                      </button>
+
+                      <button
+                        className="btn"
+                        onClick={() => {
+                          this.delProduct(product.id);
+                        }}
+                      >
+                        <i className="delete fa fa-trash" />
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </section>
+      );
+    }
+  }
+}
 
 export default Storage;

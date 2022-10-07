@@ -11,8 +11,8 @@
 }
 
 :root {
-  --purple-500: #411b76;
-  --purple-800: #2f1355;
+  --purple-500: #25104d;
+  --purple-800: #230654;
   --white-800: #fff;
   --black-800: rgb(0, 0, 0);
 }
@@ -31,12 +31,17 @@ html {
 
   display: grid;
   grid-template-columns: 35vh 1fr;
-  grid-template-rows: 15vh 1fr 5vh;
+  grid-template-rows: 10vh 1fr;
 
   grid-template-areas:
     "header header"
-    "menu content"
-    "menu footer";
+    "content content";
+
+  &.menu {
+    grid-template-areas:
+      "menu header"
+      "menu content";
+  }
 }
 
 .info {
@@ -48,6 +53,5 @@ html {
     color: var(--purple-800);
     font-size: 1.5rem;
     animation: floating 2s infinite;
-    // margin-right: 10%;
   }
 }

@@ -10,7 +10,26 @@ import { BrowserRouter as Router } from "react-router-dom";
 
 function App() {
   let [path, setPath] = useState("/");
-  let title = "";
+  let [isActive, setActive] = useState(false);
+
+  let title = "Dashboard";
+
+  const getActive = (isActive: boolean) => {
+    setActive(isActive);
+  };
+
+  const handleNav = () => {
+    const app = document.querySelector(".App")!;
+    const element = document.querySelector(".navMenu")!;
+
+    if (!isActive) {
+      element.className = "navMenu d-block";
+      app.className = "App menu";
+    } else {
+      element.className = "navMenu d-none";
+      app.className = "App";
+    }
+  };
 
   const getPath = (newTitle: string) => {
     setPath(newTitle);
@@ -18,27 +37,27 @@ function App() {
 
   switch (path) {
     case (path = "/"):
-      title = "";
+      title = "Dashboard";
       break;
 
     case (path = "/sales"):
-      title = "> Gerenciamento de Vendas";
+      title = "Vendas";
       break;
 
     case (path = "/storage"):
-      title = "> Gerenciamento de Estoque";
+      title = "Estoque";
       break;
 
     case (path = "/cash"):
-      title = "> Gerenciamento de Caixa";
+      title = "Caixa";
       break;
   }
 
   return (
     <Router>
       <div className="App">
-        <Header title={title} />
-        <Nav />
+        <Header title={title} getActive={getActive} handleNav={handleNav} />
+        <Nav active={isActive} handleNav={handleNav} />
         <Main getPath={getPath} />
       </div>
     </Router>

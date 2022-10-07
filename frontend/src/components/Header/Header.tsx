@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
 import "./Header.scss";
 
@@ -9,22 +8,36 @@ class Header extends React.Component<any, any> {
   constructor(props: any) {
     super(props);
     this.state = {
-      isActive: true,
+      isDropdownActive: true,
+      isMenuActive: true,
     };
   }
 
-  handleActive = () => {
-    this.setState({ isActive: !this.state.isActive });
+  handleActive = (class1: string, class2: string) => {
+    this.setState({ isDropdownActive: !this.state.isDropdownActive });
 
-    const btn = document.getElementById("toggleButton")!;
+    const element = document.getElementById("toggleButton")!;
 
-    if (this.state.isActive) {
-      btn.className = "toggleButton active";
-      console.log(btn.className);
+    if (this.state.isDropdownActive) {
+      element.className = "toggleButton active";
     } else {
-      btn.className = "toggleButton";
-      console.log(btn.className);
+      element.className = "toggleButton";
     }
+  };
+
+  handleMenu = () => {
+    this.setState({ isMenuActive: !this.state.isMenuActive });
+
+    const element = document.getElementById("menu")!;
+
+    if (this.state.isMenuActive) {
+      element.className = "menu active";
+    } else {
+      element.className = "menu";
+    }
+
+    this.props.getActive(this.state.isMenuActive);
+    this.props.handleNav();
   };
 
   render() {
@@ -32,13 +45,12 @@ class Header extends React.Component<any, any> {
       <header className="d-flex align-items-center">
         <div className="container d-flex align-items-center">
           <div className="logoArea container col-6">
-            <div className="d-flex ms-5 justify-content-start align-items-center">
-              <div className="logo">
-                <img src={Logo} alt="Logo" className="me-3" />
-              </div>
-              <p>
-                <Link to="/">Dashboard {this.props.title}</Link>
-              </p>
+            <div className="d-flex justify-content-start align-items-center">
+              <button onClick={this.handleMenu} id="menu" className="menu">
+                <span className="line"></span>
+                <span className="line"></span>
+              </button>
+              <p className="ms-3">{this.props.title}</p>
             </div>
           </div>
 
@@ -51,7 +63,13 @@ class Header extends React.Component<any, any> {
                 <img src={Logo} alt="Imagem Usuário" />
               </div>
               <div id="toggleButton" className="toggleButton">
-                <button id="btn" className="btn" onClick={this.handleActive}>
+                <button
+                  id="btn"
+                  className="btn"
+                  onClick={() => {
+                    this.handleActive("toggleButton", "active");
+                  }}
+                >
                   <i className="fa fa-angle-right"></i>
                 </button>
               </div>

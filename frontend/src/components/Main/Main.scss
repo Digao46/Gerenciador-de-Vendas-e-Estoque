@@ -108,7 +108,7 @@ main {
 
       border: none;
       border-radius: 50%;
-      background-color: var(--purple-500);
+      background-color: var(--purple-800);
 
       transition: transform 0.8s;
       transform: rotate(0deg);
@@ -119,7 +119,7 @@ main {
       }
 
       &:hover {
-        background-color: var(--purple-500);
+        background-color: var(--purple-800);
       }
     }
   }

@@ -12,8 +12,11 @@ class Cash extends React.Component<any, any> {
     this.state = {
       allSales: [],
       salesToday: 0,
+      todayQuantity: 0,
       salesLastWeek: 0,
+      lastWeekQuantity: 0,
       salesLastMonth: 0,
+      lastMonthQuantity: 0,
     };
   }
 
@@ -55,10 +58,13 @@ class Cash extends React.Component<any, any> {
 
       if (days[i] === 1) {
         this.setState({ salesToday: total });
+        this.setState({ todayQuantity: salesByPeriod.length });
       } else if (days[i] === 7) {
         this.setState({ salesLastWeek: total });
+        this.setState({ lastWeekQuantity: salesByPeriod.length });
       } else {
         this.setState({ salesLastMonth: total });
+        this.setState({ lastMonthQuantity: salesByPeriod.length });
       }
     }
   };
@@ -87,33 +93,51 @@ class Cash extends React.Component<any, any> {
       return (
         <section className="container d-flex flex-column align-items-center pt-3">
           <div className="container d-flex justify-content-around">
-            <div className="card cashControl d-flex justify-content-center align-items-center col-3">
-              <div className="row w-100 h-80">
-                <span>Vendas Hoje</span>
-
-                <span>
+            <div className="card cashControl col-3">
+              <div className="salesInfo d-flex flex-column justify-content-center">
+                <span className="salesValue ms-4">
                   R${this.state.salesToday.toFixed(2).replace(".", ",")}
                 </span>
+
+                <span className="salesPeriod ms-3">Vendas Hoje</span>
+              </div>
+
+              <div className="cardFooter d-flex justify-content-center align-items-center">
+                <p className="salesQuantity">
+                  {this.state.todayQuantity} venda(s)
+                </p>
               </div>
             </div>
 
-            <div className="card cashControl d-flex justify-content-center align-items-center col-3">
-              <div className="row w-100 h-80">
-                <span>Vendas nos últimos 7 dias</span>
-
-                <span>
+            <div className="card cashControl col-3">
+              <div className="salesInfo d-flex flex-column justify-content-center">
+                <span className="salesValue ms-4">
                   R${this.state.salesLastWeek.toFixed(2).replace(".", ",")}
                 </span>
+
+                <span className="salesPeriod ms-3">Vendas (7 dias)</span>
+              </div>
+
+              <div className="cardFooter d-flex justify-content-center align-items-center">
+                <p className="salesQuantity">
+                  {this.state.lastWeekQuantity} venda(s)
+                </p>
               </div>
             </div>
 
-            <div className="card cashControl d-flex justify-content-center align-items-center col-3">
-              <div className="row w-100 h-80">
-                <span>Vendas nos últimos 30 dias</span>
-
-                <span>
+            <div className="card cashControl col-3">
+              <div className="salesInfo d-flex flex-column justify-content-center">
+                <span className="salesValue ms-4">
                   R${this.state.salesLastMonth.toFixed(2).replace(".", ",")}
                 </span>
+
+                <span className="salesPeriod ms-3">Vendas (30 dias)</span>
+              </div>
+
+              <div className="cardFooter d-flex justify-content-center align-items-center">
+                <p className="salesQuantity">
+                  {this.state.lastMonthQuantity} venda(s)
+                </p>
               </div>
             </div>
           </div>

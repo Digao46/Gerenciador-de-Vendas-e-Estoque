@@ -8,5 +8,30 @@ section {
     color: var(--white-800);
 
     background: linear-gradient(to right, var(--purple-800), var(--purple-500));
+
+    .salesInfo {
+      height: 85%;
+
+      .salesValue {
+        font-size: 2rem;
+        font-weight: bold;
+      }
+
+      .salesPeriod {
+        font-weight: 300;
+        font-size: 1rem;
+      }
+    }
+
+    .cardFooter {
+      height: 15%;
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.101);
+
+      .salesQuantity {
+        font-size: 1rem;
+        font-weight: 200;
+      }
+    }
   }
 }

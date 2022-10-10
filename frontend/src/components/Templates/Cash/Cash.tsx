@@ -17,25 +17,44 @@ class Cash extends React.Component<any, any> {
       lastWeekQuantity: 0,
       salesLastMonth: 0,
       lastMonthQuantity: 0,
+      periods: [7, 30],
     };
   }
 
   componentDidMount(): void {
-    this.getAllSales().then(() => {
-      this.props.props.getPath("/cash");
-    });
-  }
-
-  getAllSales = async () => {
-    const periods = [1, 7, 30];
-
-    await getSales()
+    getSales()
       .then((res) => {
         this.setState({ allSales: res.data });
       })
       .then(() => {
-        this.filterPeriod(periods);
+        this.filterToday();
+      })
+      .then(() => {
+        this.filterPeriod(this.state.periods);
       });
+
+    this.props.props.getPath("/cash");
+  }
+
+  filterToday = () => {
+    let date = new Date();
+    let total = 0;
+
+    const periodStart = this.getDate((date.setHours(0), date.setMinutes(0)));
+    const periodEnd = new Date();
+
+    const salesByPeriod = this.state.allSales?.filter(
+      (sale: any) =>
+        this.getDate(sale.createdAt) >= periodStart &&
+        this.getDate(sale.createdAt) <= periodEnd
+    );
+
+    for (let i = 0; i < salesByPeriod.length; i++) {
+      total += salesByPeriod[i].total;
+    }
+
+    this.setState({ salesToday: total });
+    this.setState({ todayQuantity: salesByPeriod.length });
   };
 
   filterPeriod = (days: any) => {
@@ -56,10 +75,7 @@ class Cash extends React.Component<any, any> {
         total += salesByPeriod[i].total;
       }
 
-      if (days[i] === 1) {
-        this.setState({ salesToday: total });
-        this.setState({ todayQuantity: salesByPeriod.length });
-      } else if (days[i] === 7) {
+      if (days[i] === 7) {
         this.setState({ salesLastWeek: total });
         this.setState({ lastWeekQuantity: salesByPeriod.length });
       } else {
@@ -142,9 +158,7 @@ class Cash extends React.Component<any, any> {
             </div>
           </div>
 
-          <div className="charts">
-            <Charts />
-          </div>
+          <Charts />
         </section>
       );
     }

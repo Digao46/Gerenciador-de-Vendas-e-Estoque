@@ -27,9 +27,13 @@ class Home extends React.Component<any, any> {
           <div className="row w-100 h-80">
             <div className="col-6 d-flex flex-column align-items-start justify-content-around">
               <p>Vendas</p>
-              <p className="counter d-flex ms-4">
-                {this.state.salesLength.length}
-              </p>
+              {this.state.salesLength.length > 0 ? (
+                <p className="counter d-flex ms-4">
+                  {this.state.salesLength.length}
+                </p>
+              ) : (
+                <p className="counter d-flex ms-4">0</p>
+              )}
               <button className="btn">
                 <Link to="/sales">Ver Mais</Link>
               </button>
@@ -45,9 +49,14 @@ class Home extends React.Component<any, any> {
           <div className="row w-100 h-80">
             <div className="col-6 d-flex flex-column align-items-start justify-content-around">
               <p>Estoque</p>
-              <p className="counter d-flex ms-4">
-                {this.state.productsLength.length}
-              </p>
+
+              {this.state.productsLength.length > 0 ? (
+                <p className="counter d-flex ms-4">
+                  {this.state.productsLength.length}
+                </p>
+              ) : (
+                <p className="counter d-flex ms-4">0</p>
+              )}
               <button className="btn">
                 <Link to="/storage">Ver Mais</Link>
               </button>
@@ -63,7 +72,7 @@ class Home extends React.Component<any, any> {
           <div className="row w-100 h-80">
             <div className="col-6 d-flex flex-column align-items-start justify-content-around">
               <p>Caixa</p>
-              <p className="counter d-flex ms-4">0</p>
+              <p className="counter d-flex ms-4 transparent">0</p>
               <button className="btn">
                 <Link to="/cash">Ver Mais</Link>
               </button>

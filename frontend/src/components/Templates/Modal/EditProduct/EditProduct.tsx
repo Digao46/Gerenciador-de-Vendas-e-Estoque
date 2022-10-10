@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { getProduct, editProduct } from "../../../../services/api";
 
 import "./EditProduct.scss";
@@ -12,6 +12,7 @@ class EditProduct extends React.Component<any, any> {
       sellPrice: "",
       costPrice: "",
       quantity: "",
+      redirectTo: null,
     };
   }
 
@@ -43,7 +44,7 @@ class EditProduct extends React.Component<any, any> {
     const storage = this.state.quantity;
 
     editProduct(id, { name, sellPrice, costPrice, storage }).then(() => {
-      window.location.href = "/storage";
+      this.setState({ redirectTo: "/storage" });
     });
   };
 
@@ -52,6 +53,10 @@ class EditProduct extends React.Component<any, any> {
   };
 
   render() {
+    if (this.state.redirectTo) {
+      return <Redirect to={this.state.redirectTo} />;
+    }
+
     return (
       <div className="modal d-block d-flex justify-content-center align-items-center">
         <div className="modalFormArea d-flex flex-column justify-content-center align-items-center col-6">

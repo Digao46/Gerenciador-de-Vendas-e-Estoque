@@ -72,17 +72,17 @@ class Main extends React.Component<any, any> {
           </Route>
 
           <Route path="/newProduct">
-            <Storage props={this.props} />
+            <Home props={this.props} />
             <NewProduct />
           </Route>
 
           <Route path="/editProduct">
-            <Storage props={this.props} />
+            <Home props={this.props} />
             <EditProduct productId={this.state.productId} />
           </Route>
 
           <Route path="/newSale">
-            <Sales props={this.props} />
+            <Home props={this.props} />
             <NewSale />
           </Route>
 

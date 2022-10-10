@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import {
   getProducts,
   editProduct,
@@ -26,6 +26,8 @@ class NewSale extends React.Component<any, any> {
       storage: "",
       quantity: 1,
       total: 0,
+
+      redirectTo: null,
     };
   }
 
@@ -110,7 +112,7 @@ class NewSale extends React.Component<any, any> {
     const total = this.state.total;
 
     addSale({ products, quantity, total }).then(() => {
-      window.location.href = "/sales";
+      this.setState({ redirectTo: "/sales" });
     });
   };
 
@@ -126,6 +128,10 @@ class NewSale extends React.Component<any, any> {
       }
       this.setState({ total: totalValue });
     }, 10);
+
+    if (this.state.redirectTo) {
+      return <Redirect to={this.state.redirectTo} />;
+    }
 
     return (
       <div className="modal d-block d-flex justify-content-center align-items-center">

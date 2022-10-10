@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { addProduct } from "../../../../services/api";
 
 import "./NewProduct.scss";
@@ -12,6 +12,7 @@ class NewProduct extends React.Component<any, any> {
       sellPrice: "",
       costPrice: "",
       quantity: "",
+      redirectTo: null,
     };
   }
 
@@ -30,9 +31,9 @@ class NewProduct extends React.Component<any, any> {
     const costPrice = this.state.costPrice;
     const storage = this.state.quantity;
 
-    addProduct({ name, sellPrice, costPrice, storage }).then(() => {
-      window.location.href = "/storage";
-    });
+    addProduct({ name, sellPrice, costPrice, storage }).then(() =>
+      this.setState({ redirectTo: "/storage" })
+    );
   };
 
   cancel = (e: any) => {
@@ -40,6 +41,10 @@ class NewProduct extends React.Component<any, any> {
   };
 
   render() {
+    if (this.state.redirectTo) {
+      return <Redirect to={this.state.redirectTo} />;
+    }
+
     return (
       <div className="modal d-block d-flex justify-content-center align-items-center">
         <div className="modalFormArea d-flex flex-column justify-content-center align-items-center col-6">

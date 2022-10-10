@@ -8,9 +8,8 @@ class Charts extends React.Component<any, any> {
   constructor(props: any) {
     super(props);
     this.state = {
-      allSales: [],
+      sales: [],
       todayData: [],
-      periods: [7, 30],
       todayQuantity: 0,
       lastWeekQuantity: 0,
       lastMonthQuantity: 0,
@@ -19,9 +18,9 @@ class Charts extends React.Component<any, any> {
 
   componentDidMount(): void {
     getSales()
-      .then((res) => this.setState({ allSales: res.data }))
+      .then((res) => this.setState({ sales: res.data }))
       .then(this.filterSalesToday)
-      .then(() => this.filterSalesPeriod(this.state.periods));
+      .then(() => this.filterSalesPeriod(this.props.periods));
   }
 
   getDate = (date: any) => {
@@ -41,7 +40,7 @@ class Charts extends React.Component<any, any> {
     const periodStart = this.getDate((date.setHours(0), date.setMinutes(0)));
     const periodEnd = new Date();
 
-    const salesByPeriod = this.state.allSales?.filter(
+    const salesByPeriod = this.state.sales?.filter(
       (sale: any) =>
         this.getDate(sale.createdAt) >= periodStart &&
         this.getDate(sale.createdAt) <= periodEnd
@@ -69,7 +68,7 @@ class Charts extends React.Component<any, any> {
       const periodStart = this.getDate(date.setDate(date.getDate() - days[i]));
       const periodEnd = new Date();
 
-      const salesByPeriod = this.state.allSales?.filter(
+      const salesByPeriod = this.state.sales?.filter(
         (sale: any) =>
           this.getDate(sale.createdAt) >= periodStart &&
           this.getDate(sale.createdAt) <= periodEnd

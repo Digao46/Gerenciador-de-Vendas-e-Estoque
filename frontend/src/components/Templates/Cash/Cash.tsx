@@ -22,19 +22,17 @@ class Cash extends React.Component<any, any> {
   }
 
   componentDidMount(): void {
-    this.getAllSales()
+    getSales()
+      .then((res) => this.setState({ allSales: res.data }))
       .then(() => {
-        this.filterToday();
-        this.filterPeriod(this.state.periods);
+        setTimeout(() => {
+          this.filterToday();
+          this.filterPeriod(this.state.periods);
+          console.log("rodou")
+        }, 0);
       })
       .then(this.props.props.getPath("/cash"));
   }
-
-  getAllSales = async () => {
-    await getSales().then((res) => {
-      this.setState({ allSales: res.data });
-    });
-  };
 
   filterToday = () => {
     let date = new Date();

@@ -13,6 +13,7 @@ class Charts extends React.Component<any, any> {
       todayQuantity: 0,
       lastWeekQuantity: 0,
       lastMonthQuantity: 0,
+      allSalesQuantity: 0,
     };
   }
 
@@ -20,7 +21,10 @@ class Charts extends React.Component<any, any> {
     getSales()
       .then((res) => this.setState({ sales: res.data }))
       .then(this.filterSalesToday)
-      .then(() => this.filterSalesPeriod(this.props.periods));
+      .then(() => this.filterSalesPeriod(this.props.periods))
+      .then(() => {
+        this.setState({ allSalesQuantity: this.state.sales.length });
+      });
   }
 
   getDate = (date: any) => {
@@ -92,6 +96,7 @@ class Charts extends React.Component<any, any> {
       ["Hoje", this.state.todayQuantity],
       ["7 Dias", this.state.lastWeekQuantity],
       ["30 Dias", this.state.lastMonthQuantity],
+      ["Todas", this.state.allSalesQuantity],
     ];
 
     let optionsToday = {

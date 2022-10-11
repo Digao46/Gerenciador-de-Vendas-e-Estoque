@@ -28,7 +28,6 @@ class Cash extends React.Component<any, any> {
         setTimeout(() => {
           this.filterToday();
           this.filterPeriod(this.state.periods);
-          console.log("rodou")
         }, 0);
       })
       .then(this.props.props.getPath("/cash"));
@@ -103,63 +102,63 @@ class Cash extends React.Component<any, any> {
           </div>
         </section>
       );
-    } else {
-      return (
-        <section className="container d-flex flex-column align-items-center pt-3">
-          <div className="container d-flex justify-content-around">
-            <div className="card cashControl col-3">
-              <div className="salesInfo d-flex flex-column justify-content-center">
-                <span className="salesValue ms-4">
-                  R${this.state.salesToday.toFixed(2).replace(".", ",")}
-                </span>
+    }
 
-                <span className="salesPeriod ms-3">Vendas Hoje</span>
-              </div>
+    return (
+      <section className="container d-flex flex-column align-items-center pt-3">
+        <div className="container d-flex justify-content-around">
+          <div className="card cashControl col-3">
+            <div className="salesInfo d-flex flex-column justify-content-center">
+              <span className="salesValue ms-4">
+                R${this.state.salesToday.toFixed(2).replace(".", ",")}
+              </span>
 
-              <div className="cardFooter d-flex justify-content-center align-items-center">
-                <p className="salesQuantity">
-                  {this.state.todayQuantity} venda(s)
-                </p>
-              </div>
+              <span className="salesPeriod ms-3">Vendas Hoje</span>
             </div>
 
-            <div className="card cashControl col-3">
-              <div className="salesInfo d-flex flex-column justify-content-center">
-                <span className="salesValue ms-4">
-                  R${this.state.salesLastWeek.toFixed(2).replace(".", ",")}
-                </span>
-
-                <span className="salesPeriod ms-3">Vendas (7 dias)</span>
-              </div>
-
-              <div className="cardFooter d-flex justify-content-center align-items-center">
-                <p className="salesQuantity">
-                  {this.state.lastWeekQuantity} venda(s)
-                </p>
-              </div>
-            </div>
-
-            <div className="card cashControl col-3">
-              <div className="salesInfo d-flex flex-column justify-content-center">
-                <span className="salesValue ms-4">
-                  R${this.state.salesLastMonth.toFixed(2).replace(".", ",")}
-                </span>
-
-                <span className="salesPeriod ms-3">Vendas (30 dias)</span>
-              </div>
-
-              <div className="cardFooter d-flex justify-content-center align-items-center">
-                <p className="salesQuantity">
-                  {this.state.lastMonthQuantity} venda(s)
-                </p>
-              </div>
+            <div className="cardFooter d-flex justify-content-center align-items-center">
+              <p className="salesQuantity">
+                {this.state.todayQuantity} venda(s)
+              </p>
             </div>
           </div>
 
-          <Charts periods={this.state.periods} />
-        </section>
-      );
-    }
+          <div className="card cashControl col-3">
+            <div className="salesInfo d-flex flex-column justify-content-center">
+              <span className="salesValue ms-4">
+                R${this.state.salesLastWeek.toFixed(2).replace(".", ",")}
+              </span>
+
+              <span className="salesPeriod ms-3">Vendas (7 dias)</span>
+            </div>
+
+            <div className="cardFooter d-flex justify-content-center align-items-center">
+              <p className="salesQuantity">
+                {this.state.lastWeekQuantity} venda(s)
+              </p>
+            </div>
+          </div>
+
+          <div className="card cashControl col-3">
+            <div className="salesInfo d-flex flex-column justify-content-center">
+              <span className="salesValue ms-4">
+                R${this.state.salesLastMonth.toFixed(2).replace(".", ",")}
+              </span>
+
+              <span className="salesPeriod ms-3">Vendas (30 dias)</span>
+            </div>
+
+            <div className="cardFooter d-flex justify-content-center align-items-center">
+              <p className="salesQuantity">
+                {this.state.lastMonthQuantity} venda(s)
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <Charts periods={this.state.periods} />
+      </section>
+    );
   }
 }
 

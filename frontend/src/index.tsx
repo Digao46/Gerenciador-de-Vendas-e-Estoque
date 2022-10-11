@@ -2,8 +2,9 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 
-import "./assets/scss/globals.scss"
+import "./assets/scss/globals.scss";
 
+import "antd/dist/antd.min.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "reactstrap";
 

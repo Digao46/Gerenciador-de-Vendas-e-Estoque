@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "antd": "^4.23.5",
     "axios": "^0.27.2",
     "bootstrap": "^5.2.1",
     "node-sass": "^7.0.3",

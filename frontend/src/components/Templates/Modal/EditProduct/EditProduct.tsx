@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import { getProduct, editProduct } from "../../../../services/api";
 
 import "./EditProduct.scss";
@@ -50,6 +50,8 @@ class EditProduct extends React.Component<any, any> {
 
   cancel = (e: any) => {
     e.preventDefault();
+
+    this.setState({ redirectTo: "/storage" });
   };
 
   render() {
@@ -125,7 +127,7 @@ class EditProduct extends React.Component<any, any> {
                   onClick={this.cancel}
                   className="btn btnCancel col-4 me-2"
                 >
-                  <Link to="/storage">Cancelar</Link>
+                  Cancelar
                 </button>
               </div>
             </div>

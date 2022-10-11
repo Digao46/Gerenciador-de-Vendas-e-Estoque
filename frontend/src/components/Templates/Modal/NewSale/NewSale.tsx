@@ -46,6 +46,8 @@ class NewSale extends React.Component<any, any> {
 
   cancel = (e: any) => {
     e.preventDefault();
+
+    this.setState({ redirectTo: "/" });
   };
 
   getSelectedProduct = () => {

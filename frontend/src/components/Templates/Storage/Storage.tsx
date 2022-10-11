@@ -1,6 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { getProducts, getProduct, deleteProduct } from "../../../services/api";
+import { Link, Redirect } from "react-router-dom";
+import { getProducts, getProduct } from "../../../services/api";
 
 import "./Storage.scss";
 
@@ -9,6 +9,7 @@ class Storage extends React.Component<any, any> {
     super(props);
     this.state = {
       products: 0,
+      redirectTo: null,
     };
   }
 
@@ -26,11 +27,11 @@ class Storage extends React.Component<any, any> {
     getProduct(productId).then(this.props.getProductId(productId));
   };
 
-  delProduct = (productId: any) => {
-    deleteProduct(productId);
-  };
-
   render() {
+    if (this.state.redirectTo) {
+      return <Redirect to={this.state.redirectTo} />;
+    }
+
     if (!this.state.products) {
       return (
         <section className="container d-flex flex-column align-items-center justify-content-center col-10 pt-3">
@@ -106,10 +107,12 @@ class Storage extends React.Component<any, any> {
                       <button
                         className="btn"
                         onClick={() => {
-                          this.delProduct(product.id);
+                          this.getProductById(product.id);
                         }}
                       >
-                        <i className="delete fa fa-trash" />
+                        <Link to="/deleteProduct">
+                          <i className="delete fa fa-trash" />
+                        </Link>
                       </button>
                     </div>
                   </td>

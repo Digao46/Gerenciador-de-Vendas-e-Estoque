@@ -10,6 +10,7 @@ import Cash from "../Templates/Cash/Cash";
 import NewProduct from "../Templates/Modal/NewProduct/NewProduct";
 import NewSale from "../Templates/Modal/NewSale/NewSale";
 import EditProduct from "../Templates/Modal/EditProduct/EditProduct";
+import DeleteProduct from "../Templates/Modal/DeleteProduct/DeleteProduct";
 
 import { Switch, Route, Link } from "react-router-dom";
 
@@ -74,6 +75,11 @@ class Main extends React.Component<any, any> {
           <Route path="/newProduct">
             <Home props={this.props} />
             <NewProduct />
+          </Route>
+
+          <Route path="/deleteProduct">
+            <Home props={this.props} />
+            <DeleteProduct productId={this.state.productId} />
           </Route>
 
           <Route path="/editProduct">

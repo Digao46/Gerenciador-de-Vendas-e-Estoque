@@ -2,7 +2,34 @@ section {
   height: 100%;
   width: 100%;
 
-  table {
+  .formArea {
+    form {
+      input {
+        border: none;
+        border-radius: 2px;
+        box-shadow: 1px 1px 10px rgb(184, 184, 184);
+      }
+
+      .btn {
+        background-color: var(--purple-500);
+        box-shadow: 1px 1px 10px rgb(184, 184, 184);
+        color: var(--white-800);
+
+        i {
+          font-size: 1rem;
+        }
+
+        &:hover {
+          box-shadow: 1px 1px 10px rgb(79, 79, 79);
+          color: var(--white-800);
+
+          background-color: var(--purple-500);
+        }
+      }
+    }
+  }
+
+  .table {
     tbody {
       tr {
         td {

@@ -205,9 +205,28 @@ class Sales extends React.Component<any, any> {
                           key={i}
                           className="productArea d-flex justify-content-center"
                         >
-                          <p className="productName d-flex justify-content-center align-items-center col-6 text-start">
-                            {sale.products[i]}
-                          </p>
+                          {sale.products[i].length > 10 ? (
+                            <p className="productName d-flex justify-content-center align-items-center col-6 text-start">
+                              {}
+                              {sale.products[i][0]}
+                              {sale.products[i][1]}
+                              {sale.products[i][2]}
+                              {sale.products[i][3]}
+                              {sale.products[i][4]}
+                              {sale.products[i][5]}
+                              {sale.products[i][6]}
+                              {sale.products[i][7]}
+                              {sale.products[i][8]}
+                              {sale.products[i][9]}
+                              {sale.products[i][10]}
+                              {sale.products[i][11]}
+                              {sale.products[i][12]}...
+                            </p>
+                          ) : (
+                            <p className="productName d-flex justify-content-center align-items-center col-6 text-start">
+                              {sale.products[i]}
+                            </p>
+                          )}
                           <p className="d-flex justify-content-center align-items-center col-1">
                             |
                           </p>

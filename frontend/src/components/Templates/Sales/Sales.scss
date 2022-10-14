@@ -4,7 +4,7 @@ section {
 
   .cardTotal {
     background: linear-gradient(to right, var(--purple-800), var(--purple-500));
-    height: 70vh;
+    height: 80vh;
 
     .totalLabel {
       font-size: 0.8rem;
@@ -26,13 +26,17 @@ section {
           height: 100%;
           width: 100%;
 
-          button {
+          .btn {
             background-color: var(--purple-500);
             border: solid 2px green;
             color: var(--white-800);
 
             i {
               font-size: 1rem;
+            }
+
+            &:hover {
+              box-shadow: 1px 1px 10px green;
             }
           }
         }
@@ -64,7 +68,7 @@ section {
 }
 
 .mainDiv {
-  height: 70vh;
+  height: 80vh;
   overflow: auto;
 
   &::-webkit-scrollbar {
@@ -139,9 +143,11 @@ section {
 
       .productArea {
         height: 20px;
+
         .productName {
-          font-size: 0.9rem;
+          font-size: 0.8rem;
           white-space: nowrap;
+          text-overflow: ellipsis;
           overflow: hidden;
         }
 

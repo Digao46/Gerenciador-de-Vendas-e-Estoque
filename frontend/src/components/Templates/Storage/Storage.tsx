@@ -9,6 +9,7 @@ class Storage extends React.Component<any, any> {
     super(props);
     this.state = {
       products: 0,
+      filterKey: "",
       redirectTo: null,
     };
   }
@@ -25,6 +26,34 @@ class Storage extends React.Component<any, any> {
 
   getProductById = (productId: any) => {
     getProduct(productId).then(this.props.getProductId(productId));
+  };
+
+  handleChange = (e: any) => {
+    // this.getAllProducts();
+    this.search(e)
+
+    this.setState({ filterKey: e.target.value });
+  };
+
+  search = (e: any) => {
+    e.preventDefault();
+    this.getAllProducts();
+
+    setTimeout(() => {
+      let productsFiltered = this.state.products.filter((product: any) =>
+        product.name
+          .toLowerCase()
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "")
+          .includes(
+            this.state.filterKey
+              .toLowerCase()
+              .normalize("NFD")
+              .replace(/[\u0300-\u036f]/g, "")
+          )
+      );
+      this.setState({ products: productsFiltered });
+    }, 100);
   };
 
   render() {
@@ -48,7 +77,25 @@ class Storage extends React.Component<any, any> {
       );
     }
     return (
-      <section className="container d-flex justify-content-center col-10 pt-3">
+      <section className="container d-flex flex-column align-items-center col-10 pt-3">
+        <div className="formArea container d-flex justify-content-center align-items-center mb-3">
+          <form onSubmit={this.search} className="d-flex col-8">
+            <input
+              className="col-8 me-2 ps-4 py-1"
+              type="text"
+              onChange={this.handleChange}
+              placeholder="Pesquisar produto"
+            />
+
+            <button
+              type="submit"
+              className="btn col-2 d-flex justify-content-center align-items-center"
+            >
+              <i className="fa fa-search" />
+            </button>
+          </form>
+        </div>
+
         <table className="table table-hover table-bordered table-striped">
           <thead className="text-center">
             <tr>

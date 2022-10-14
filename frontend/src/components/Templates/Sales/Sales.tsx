@@ -39,12 +39,16 @@ class Sales extends React.Component<any, any> {
     this.getAllSales().then(() => {
       setTimeout(() => {
         const begin = this.getDate(this.state.periodBegin);
+        begin.setHours(0);
+        begin.setMinutes(0);
         const end = this.getDate(this.state.periodEnd);
+        end.setHours(23);
+        end.setMinutes(59);
 
         const salesByPeriod = this.state.sales?.filter(
           (sale: any) =>
-            this.getDate(sale.createdAt) >= begin &&
-            this.getDate(sale.createdAt) <= end
+            this.getDate(sale.createdAt) >= this.getDate(begin) &&
+            this.getDate(sale.createdAt) <= this.getDate(end)
         );
 
         this.setState({
@@ -55,6 +59,7 @@ class Sales extends React.Component<any, any> {
   };
 
   handleChange = (e: any) => {
+    this.getAllSales();
     if (e) {
       const dateBegin = this.getDate(e[0]._d);
       const dateEnd = this.getDate(e[1]._d);

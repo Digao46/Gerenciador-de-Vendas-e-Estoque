@@ -207,7 +207,6 @@ class Sales extends React.Component<any, any> {
                         >
                           {sale.products[i].length > 10 ? (
                             <p className="productName d-flex justify-content-center align-items-center col-6 text-start">
-                              {}
                               {sale.products[i][0]}
                               {sale.products[i][1]}
                               {sale.products[i][2]}

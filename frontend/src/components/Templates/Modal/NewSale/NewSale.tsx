@@ -75,10 +75,18 @@ class NewSale extends React.Component<any, any> {
       id: this.state.id,
     };
 
-    if (this.state.quantity > this.state.storage) {
-      alert("Estoque Insuficiente");
+    const duplicate = this.state.productsInCart.find(
+      (e: any) => e.id === product.id
+    );
+
+    if (duplicate) {
+      duplicate.quantity += product.quantity;
     } else {
-      this.state.productsInCart.push(product);
+      if (this.state.quantity >= this.state.storage) {
+        alert("Estoque Insuficiente");
+      } else {
+        this.state.productsInCart.push(product);
+      }
     }
   };
 

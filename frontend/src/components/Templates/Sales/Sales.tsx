@@ -1,6 +1,6 @@
 import React from "react";
-
 import { DatePicker, Space } from "antd";
+import { toast } from "react-hot-toast";
 
 import { getSales } from "../../../services/api";
 
@@ -36,26 +36,33 @@ class Sales extends React.Component<any, any> {
   filterByCustomPeriod = (e: any) => {
     e.preventDefault();
 
-    this.getAllSales().then(() => {
-      setTimeout(() => {
-        const begin = this.getDate(this.state.periodBegin);
-        begin.setHours(0);
-        begin.setMinutes(0);
-        const end = this.getDate(this.state.periodEnd);
-        end.setHours(23);
-        end.setMinutes(59);
+    this.getAllSales()
+      .then(() => {
+        setTimeout(() => {
+          const begin = this.getDate(this.state.periodBegin);
+          begin.setHours(0);
+          begin.setMinutes(0);
+          const end = this.getDate(this.state.periodEnd);
+          end.setHours(23);
+          end.setMinutes(59);
 
-        const salesByPeriod = this.state.sales?.filter(
-          (sale: any) =>
-            this.getDate(sale.createdAt) >= this.getDate(begin) &&
-            this.getDate(sale.createdAt) <= this.getDate(end)
-        );
+          const salesByPeriod = this.state.sales?.filter(
+            (sale: any) =>
+              this.getDate(sale.createdAt) >= this.getDate(begin) &&
+              this.getDate(sale.createdAt) <= this.getDate(end)
+          );
 
-        this.setState({
-          sales: salesByPeriod.sort((a: any, b: any) => b.id - a.id),
-        });
-      }, 0);
-    });
+          this.setState({
+            sales: salesByPeriod.sort((a: any, b: any) => b.id - a.id),
+          });
+        }, 0);
+      })
+      .then(() => {
+        toast.success("Filtro Aplicado");
+      })
+      .catch(() => {
+        toast.error("Não foi possível aplicar o filtro!");
+      });
   };
 
   handleChange = (e: any) => {

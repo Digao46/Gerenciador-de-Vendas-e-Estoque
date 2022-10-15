@@ -1,10 +1,10 @@
 import React from "react";
 
-import Charts from "../Charts/Charts";
-
 import { getSales } from "../../../services/api";
 
 import "./Cash.scss";
+
+import Charts from "../Charts/Charts";
 
 class Cash extends React.Component<any, any> {
   constructor(props: any) {

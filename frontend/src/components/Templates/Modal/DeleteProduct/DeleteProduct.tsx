@@ -2,6 +2,8 @@ import React from "react";
 import { Redirect } from "react-router-dom";
 import { getProduct, deleteProduct } from "../../../../services/api";
 
+import { toast } from "react-hot-toast";
+
 import "./DeleteProduct.scss";
 
 class DeleteProduct extends React.Component<any, any> {
@@ -37,9 +39,13 @@ class DeleteProduct extends React.Component<any, any> {
   delProduct = (e: any) => {
     e.preventDefault();
 
-    deleteProduct(this.props.productId).then(() =>
-      this.setState({ redirectTo: "/storage" })
-    );
+    deleteProduct(this.props.productId)
+      .then(() => this.setState({ redirectTo: "/storage" }))
+      .then(() => {
+        toast.success("Produto Excluído!");
+      }).catch(() => {
+        toast.error("Não foi possível excluir o produto!")
+      });
   };
 
   cancel = (e: any) => {

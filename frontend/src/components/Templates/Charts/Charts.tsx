@@ -1,8 +1,7 @@
 import React from "react";
+import { Chart } from "react-google-charts";
 
 import { getSales } from "../../../services/api";
-
-import { Chart } from "react-google-charts";
 
 class Charts extends React.Component<any, any> {
   constructor(props: any) {

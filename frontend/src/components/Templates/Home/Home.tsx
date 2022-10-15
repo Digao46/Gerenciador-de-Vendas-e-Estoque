@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+
 import { getProducts, getSales } from "../../../services/api";
 
 import "./Home.scss";

@@ -1,4 +1,5 @@
 import React from "react";
+import { Switch, Route, Link } from "react-router-dom";
 
 import "./Main.scss";
 
@@ -11,8 +12,6 @@ import NewProduct from "../Templates/Modal/NewProduct/NewProduct";
 import NewSale from "../Templates/Modal/NewSale/NewSale";
 import EditProduct from "../Templates/Modal/EditProduct/EditProduct";
 import DeleteProduct from "../Templates/Modal/DeleteProduct/DeleteProduct";
-
-import { Switch, Route, Link } from "react-router-dom";
 
 class Main extends React.Component<any, any> {
   constructor(props: any) {

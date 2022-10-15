@@ -2,6 +2,8 @@ import React from "react";
 import { Redirect } from "react-router-dom";
 import { getProduct, editProduct } from "../../../../services/api";
 
+import { toast } from "react-hot-toast";
+
 import "./EditProduct.scss";
 
 class EditProduct extends React.Component<any, any> {
@@ -43,9 +45,16 @@ class EditProduct extends React.Component<any, any> {
     const costPrice = this.state.costPrice;
     const storage = this.state.quantity;
 
-    editProduct(id, { name, sellPrice, costPrice, storage }).then(() => {
-      this.setState({ redirectTo: "/storage" });
-    });
+    editProduct(id, { name, sellPrice, costPrice, storage })
+      .then(() => {
+        this.setState({ redirectTo: "/storage" });
+      })
+      .then(() => {
+        toast.success("Produto Editado!");
+      })
+      .catch(() => {
+        toast.error("Não foi concluir a ação!");
+      });
   };
 
   cancel = (e: any) => {

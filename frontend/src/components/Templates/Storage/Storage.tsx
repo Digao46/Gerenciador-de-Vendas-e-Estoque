@@ -1,5 +1,7 @@
 import React from "react";
 import { Link, Redirect } from "react-router-dom";
+import { toast } from "react-hot-toast";
+
 import { getProducts, getProduct } from "../../../services/api";
 
 import "./Storage.scss";
@@ -29,31 +31,36 @@ class Storage extends React.Component<any, any> {
   };
 
   handleChange = (e: any) => {
-    // this.getAllProducts();
-    this.search(e)
-
+    this.getAllProducts();
     this.setState({ filterKey: e.target.value });
   };
 
   search = (e: any) => {
     e.preventDefault();
-    this.getAllProducts();
-
-    setTimeout(() => {
-      let productsFiltered = this.state.products.filter((product: any) =>
-        product.name
-          .toLowerCase()
-          .normalize("NFD")
-          .replace(/[\u0300-\u036f]/g, "")
-          .includes(
-            this.state.filterKey
+    this.getAllProducts()
+      .then(() => {
+        setTimeout(() => {
+          let productsFiltered = this.state.products.filter((product: any) =>
+            product.name
               .toLowerCase()
               .normalize("NFD")
               .replace(/[\u0300-\u036f]/g, "")
-          )
-      );
-      this.setState({ products: productsFiltered });
-    }, 100);
+              .includes(
+                this.state.filterKey
+                  .toLowerCase()
+                  .normalize("NFD")
+                  .replace(/[\u0300-\u036f]/g, "")
+              )
+          );
+          this.setState({ products: productsFiltered });
+        }, 100);
+      })
+      .then(() => {
+        toast.success("Filtro Aplicado");
+      })
+      .catch(() => {
+        toast.error("Não foi possível aplicar o filtro!");
+      });
   };
 
   render() {
@@ -85,6 +92,7 @@ class Storage extends React.Component<any, any> {
               type="text"
               onChange={this.handleChange}
               placeholder="Pesquisar produto"
+              required
             />
 
             <button

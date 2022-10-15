@@ -1,12 +1,12 @@
 import React, { useState } from "react";
+import { BrowserRouter as Router } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
 
 import "./assets/scss/globals.scss";
 
 import Header from "./components/Header/Header";
 import Nav from "./components/NavMenu/Nav";
 import Main from "./components/Main/Main";
-
-import { BrowserRouter as Router } from "react-router-dom";
 
 function App() {
   let [path, setPath] = useState("/");
@@ -59,6 +59,8 @@ function App() {
         <Header title={title} getActive={getActive} handleNav={handleNav} />
         <Nav active={isActive} handleNav={handleNav} />
         <Main getPath={getPath} />
+
+        <Toaster />
       </div>
     </Router>
   );

@@ -1,5 +1,7 @@
 import React from "react";
 import { Link, Redirect } from "react-router-dom";
+import { toast } from "react-hot-toast";
+
 import {
   getProducts,
   editProduct,
@@ -80,7 +82,8 @@ class NewSale extends React.Component<any, any> {
     );
 
     if (duplicate) {
-      duplicate.quantity += product.quantity;
+      duplicate.quantity =
+        parseInt(duplicate.quantity) + parseInt(product.quantity);
     } else {
       if (this.state.quantity >= this.state.storage) {
         alert("Estoque Insuficiente");
@@ -121,9 +124,16 @@ class NewSale extends React.Component<any, any> {
     const quantity = this.state.quantities;
     const total = this.state.total;
 
-    addSale({ products, quantity, total }).then(() => {
-      this.setState({ redirectTo: "/sales" });
-    });
+    addSale({ products, quantity, total })
+      .then(() => {
+        this.setState({ redirectTo: "/sales" });
+      })
+      .then(() => {
+        toast.success("Venda Finalizada!");
+      })
+      .catch(() => {
+        toast.error("Não foi possível finalizar a venda!");
+      });
   };
 
   render() {

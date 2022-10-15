@@ -1,8 +1,16 @@
 import { Sequelize } from "sequelize";
 
-export const db = new Sequelize("sales", "root", "59772136Dig@o", {
+import { dbName, dbUser, dbPassword, dbHost, dbPort } from "../server";
+
+const databaseName = dbName!;
+const databaseUser = dbUser!;
+const databasePassword = dbPassword!;
+const databaseHost = dbHost!;
+const databasePort = dbPort!;
+
+export const db = new Sequelize(databaseName, databaseUser, databasePassword, {
   dialect: "mysql",
-  host: "localhost",
-  port: 3306,
+  host: databaseHost,
+  port: +databasePort,
   timezone: "-03:00",
 });

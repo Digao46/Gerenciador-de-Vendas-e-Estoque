@@ -28,9 +28,9 @@ class Cash extends React.Component<any, any> {
         setTimeout(() => {
           this.filterToday();
           this.filterPeriod(this.state.periods);
-        }, 0);
+        }, 10);
       })
-      .then(this.props.props.getPath("/cash"));
+      .then(this.props.props.setTitle("Caixa"));
   }
 
   filterToday = () => {

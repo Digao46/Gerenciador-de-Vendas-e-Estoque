@@ -22,9 +22,9 @@ class Sales extends React.Component<any, any> {
   }
 
   componentDidMount(): void {
-    this.getAllSales().then(() => {
-      this.props.props.getPath("/sales");
-    });
+    this.props.props.setTitle("Vendas");
+
+    this.getAllSales();
   }
 
   getAllSales = async () => {

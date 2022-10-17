@@ -1,0 +1,74 @@
+section {
+  .header {
+    width: 100%;
+    height: 8%;
+    position: fixed;
+    top: 0;
+
+    background-color: var(--purple-500);
+    color: var(--white-800);
+  }
+
+  .formLoginArea {
+    height: auto;
+    padding: 20px 0;
+    background-color: var(--white-800);
+    box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.15);
+
+    form {
+      .formContainer {
+        position: relative;
+
+        input {
+          border-radius: 4px;
+          width: 300px;
+          padding: 10px;
+          font-size: 1rem;
+          color: var(--black-800);
+          outline: none;
+          border: 2px solid var(--black-800);
+
+          &:focus {
+            border: none;
+            outline: 2px solid var(--black-800);
+          }
+
+          &:focus + span,
+          &:valid + span {
+            top: -12px;
+            left: 14px;
+            font-size: 1.1rem;
+            padding: 0 10px;
+            background-color: var(--white-800);
+          }
+        }
+
+        span {
+          position: absolute;
+          top: 12px;
+          left: 35px;
+          font-size: 0.9rem;
+          letter-spacing: 0.05em;
+          pointer-events: none;
+          font-weight: 600;
+          font-family: sans-serif;
+          transition: 0.4s;
+          color: var(--black-800);
+        }
+      }
+    }
+
+    .buttons {
+      .btn {
+        background-color: var(--purple-800);
+        color: var(--white-800);
+      }
+
+      .separation {
+        background: linear-gradient(to right, white, black, white);
+        height: 2px;
+        width: 100%;
+      }
+    }
+  }
+}

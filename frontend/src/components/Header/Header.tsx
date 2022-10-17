@@ -1,4 +1,5 @@
 import React from "react";
+import { Redirect } from "react-router";
 
 import "./Header.scss";
 
@@ -10,8 +11,25 @@ class Header extends React.Component<any, any> {
     this.state = {
       isDropdownActive: true,
       isMenuActive: true,
+      username: "Usuário",
+      redirectTo: null,
     };
   }
+
+  componentDidMount(): void {
+    const localStorageItem = localStorage.getItem("user")!;
+    const user = JSON.parse(localStorageItem);
+
+    if (user) {
+      this.setState({ username: user.username });
+    }
+  }
+
+  logOut = () => {
+    localStorage.removeItem("user");
+
+    this.setState({ redirectTo: "/login" });
+  };
 
   handleActive = (class1: string, class2: string) => {
     this.setState({ isDropdownActive: !this.state.isDropdownActive });
@@ -41,6 +59,8 @@ class Header extends React.Component<any, any> {
   };
 
   render() {
+    if (this.state.redirectTo) return <Redirect to={this.state.redirectTo} />;
+
     return (
       <header className="d-flex align-items-center">
         <div className="container d-flex align-items-center">
@@ -57,7 +77,7 @@ class Header extends React.Component<any, any> {
           <div className="navArea container col-6">
             <div className="d-flex me-5 justify-content-end align-items-center">
               <div className="user me-3">
-                <p>Digrau</p>
+                <p>{this.state.username}</p>
               </div>
               <div className="userImg me-2 d-flex justify-content-center align-items-center">
                 <img src={Logo} alt="Imagem Usuário" />
@@ -68,6 +88,7 @@ class Header extends React.Component<any, any> {
                   className="btn"
                   onClick={() => {
                     this.handleActive("toggleButton", "active");
+                    this.logOut();
                   }}
                 >
                   <i className="fa fa-angle-right"></i>

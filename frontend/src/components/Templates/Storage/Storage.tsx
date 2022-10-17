@@ -17,9 +17,9 @@ class Storage extends React.Component<any, any> {
   }
 
   componentDidMount(): void {
-    this.getAllProducts().then(() => {
-      this.props.props.getPath("/storage");
-    });
+    this.props.props.setTitle("Estoque");
+    
+      this.getAllProducts();
   }
 
   getAllProducts = async () => {
@@ -64,9 +64,9 @@ class Storage extends React.Component<any, any> {
   };
 
   render() {
-    if (this.state.redirectTo) {
-      return <Redirect to={this.state.redirectTo} />;
-    }
+    // if (this.state.redirectTo) {
+    //   return <Redirect to={this.state.redirectTo} />;
+    // }
 
     if (!this.state.products) {
       return (

@@ -1,8 +1,6 @@
 import * as dotenv from "dotenv";
 
-dotenv.config({
-  path: "C:/Users/diogo/Desktop/Gerenciador de Vendas e Estoque/backend/.env",
-});
+dotenv.config({ path: "../.env" });
 
 import express, { json } from "express";
 import { db } from "./database/db";
@@ -18,7 +16,7 @@ app.use(routes);
 const port = 8080;
 
 app.listen(port, async () => {
-  await db.sync({ alter: true });
+  await db.sync({ alter: true, force: true });
 
   console.log(`Servidor iniciado na porta ${port}`);
 });

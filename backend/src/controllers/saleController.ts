@@ -1,24 +1,24 @@
-import { SaleModel } from "./../database/models/SaleModel";
+import { SaleModel } from "../database/models/SaleModel";
 import { Request, Response } from "express";
 
-class saleController {
+class SaleController {
   async getSales(req: Request, res: Response) {
-    const products = await SaleModel.findAll();
+    const sales = await SaleModel.findAll();
 
     try {
-      res.send(products).status(200);
+      res.status(200).json({ sales });
     } catch (err) {
-      res.send(err);
+      res.status(400).json({ message: "Não foi possível acessar as vendas!" });
     }
   }
 
   async getSaleById(req: Request, res: Response) {
-    const product = await SaleModel.findByPk(req.params.id);
+    const sale = await SaleModel.findByPk(req.params.id);
 
     try {
-      res.json(product).status(200);
+      res.status(200).json(sale);
     } catch (err) {
-      res.send(err);
+      res.status(400).json({ message: "Não foi possível acessar a venda!" });
     }
   }
 
@@ -32,11 +32,11 @@ class saleController {
     });
 
     try {
-      res.json(newSale);
+      res.json({ newSale, message: "Venda concluída!" });
     } catch (err) {
-      res.send(err);
+      res.json({ message: "Não foi possível concluir a venda!" });
     }
   }
 }
 
-export default new saleController();
+export default new SaleController();

@@ -7,8 +7,6 @@ import {
 } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 
-// import { validateToken } from "./services/api";
-
 import "./assets/scss/globals.scss";
 
 import Login from "./components/Login/Login";
@@ -20,42 +18,25 @@ class App extends React.Component<any, any> {
   constructor(props: any) {
     super(props);
     this.state = {
-      path: "/",
       title: "Dashboard",
       isActive: false,
-      validToken: true,
       redirectTo: null,
     };
   }
 
-  // componentDidMount = (): void => {
-    // this.validateToken();
-  // };
+  componentDidMount = (): void => {
+    this.validateToken();
+  };
 
-  // validateToken = async () => {
-  //   const user = JSON.parse(localStorage.getItem("user")!);
+  validateToken = async () => {
+    const user = JSON.parse(localStorage.getItem("user")!);
 
-  //   if (!user) {
-  //     this.setState({ validToken: false });
-  //     this.setState({ redirectTo: "/login" });
+    if (!user?.token) {
+      this.setState({ redirectTo: "/login" });
 
-  //     localStorage.removeItem("token");
-  //     return;
-  //   }
-
-  //   validateToken(user).then((res) => {
-  //     if (!res.data) {
-  //       this.setState({ validToken: false });
-  //       this.setState({ redirectTo: "/login" });
-  //       localStorage.removeItem("user");
-
-  //       return;
-  //     }
-
-  //     this.setState({ validToken: true });
-  //     this.setState({ redirectTo: "/" });
-  //   });
-  // };
+      return;
+    }
+  };
 
   handleNav = () => {
     const app = document.querySelector(".App")!;
@@ -81,7 +62,7 @@ class App extends React.Component<any, any> {
   render() {
     return (
       <Router>
-        {!this.state.validToken && <Redirect to={this.state.redirectTo} />}
+        {this.state.redirectTo && <Redirect to={this.state.redirectTo} />}
 
         <Switch>
           <Route path="/login">

@@ -6,9 +6,11 @@ class productController {
     const products = await ProductModel.findAll();
 
     try {
-      res.send(products).status(200);
+      res.status(200).json({ products });
     } catch (err) {
-      res.send(err);
+      res
+        .status(400)
+        .json({ message: "Não foi possível acessar os produtos!" });
     }
   }
 
@@ -16,14 +18,13 @@ class productController {
     const product = await ProductModel.findByPk(req.params.id);
 
     try {
-      res.json(product).status(200);
+      res.status(200).json({ product });
     } catch (err) {
-      res.send(err);
+      res.status(400).json({ message: "Não foi possível acessar o produto!" });
     }
   }
 
   async addProduct(req: Request, res: Response) {
-
     const { name, sellPrice, costPrice, storage } = req.body;
 
     const newProduct = ProductModel.create({
@@ -34,9 +35,13 @@ class productController {
     });
 
     try {
-      res.json(newProduct);
+      res
+        .status(200)
+        .json({ newProduct, message: "Produto adicionado!" });
     } catch (err) {
-      res.send(err);
+      res
+        .status(400)
+        .json({ message: "Não foi possível adicionar o produto!" });
     }
   }
 
@@ -55,9 +60,9 @@ class productController {
       }
     );
     try {
-      res.json(updatedProduct);
+      res.status(200).json({ updatedProduct, message: "Produto editado!" });
     } catch (err) {
-      res.send(err);
+      res.status(400).json({ message: "Não foi possível editar o produto!" });
     }
   }
 
@@ -68,11 +73,9 @@ class productController {
       },
     });
     try {
-      res.json(deletedProduct).status(200);
-      return;
+      res.status(200).json({ deletedProduct, message: "Produto excluído!" });
     } catch (err) {
-      res.send(err);
-      return;
+      res.status(400).json({ message: "Não foi possível excluir o produto!" });
     }
   }
 }

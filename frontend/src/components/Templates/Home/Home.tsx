@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import { getProducts, getSales } from "../../../services/api";
 
@@ -16,16 +16,12 @@ class Home extends React.Component<any, any> {
 
   componentDidMount(): void {
     this.props.props.setTitle("Dashboard");
-    
-      getProducts().then((res) => this.setState({ productsLength: res.data }));
-      getSales().then((res) => this.setState({ salesLength: res.data }));
+
+    getProducts().then((res) => this.setState({ productsLength: res.data.products }));
+    getSales().then((res) => this.setState({ salesLength: res.data.sales }));
   }
 
   render() {
-    // if (!this.props.props.state.validToken) {
-    //   return <Redirect to={this.props.props.state.redirectTo} />;
-    // }
-
     return (
       <section className="container d-flex justify-content-around pt-3">
         <div className="card sales d-flex justify-content-center align-items-center col-3">

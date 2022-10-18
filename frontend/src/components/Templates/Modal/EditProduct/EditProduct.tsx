@@ -21,10 +21,10 @@ class EditProduct extends React.Component<any, any> {
   componentDidMount(): void {
     getProduct(this.props.productId).then((res) => {
       this.setState({
-        name: res.data.name,
-        sellPrice: res.data.sellPrice.toFixed(2).replace(",", "."),
-        costPrice: res.data.costPrice.toFixed(2).replace(",", "."),
-        quantity: res.data.storage,
+        name: res.data.product.name,
+        sellPrice: res.data.product.sellPrice.toFixed(2).replace(",", "."),
+        costPrice: res.data.product.costPrice.toFixed(2).replace(",", "."),
+        quantity: res.data.product.storage,
       });
     });
   }
@@ -46,14 +46,12 @@ class EditProduct extends React.Component<any, any> {
     const storage = this.state.quantity;
 
     editProduct(id, { name, sellPrice, costPrice, storage })
-      .then(() => {
+      .then((res) => {
+        toast.success(res.data.message);
         this.setState({ redirectTo: "/storage" });
       })
-      .then(() => {
-        toast.success("Produto Editado!");
-      })
-      .catch(() => {
-        toast.error("Não foi concluir a ação!");
+      .catch((err) => {
+        toast.error(err.response.data.message);
       });
   };
 

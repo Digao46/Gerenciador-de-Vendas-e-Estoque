@@ -34,12 +34,12 @@ class NewProduct extends React.Component<any, any> {
     const storage = this.state.quantity;
 
     addProduct({ name, sellPrice, costPrice, storage })
-      .then(() => this.setState({ redirectTo: "/storage" }))
-      .then(() => {
-        toast.success("Produto Adicionado com Sucesso!");
+      .then((res) => {
+        toast.success(res.data.message);
+        this.setState({ redirectTo: "/storage" });
       })
-      .catch(() => {
-        toast.error("Não foi possivel adicionar o produto!");
+      .catch((err) => {
+        toast.error(err.response.data.message);
       });
   };
 

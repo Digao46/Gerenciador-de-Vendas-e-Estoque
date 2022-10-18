@@ -35,13 +35,15 @@ class NewSale extends React.Component<any, any> {
 
   componentDidMount(): void {
     getProducts().then((res) => {
-      this.setState({ products: res.data });
+      this.setState({ products: res.data.products });
     });
   }
 
   handleChange = (e: any) => {
     const inputName = e.target.name;
-    const value = e.target.value;
+    let value = e.target.value;
+
+    if (!value) value = 1;
 
     this.setState({ [inputName]: value });
   };
@@ -58,9 +60,9 @@ class NewSale extends React.Component<any, any> {
 
     getProduct(selectedId).then((res) => {
       this.setState({
-        name: res.data.name,
-        price: res.data.sellPrice.toFixed(2),
-        storage: res.data.storage,
+        name: res.data.product.name,
+        price: res.data.product.sellPrice.toFixed(2),
+        storage: res.data.product.storage,
         id: selectedId,
       });
     });
@@ -77,20 +79,19 @@ class NewSale extends React.Component<any, any> {
       id: this.state.id,
     };
 
-    const duplicate = this.state.productsInCart.find(
+    const alreadyInCart = this.state.productsInCart.find(
       (e: any) => e.id === product.id
     );
 
-    if (duplicate) {
-      duplicate.quantity =
-        parseInt(duplicate.quantity) + parseInt(product.quantity);
-    } else {
-      if (this.state.quantity >= this.state.storage) {
-        alert("Estoque Insuficiente");
-      } else {
-        this.state.productsInCart.push(product);
-      }
+    if (alreadyInCart)
+      return (alreadyInCart.quantity =
+        parseInt(alreadyInCart.quantity) + parseInt(product.quantity));
+
+    if (this.state.quantity >= this.state.storage) {
+      return alert("Estoque Insuficiente");
     }
+
+    this.state.productsInCart.push(product);
   };
 
   removeFromCart = (id: any) => {
@@ -125,14 +126,12 @@ class NewSale extends React.Component<any, any> {
     const total = this.state.total;
 
     addSale({ products, quantity, total })
-      .then(() => {
+      .then((res) => {
+        toast.success(res.data.message);
         this.setState({ redirectTo: "/sales" });
       })
-      .then(() => {
-        toast.success("Venda Finalizada!");
-      })
-      .catch(() => {
-        toast.error("Não foi possível finalizar a venda!");
+      .catch((err) => {
+        toast.error(err.response.data.message);
       });
   };
 

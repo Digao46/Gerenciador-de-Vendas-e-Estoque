@@ -3,7 +3,21 @@ import axios from "axios";
 const url = "http://localhost:8080";
 
 // Storage
-const apiStorage = axios.create({ baseURL: url });
+const apiStorage = axios.create({
+  baseURL: url,
+});
+
+apiStorage.interceptors.request.use(
+  (config) => {
+    const token = JSON.parse(localStorage.getItem("user")!);
+    config.headers!.Authorization = `Bearer ${token.token}`;
+
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
 
 export async function getProducts() {
   return await apiStorage.get("/storage");
@@ -30,7 +44,21 @@ export async function addProduct(params: any) {
 }
 
 // Sales
-const apiSale = axios.create({ baseURL: url });
+const apiSale = axios.create({
+  baseURL: url,
+});
+
+apiSale.interceptors.request.use(
+  (config) => {
+    const token = JSON.parse(localStorage.getItem("user")!);
+    config.headers!.Authorization = `Bearer ${token.token}`;
+
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
 
 export async function getSales() {
   return await apiSale.get("/sales");
@@ -47,14 +75,33 @@ export async function addSale(params: any) {
 }
 
 // Users
-const apiUser = axios.create({ baseURL: url });
+const apiUser = axios.create({
+  baseURL: url,
+});
+
+apiUser.interceptors.request.use(
+  (config) => {
+    const token = JSON.parse(localStorage.getItem("user")!);
+    config.headers!.Authorization = `Bearer ${token.token}`;
+
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
 
 export async function getUsers() {
   return await apiUser.get("/users");
 }
 
+// SignIn/SignUp
+const apiSign = axios.create({
+  baseURL: url,
+});
+
 export async function logIn(params: any) {
-  return await apiUser.post("/login", {
+  return await apiSign.post("/login", {
     ...params,
   });
 }

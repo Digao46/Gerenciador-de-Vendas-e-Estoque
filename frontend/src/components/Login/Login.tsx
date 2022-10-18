@@ -12,7 +12,6 @@ class Login extends React.Component<any, any> {
     this.state = {
       username: "",
       password: "",
-      isLogged: false,
       redirectTo: null,
     };
   }
@@ -32,23 +31,23 @@ class Login extends React.Component<any, any> {
 
     const user = { username, password };
 
-    await logIn(user).then((res) => {
-      if (res.status === 200) {
+    await logIn(user)
+      .then((res) => {
         localStorage.setItem("user", JSON.stringify(res.data));
 
-        this.setState({ isLogged: true });
         this.setState({ redirectTo: "/" });
-        // });
-      } else if (res.status === 203) {
-        return toast.error("Usuário não encontrado!");
-      } else {
-        return toast.error("Usuário ou senha incorretos!");
-      }
-    });
+      })
+      .catch((err) => {
+        if (err.response.status === 404) {
+          return toast.error(err.response.data.message);
+        } else {
+          return toast.error(err.response.data.message);
+        }
+      });
   };
 
   render() {
-    if (this.state.isLogged) {
+    if (this.state.redirectTo) {
       return <Redirect to={this.state.redirectTo} />;
     }
 

@@ -1,36 +1,35 @@
 import express from "express";
-import productController from "./controllers/productController";
-import saleController from "./controllers/saleController";
+import ProductController from "./controllers/ProductController";
+import SaleController from "./controllers/SaleController";
+import SignInController from "./controllers/SignInController";
 import UserController from "./controllers/UserController";
+
+import { authMiddleware } from "./middlewares/authMiddleware";
 
 export const routes = express.Router();
 
 // Rotas dos Produtos
-routes.get(
-  "/storage",
-  UserController.validateToken,
-  productController.getProducts
-);
+routes.get("/storage", authMiddleware, ProductController.getProducts);
 
-routes.post("/newProduct", productController.addProduct);
+routes.post("/newProduct", authMiddleware, ProductController.addProduct);
 
-routes.get("/storage/:id", productController.getProductById);
+routes.get("/storage/:id", authMiddleware, ProductController.getProductById);
 
-routes.put("/editProduct/:id", productController.updateProduct);
+routes.put("/editProduct/:id", authMiddleware, ProductController.updateProduct);
 
-routes.delete("/storage/:id", productController.deleteProduct);
+routes.delete("/storage/:id", authMiddleware, ProductController.deleteProduct);
 
 // Rotas das Vendas
-routes.get("/sales", saleController.getSales);
+routes.get("/sales", authMiddleware, SaleController.getSales);
 
-routes.post("/newSale", saleController.addSale);
+routes.post("/newSale", authMiddleware, SaleController.addSale);
 
-routes.get("/sales/:id", saleController.getSaleById);
+routes.get("/sales/:id", authMiddleware, SaleController.getSaleById);
 
-routes.get("/newSale", productController.getProducts);
+routes.get("/newSale", authMiddleware, ProductController.getProducts);
 
 // Rotas dos Usuários
-routes.get("/users", UserController.getUsers);
+routes.get("/users", authMiddleware, UserController.getUsers);
 
 // Rotas de Login
-routes.post("/login", UserController.logIn);
+routes.post("/login", SignInController.signIn);

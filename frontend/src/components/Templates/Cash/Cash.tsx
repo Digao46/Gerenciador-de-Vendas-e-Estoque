@@ -22,15 +22,18 @@ class Cash extends React.Component<any, any> {
   }
 
   componentDidMount(): void {
+    this.props.props.setTitle("Caixa");
+    
     getSales()
-      .then((res) => this.setState({ allSales: res.data }))
+      .then((res) => {
+        this.setState({ allSales: res.data.sales });
+      })
       .then(() => {
         setTimeout(() => {
           this.filterToday();
           this.filterPeriod(this.state.periods);
         }, 10);
-      })
-      .then(this.props.props.setTitle("Caixa"));
+      });
   }
 
   filterToday = () => {

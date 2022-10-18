@@ -21,10 +21,10 @@ class DeleteProduct extends React.Component<any, any> {
   componentDidMount(): void {
     getProduct(this.props.productId).then((res) => {
       this.setState({
-        name: res.data.name,
-        sellPrice: res.data.sellPrice.toFixed(2).replace(",", "."),
-        costPrice: res.data.costPrice.toFixed(2).replace(",", "."),
-        quantity: res.data.storage,
+        name: res.data.product.name,
+        sellPrice: res.data.product.sellPrice.toFixed(2).replace(",", "."),
+        costPrice: res.data.product.costPrice.toFixed(2).replace(",", "."),
+        quantity: res.data.product.storage,
       });
     });
   }
@@ -40,11 +40,12 @@ class DeleteProduct extends React.Component<any, any> {
     e.preventDefault();
 
     deleteProduct(this.props.productId)
-      .then(() => this.setState({ redirectTo: "/storage" }))
-      .then(() => {
-        toast.success("Produto Excluído!");
-      }).catch(() => {
-        toast.error("Não foi possível excluir o produto!")
+      .then((res) => {
+        toast.success(res.data.message);
+        this.setState({ redirectTo: "/storage" });
+      })
+      .catch((err) => {
+        toast.error(err.response.data.message);
       });
   };
 

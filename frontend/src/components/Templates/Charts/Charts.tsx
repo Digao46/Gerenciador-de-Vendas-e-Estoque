@@ -18,11 +18,13 @@ class Charts extends React.Component<any, any> {
 
   componentDidMount(): void {
     getSales()
-      .then((res) => this.setState({ sales: res.data }))
-      .then(this.filterSalesToday)
-      .then(() => this.filterSalesPeriod(this.props.periods))
-      .then(() => {
+      .then((res) => {
+        this.setState({ sales: res.data.sales });
         this.setState({ allSalesQuantity: this.state.sales.length });
+      })
+      .then(() => {
+        this.filterSalesToday();
+        this.filterSalesPeriod(this.props.periods);
       });
   }
 

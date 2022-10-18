@@ -29,7 +29,9 @@ class Sales extends React.Component<any, any> {
 
   getAllSales = async () => {
     await getSales().then((res) => {
-      this.setState({ sales: res.data.sort((a: any, b: any) => b.id - a.id) });
+      this.setState({
+        sales: res.data.sales.sort((a: any, b: any) => b.id - a.id),
+      });
     });
   };
 
@@ -91,10 +93,6 @@ class Sales extends React.Component<any, any> {
     const shownDate = `${day}/${month}/${year}`;
 
     return shownDate;
-  };
-
-  focused = (e: any) => {
-    console.log(e);
   };
 
   render() {

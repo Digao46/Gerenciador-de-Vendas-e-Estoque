@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { toast } from "react-hot-toast";
 
 import { getProducts, getProduct } from "../../../services/api";
@@ -18,12 +18,14 @@ class Storage extends React.Component<any, any> {
 
   componentDidMount(): void {
     this.props.props.setTitle("Estoque");
-    
-      this.getAllProducts();
+
+    this.getAllProducts();
   }
 
   getAllProducts = async () => {
-    await getProducts().then((res) => this.setState({ products: res.data }));
+    await getProducts().then((res) => {
+      this.setState({ products: res.data.products });
+    });
   };
 
   getProductById = (productId: any) => {
@@ -64,10 +66,6 @@ class Storage extends React.Component<any, any> {
   };
 
   render() {
-    // if (this.state.redirectTo) {
-    //   return <Redirect to={this.state.redirectTo} />;
-    // }
-
     if (!this.state.products) {
       return (
         <section className="container d-flex flex-column align-items-center justify-content-center col-10 pt-3">

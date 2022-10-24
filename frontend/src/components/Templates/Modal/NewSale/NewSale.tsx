@@ -55,21 +55,48 @@ class NewSale extends React.Component<any, any> {
   };
 
   getSelectedProduct = () => {
-    let select = document.getElementById("product") as HTMLSelectElement;
-    let selectedId = select.options[select.selectedIndex].value;
+    let productInput = document.getElementById(
+      "productInput"
+    ) as HTMLInputElement;
+    let name = productInput.value;
 
-    getProduct(selectedId).then((res) => {
+    let id: any;
+
+    try {
+      id = this.state.products.filter((product: any) =>
+        product.name
+          .toLowerCase()
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "")
+          .startsWith(
+            name
+              .toLowerCase()
+              .normalize("NFD")
+              .replace(/[\u0300-\u036f]/g, "")
+          )
+      )[0].id;
+    } catch (err) {
+      return toast.error("Não foi possível encontrar esse produto!");
+    }
+
+    getProduct(id).then((res) => {
       this.setState({
         name: res.data.product.name,
         price: res.data.product.sellPrice.toFixed(2),
         storage: res.data.product.storage,
-        id: selectedId,
+        id: id,
       });
     });
   };
 
   addToCart = (e: any) => {
     e.preventDefault();
+
+    let productInput = document.getElementById(
+      "productInput"
+    ) as HTMLInputElement;
+
+    let quantityInput = document.getElementById("quantity") as HTMLInputElement;
 
     const product = {
       name: this.state.name,
@@ -79,19 +106,31 @@ class NewSale extends React.Component<any, any> {
       id: this.state.id,
     };
 
+    const verifyStorage = this.state.quantity <= this.state.storage;
     const alreadyInCart = this.state.productsInCart.find(
       (e: any) => e.id === product.id
     );
 
-    if (alreadyInCart)
-      return (alreadyInCart.quantity =
-        parseInt(alreadyInCart.quantity) + parseInt(product.quantity));
-
-    if (this.state.quantity >= this.state.storage) {
-      return alert("Estoque Insuficiente");
+    if (!alreadyInCart && verifyStorage) {
+      this.state.productsInCart.push(product);
+    } else if (alreadyInCart) {
+      alreadyInCart.quantity =
+        parseInt(alreadyInCart.quantity) + parseInt(product.quantity);
+    } else {
+      return toast("Estoque Insuficiente!", {
+        icon: "⚠️",
+      });
     }
 
-    this.state.productsInCart.push(product);
+    productInput.value = "";
+    quantityInput.value = "";
+    this.setState({
+      name: "",
+      price: "",
+      quantity: 1,
+      storage: "",
+      id: "",
+    });
   };
 
   removeFromCart = (id: any) => {
@@ -166,20 +205,26 @@ class NewSale extends React.Component<any, any> {
               className="form d-flex justify-content-center align-items-center col-12"
             >
               <div className="col-10">
-                <select
+                <input
+                  type="text"
                   onChange={this.getSelectedProduct}
-                  id="product"
-                  name="id"
+                  id="productInput"
                   className="selectName col-12 ps-3 pe-3 mb-4"
-                >
-                  <option>Selecione um produto:</option>
+                  list="productsList"
+                  placeholder="Selecione um produto:"
+                  required
+                />
 
+                <datalist id="productsList">
                   {this.state.products.map((product: any) => (
-                    <option id="productId" key={product.id} value={product.id}>
-                      {product.name}
-                    </option>
+                    <option
+                      id="productId"
+                      key={product.id}
+                      value={product.name}
+                    />
                   ))}
-                </select>
+                </datalist>
+
                 <div className="d-flex flex-row justify-content-evenly mb-4">
                   <div className="input-group">
                     <span className="holder input-group-text">R$</span>

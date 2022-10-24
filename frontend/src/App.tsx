@@ -25,7 +25,9 @@ class App extends React.Component<any, any> {
   }
 
   componentDidMount = (): void => {
-    this.validateToken();
+    setInterval(() => {
+      this.validateToken();
+    }, 10000);
   };
 
   validateToken = async () => {

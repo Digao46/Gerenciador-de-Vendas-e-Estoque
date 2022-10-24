@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
 
-export async function authMiddleware(
+export function authMiddleware(
   req: Request,
   res: Response,
   next: NextFunction
@@ -16,7 +16,7 @@ export async function authMiddleware(
       .json({ message: "Não foi possível realizar a autenticação do usuário" });
 
   jwt.verify(token, process.env.SECRET!, (err, decoded) => {
-    if (err) return res.status(401).json({ message: err });
+    if (err) return res.status(401).json({ message: "Não foi possível realizar a autenticação do usuário" });
 
     next();
   });

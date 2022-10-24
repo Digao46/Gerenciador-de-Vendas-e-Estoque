@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import { getProducts, getSales } from "../../../services/api";
+import { isAuthorizated } from "../../../services/auth";
 
 import "./Home.scss";
 
@@ -17,7 +18,9 @@ class Home extends React.Component<any, any> {
   componentDidMount(): void {
     this.props.props.setTitle("Dashboard");
 
-    getProducts().then((res) => this.setState({ productsLength: res.data.products }));
+    getProducts().then((res) =>
+      this.setState({ productsLength: res.data.products })
+    );
     getSales().then((res) => this.setState({ salesLength: res.data.sales }));
   }
 
@@ -69,21 +72,23 @@ class Home extends React.Component<any, any> {
           </div>
         </div>
 
-        <div className="card cashRegister d-flex justify-content-center align-items-center col-3">
-          <div className="row w-100 h-80">
-            <div className="col-6 d-flex flex-column align-items-start justify-content-around">
-              <p>Caixa</p>
-              <p className="counter d-flex ms-4 transparent">0</p>
-              <button className="btn">
-                <Link to="/cash">Ver Mais</Link>
-              </button>
-            </div>
+        {isAuthorizated() && (
+          <div className="card cashRegister d-flex justify-content-center align-items-center col-3">
+            <div className="row w-100 h-80">
+              <div className="col-6 d-flex flex-column align-items-start justify-content-around">
+                <p>Caixa</p>
+                <p className="counter d-flex ms-4 transparent">0</p>
+                <button className="btn">
+                  <Link to="/cash">Ver Mais</Link>
+                </button>
+              </div>
 
-            <div className="col-6 d-flex justify-content-center align-items-center">
-              <i className="fa fa-cash-register" />
+              <div className="col-6 d-flex justify-content-center align-items-center">
+                <i className="fa fa-cash-register" />
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </section>
     );
   }

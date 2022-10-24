@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { isAuthorizated } from "../../services/auth";
 
 import "./Nav.scss";
 
@@ -32,14 +33,17 @@ class Nav extends React.Component<any, any> {
               Estoque
             </Link>
           </li>
-          <li className="my-4 d-flex justify-content-start">
-            <div className="iconArea d-flex justify-content-center">
-              <i className="fa fa-cash-register" />
-            </div>
-            <Link to="/cash" className="ms-2">
-              Caixa
-            </Link>
-          </li>
+          {isAuthorizated() && (
+            <li className="my-4 d-flex justify-content-start">
+              <div className="iconArea d-flex justify-content-center">
+                <i className="fa fa-cash-register" />
+              </div>
+
+              <Link to="/cash" className="ms-2">
+                Caixa
+              </Link>
+            </li>
+          )}
         </ul>
       </aside>
     );

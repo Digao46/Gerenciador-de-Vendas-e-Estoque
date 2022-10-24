@@ -5,6 +5,7 @@ import { toast } from "react-hot-toast";
 import { getProducts, getProduct } from "../../../services/api";
 
 import "./Storage.scss";
+import { isAuthorizated } from "../../../services/auth";
 
 class Storage extends React.Component<any, any> {
   constructor(props: any) {
@@ -107,10 +108,10 @@ class Storage extends React.Component<any, any> {
             <tr>
               <th scope="col">Produto</th>
               <th scope="col">Estoque</th>
-              <th scope="col">Preço de Custo</th>
+              {isAuthorizated() && <th scope="col">Preço de Custo</th>}
               <th scope="col">Preço de Venda</th>
-              <th scope="col">Lucro Unidade</th>
-              <th scope="col">Ações</th>
+              {isAuthorizated() && <th scope="col">Lucro Unidade</th>}
+              {isAuthorizated() && <th scope="col">Ações</th>}
             </tr>
           </thead>
           <tbody className="text-center">
@@ -126,45 +127,54 @@ class Storage extends React.Component<any, any> {
                   <td>{product.storage} uni</td>
                 )}
 
-                <td>
-                  R$
-                  <span>{product.costPrice.toFixed(2).replace(".", ",")}</span>
-                </td>
+                {isAuthorizated() && (
+                  <td>
+                    R$
+                    <span>
+                      {product.costPrice.toFixed(2).replace(".", ",")}
+                    </span>
+                  </td>
+                )}
+
                 <td>
                   R$
                   <span>{product.sellPrice.toFixed(2).replace(".", ",")}</span>
                 </td>
-                <td>
-                  R$
-                  {(product.sellPrice - product.costPrice)
-                    .toFixed(2)
-                    .replace(".", ",")}
-                </td>
-                <td>
-                  <div className="d-flex justify-content-center">
-                    <button
-                      className="btn"
-                      onClick={() => {
-                        this.getProductById(product.id);
-                      }}
-                    >
-                      <Link to="/editProduct">
-                        <i className="edit fa fa-edit" />
-                      </Link>
-                    </button>
+                {isAuthorizated() && (
+                  <td>
+                    R$
+                    {(product.sellPrice - product.costPrice)
+                      .toFixed(2)
+                      .replace(".", ",")}
+                  </td>
+                )}
+                {isAuthorizated() && (
+                  <td>
+                    <div className="d-flex justify-content-center">
+                      <button
+                        className="btn"
+                        onClick={() => {
+                          this.getProductById(product.id);
+                        }}
+                      >
+                        <Link to="/editProduct">
+                          <i className="edit fa fa-edit" />
+                        </Link>
+                      </button>
 
-                    <button
-                      className="btn"
-                      onClick={() => {
-                        this.getProductById(product.id);
-                      }}
-                    >
-                      <Link to="/deleteProduct">
-                        <i className="delete fa fa-trash" />
-                      </Link>
-                    </button>
-                  </div>
-                </td>
+                      <button
+                        className="btn"
+                        onClick={() => {
+                          this.getProductById(product.id);
+                        }}
+                      >
+                        <Link to="/deleteProduct">
+                          <i className="delete fa fa-trash" />
+                        </Link>
+                      </button>
+                    </div>
+                  </td>
+                )}
               </tr>
             ))}
           </tbody>

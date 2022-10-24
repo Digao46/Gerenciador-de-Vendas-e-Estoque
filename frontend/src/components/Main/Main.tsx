@@ -12,6 +12,7 @@ import NewProduct from "../Templates/Modal/NewProduct/NewProduct";
 import NewSale from "../Templates/Modal/NewSale/NewSale";
 import EditProduct from "../Templates/Modal/EditProduct/EditProduct";
 import DeleteProduct from "../Templates/Modal/DeleteProduct/DeleteProduct";
+import { isAuthorizated } from "../../services/auth";
 
 class Main extends React.Component<any, any> {
   constructor(props: any) {
@@ -111,12 +112,14 @@ class Main extends React.Component<any, any> {
                   <Link to="/newSale">Iniciar Venda</Link>
                 </li>
 
-                <li className="newProduct d-flex justify-content-start align-items-center my-1">
-                  <div className="iconArea d-flex justify-content-center">
-                    <i className="fa fa-warehouse" />
-                  </div>
-                  <Link to="/newProduct">Novo Produto</Link>
-                </li>
+                {isAuthorizated() && (
+                  <li className="newProduct d-flex justify-content-start align-items-center my-1">
+                    <div className="iconArea d-flex justify-content-center">
+                      <i className="fa fa-warehouse" />
+                    </div>
+                    <Link to="/newProduct">Novo Produto</Link>
+                  </li>
+                )}
               </ul>
             </div>
           </div>

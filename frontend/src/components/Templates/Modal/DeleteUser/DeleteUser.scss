@@ -1,0 +1,46 @@
+.modal {
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 99999;
+  opacity: 1;
+
+  .modalFormArea {
+    height: 400px;
+    border-radius: 25px;
+    background-color: rgba(228, 223, 223, 0.744);
+
+    form {
+      width: 100%;
+
+      input {
+        border: none;
+        border-radius: 20px;
+
+        height: 40px;
+      }
+
+      .btns {
+        .btn {
+          border-radius: 15px;
+        }
+
+        .btnDel {
+          background-color: rgb(131, 131, 5);
+          color: var(--white-800);
+          font-size: 0.9rem;
+        }
+
+        .btnCancel {
+          background-color: red;
+          color: var(--white-800);
+        }
+      }
+    }
+  }
+}

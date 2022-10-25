@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-hot-toast";
 
-import { getProducts, getProduct } from "../../../services/api";
+import { getProducts } from "../../../services/api";
 
 import "./Storage.scss";
 import { isAuthorizated } from "../../../services/auth";
@@ -11,7 +11,7 @@ class Storage extends React.Component<any, any> {
   constructor(props: any) {
     super(props);
     this.state = {
-      products: 0,
+      products: [],
       filterKey: "",
       redirectTo: null,
     };
@@ -29,8 +29,8 @@ class Storage extends React.Component<any, any> {
     });
   };
 
-  getProductById = (productId: any) => {
-    getProduct(productId).then(this.props.getProductId(productId));
+  getProductId = (productId: any) => {
+    this.props.getProductId(productId);
   };
 
   handleChange = (e: any) => {
@@ -154,7 +154,7 @@ class Storage extends React.Component<any, any> {
                       <button
                         className="btn"
                         onClick={() => {
-                          this.getProductById(product.id);
+                          this.getProductId(product.id);
                         }}
                       >
                         <Link to="/editProduct">
@@ -165,7 +165,7 @@ class Storage extends React.Component<any, any> {
                       <button
                         className="btn"
                         onClick={() => {
-                          this.getProductById(product.id);
+                          this.getProductId(product.id);
                         }}
                       >
                         <Link to="/deleteProduct">

@@ -95,6 +95,26 @@ export async function getUsers() {
   return await apiUser.get("/users");
 }
 
+export async function getUser(id: any) {
+  return await apiUser.get(`/users/${id}`);
+}
+
+export async function deleteUser(id: any) {
+  return await apiUser.delete(`/users/${id}`);
+}
+
+export async function addUser(params: any) {
+  return await apiUser.post("/newUser", {
+    ...params,
+  });
+}
+
+export async function editUser(id: number, params: any) {
+  return await apiUser.put(`/editUser/${id}`, {
+    ...params,
+  });
+}
+
 // SignIn/SignUp
 const apiSign = axios.create({
   baseURL: url,

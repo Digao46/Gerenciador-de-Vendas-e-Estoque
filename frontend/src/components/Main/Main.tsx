@@ -1,5 +1,6 @@
 import React from "react";
 import { Switch, Route, Link } from "react-router-dom";
+import { isAuthorizated } from "../../services/auth";
 
 import "./Main.scss";
 
@@ -7,19 +8,22 @@ import Home from "../Templates/Home/Home";
 import Sales from "../Templates/Sales/Sales";
 import Storage from "../Templates/Storage/Storage";
 import Cash from "../Templates/Cash/Cash";
+import Users from "../Templates/Users/Users";
 
 import NewProduct from "../Templates/Modal/NewProduct/NewProduct";
 import NewSale from "../Templates/Modal/NewSale/NewSale";
+import NewUser from "../Templates/Modal/NewUser/NewUser";
 import EditProduct from "../Templates/Modal/EditProduct/EditProduct";
+import EditUser from "../Templates/Modal/EditUser/EditUser";
 import DeleteProduct from "../Templates/Modal/DeleteProduct/DeleteProduct";
-import { isAuthorizated } from "../../services/auth";
+import DeleteUser from "../Templates/Modal/DeleteUser/DeleteUser";
 
 class Main extends React.Component<any, any> {
   constructor(props: any) {
     super(props);
     this.state = {
       isActive: true,
-      productId: 0,
+      id: 0,
     };
   }
 
@@ -56,8 +60,8 @@ class Main extends React.Component<any, any> {
     this.handleDropdown();
   };
 
-  getProductId = (id: number) => {
-    this.setState({ productId: id });
+  getId = (id: number) => {
+    this.setState({ id: id });
   };
 
   render() {
@@ -69,7 +73,7 @@ class Main extends React.Component<any, any> {
           </Route>
 
           <Route path="/storage">
-            <Storage props={this.props} getProductId={this.getProductId} />
+            <Storage props={this.props} getProductId={this.getId} />
           </Route>
 
           <Route path="/newProduct">
@@ -79,12 +83,12 @@ class Main extends React.Component<any, any> {
 
           <Route path="/deleteProduct">
             <Home props={this.props} />
-            <DeleteProduct productId={this.state.productId} />
+            <DeleteProduct productId={this.state.id} />
           </Route>
 
           <Route path="/editProduct">
             <Home props={this.props} />
-            <EditProduct productId={this.state.productId} />
+            <EditProduct productId={this.state.id} />
           </Route>
 
           <Route path="/newSale">
@@ -94,6 +98,25 @@ class Main extends React.Component<any, any> {
 
           <Route path="/cash">
             <Cash props={this.props} />
+          </Route>
+
+          <Route path="/users">
+            <Users props={this.props} getUserId={this.getId} />
+          </Route>
+
+          <Route path="/newUser">
+            <Home props={this.props} />
+            <NewUser />
+          </Route>
+
+          <Route path="/deleteUser">
+            <Home props={this.props} />
+            <DeleteUser userId={this.state.id} />
+          </Route>
+
+          <Route path="/editUser">
+            <Home props={this.props} />
+            <EditUser userId={this.state.id} />
           </Route>
 
           <Route path="/">
@@ -118,6 +141,15 @@ class Main extends React.Component<any, any> {
                       <i className="fa fa-warehouse" />
                     </div>
                     <Link to="/newProduct">Novo Produto</Link>
+                  </li>
+                )}
+
+                {isAuthorizated() && (
+                  <li className="newProduct d-flex justify-content-start align-items-center my-1">
+                    <div className="iconArea d-flex justify-content-center">
+                      <i className="fa fa-user-plus" />
+                    </div>
+                    <Link to="/newUser">Nova Pessoa</Link>
                   </li>
                 )}
               </ul>

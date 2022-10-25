@@ -44,6 +44,18 @@ class Nav extends React.Component<any, any> {
               </Link>
             </li>
           )}
+
+          {isAuthorizated() && (
+            <li className="my-4 d-flex justify-content-start">
+              <div className="iconArea d-flex justify-content-center">
+                <i className="fa fa-user" />
+              </div>
+
+              <Link to="/users" className="ms-2">
+                Pessoas
+              </Link>
+            </li>
+          )}
         </ul>
       </aside>
     );

@@ -31,5 +31,13 @@ routes.get("/newSale", authMiddleware, ProductController.getProducts);
 // Rotas dos Usuários
 routes.get("/users", authMiddleware, UserController.getUsers);
 
+routes.post("/newUser", authMiddleware, UserController.addUser);
+
+routes.get("/users/:id", authMiddleware, UserController.getUserById);
+
+routes.put("/editUser/:id", authMiddleware, UserController.updateUser);
+
+routes.delete("/users/:id", authMiddleware, UserController.deleteUser);
+
 // Rotas de Login
 routes.post("/login", SignInController.signIn);

@@ -14,7 +14,7 @@ class Sales extends React.Component<any, any> {
     super(props);
 
     this.state = {
-      sales: 0,
+      sales: [],
       total: 0,
       periodBegin: "",
       periodEnd: "",

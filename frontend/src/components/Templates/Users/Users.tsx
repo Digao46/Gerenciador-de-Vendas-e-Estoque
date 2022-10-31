@@ -1,4 +1,5 @@
 import React from "react";
+import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 import { getUsers } from "../../../services/api";
 
@@ -9,6 +10,7 @@ class Users extends React.Component<any, any> {
     super(props);
     this.state = {
       users: [],
+      filterKey: "",
     };
   }
 
@@ -28,9 +30,77 @@ class Users extends React.Component<any, any> {
     this.props.getUserId(userId);
   };
 
+  handleChange = (e: any) => {
+    this.getAllUsers();
+    this.setState({ filterKey: e.target.value });
+  };
+
+  search = (e: any) => {
+    e.preventDefault();
+    this.getAllUsers()
+      .then(() => {
+        setTimeout(() => {
+          let usersFiltered = this.state.users.filter((user: any) =>
+            user.name
+              .toLowerCase()
+              .normalize("NFD")
+              .replace(/[\u0300-\u036f]/g, "")
+              .includes(
+                this.state.filterKey
+                  .toLowerCase()
+                  .normalize("NFD")
+                  .replace(/[\u0300-\u036f]/g, "")
+              )
+          );
+          this.setState({ users: usersFiltered });
+        }, 100);
+      })
+      .then(() => {
+        toast.success("Filtro Aplicado");
+      })
+      .catch(() => {
+        toast.error("Não foi possível aplicar o filtro!");
+      });
+  };
+
   render() {
+    if (!this.state.users) {
+      return (
+        <section className="container d-flex flex-column align-items-center justify-content-center col-10 pt-3">
+          <div>
+            <p> Ainda não existem registros para serem exibidos! </p>
+          </div>
+
+          <div className="info text-end">
+            <p>Clique aqui</p>
+
+            <i className="fa fa-arrow-right"></i>
+          </div>
+        </section>
+      );
+    }
+
     return (
       <section className="container d-flex flex-column align-items-center col-10 pt-3">
+        <div className="formArea container d-flex justify-content-center align-items-center mb-3">
+          <form onSubmit={this.search} className="d-flex col-8">
+            <input
+              className="col-8 me-2 ps-4 py-1"
+              type="text"
+              onChange={this.handleChange}
+              placeholder="Pesquisar funcionário"
+              required
+            />
+
+            <button
+              type="submit"
+              className="btn col-2 d-flex justify-content-center align-items-center"
+            >
+              <i className="fa fa-search" />
+            </button>
+          </form>
+        </div>
+
         <table className="table table-hover table-bordered table-striped">
           <thead className="text-center">
             <tr>

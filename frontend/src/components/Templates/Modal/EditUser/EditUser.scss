@@ -18,16 +18,24 @@
     form {
       width: 100%;
 
-      .holder {
-        border-radius: 20px;
-      }
-
       input {
         border: none;
         border-radius: 20px;
 
         height: 40px;
       }
+
+      .passwordInputArea {
+        span {
+          background-color: var(--white-800);
+
+          border: none;
+          border-radius: 20px;
+
+          height: 40px;
+        }
+      }
+
       .btns {
         .btn {
           border-radius: 15px;

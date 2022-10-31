@@ -78,7 +78,7 @@ class NewUser extends React.Component<any, any> {
                 <input
                   type="text"
                   name="username"
-                  className="inputUserame col-12 ps-3 mb-2"
+                  className="username col-12 ps-3 mb-2"
                   placeholder="Nome de Usuário"
                   value={this.state.username}
                   readOnly
@@ -89,7 +89,7 @@ class NewUser extends React.Component<any, any> {
                   type="text"
                   name="isAdmin"
                   className="isAdmin col-12 ps-3 mb-2"
-                  placeholder="Administrador"
+                  placeholder="Cargo"
                   value={
                     this.state.isAdmin === true ? "Administrador" : "Vendedor"
                   }

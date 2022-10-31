@@ -26,20 +26,41 @@ class NewUser extends React.Component<any, any> {
     this.setState({ [inputName]: value });
   };
 
-  handleCheckbox = (e: any) => {
-    const checkbox = document.querySelector("#admin") as HTMLInputElement;
+  handleAdminChange = (e: any) => {
+    let value: any = parseInt(e.target.value);
 
-    if (checkbox.checked) {
-      this.setState({ isAdmin: true });
+    value === 1 ? (value = true) : (value = false);
+
+    this.setState({ isAdmin: value });
+  };
+
+  handleInputType = (e: any) => {
+    let target = e.target;
+
+    let input: any;
+    let icon: any;
+
+    if (target.id === "showPasswordIcon") {
+      input = document.getElementById("password") as HTMLInputElement;
+      icon = document.getElementById("showPasswordIcon") as HTMLElement;
     } else {
-      this.setState({ isAdmin: false });
+      input = document.getElementById("passwordConfirm") as HTMLInputElement;
+      icon = document.getElementById("showPasswordConfirmIcon") as HTMLElement;
+    }
+
+    if (input.type === "password") {
+      input.type = "text";
+      icon.className = "showPasswordIcon fa fa-eye-slash";
+    } else {
+      input.type = "password";
+      icon.className = "showPasswordIcon fa fa-eye";
     }
   };
 
   addNewUser = (e: any) => {
     e.preventDefault();
 
-    if (!this.state.password === this.state.passwordConfirm) {
+    if (this.state.password !== this.state.passwordConfirm) {
       return toast.error("Senhas não coincidem!");
     }
 
@@ -82,62 +103,76 @@ class NewUser extends React.Component<any, any> {
             className="form d-flex justify-content-center align-items-center col-12"
           >
             <div className="col-6">
-              <div>
-                <input
-                  onChange={this.handleChange}
-                  type="text"
-                  name="name"
-                  className="inputName col-12 ps-3 mb-2"
-                  placeholder="Nome"
-                  required
-                />
-              </div>
-              <div>
-                <input
-                  onChange={this.handleChange}
-                  type="text"
-                  name="username"
-                  className="inputUserame col-12 ps-3 mb-2"
-                  placeholder="Nome de Usuário"
-                  required
-                />
-              </div>
-              <div>
+              <input
+                onChange={this.handleChange}
+                type="text"
+                name="name"
+                className="inputName col-12 ps-3 mb-2"
+                placeholder="Nome"
+                required
+              />
+
+              <input
+                onChange={this.handleChange}
+                type="text"
+                name="username"
+                className="inputUserame col-12 ps-3 mb-2"
+                placeholder="Nome de Usuário"
+                required
+              />
+
+              <div className="passwordInputArea input-group">
                 <input
                   onChange={this.handleChange}
                   type="password"
                   name="password"
-                  className="password col-12 ps-3 mb-2"
+                  id="password"
+                  className="password form-control col-12 ps-3 mb-2"
                   placeholder="Senha"
                   required
                 />
+
+                <span className="input-group-text">
+                  <i
+                    onClick={this.handleInputType}
+                    id="showPasswordIcon"
+                    className="showPasswordIcon fa fa-eye"
+                  />
+                </span>
               </div>
-              <div>
+
+              <div className="passwordInputArea input-group">
                 <input
                   onChange={this.handleChange}
                   type="password"
                   name="passwordConfirm"
-                  className="passwordConfirm col-12 ps-3 mb-2"
+                  id="passwordConfirm"
+                  className="passwordConfirm form-control col-12 ps-3 mb-2"
                   placeholder="Confirme a senha"
                   required
                 />
+
+                <span className="input-group-text">
+                  <i
+                    onClick={this.handleInputType}
+                    id="showPasswordConfirmIcon"
+                    className="showPasswordConfirmIcon fa fa-eye"
+                  />
+                </span>
               </div>
 
-              <div className="mb-2">
-                <div className="d-flex justify-content-evenly">
-                  <div>
-                    <label htmlFor="admin"> Administrador </label>
+              <select
+                className="roleInput col-12 ps-3 mb-2"
+                onChange={this.handleAdminChange}
+                name="Role"
+                id="roleSelect"
+                placeholder="Selecione o cargo:"
+              >
+                <option selected>Selecione o cargo:</option>
+                <option value={1}>Administrador</option>
+                <option value={0}>Vendedor</option>
+              </select>
 
-                    <input
-                      onChange={this.handleCheckbox}
-                      id="admin"
-                      name="isAdmin"
-                      type="checkbox"
-                      value="true"
-                    />
-                  </div>
-                </div>
-              </div>
               <div className="btns d-flex justify-content-end mb-4">
                 <button type="submit" className="btn btnAdd col-4 me-2">
                   Adicionar

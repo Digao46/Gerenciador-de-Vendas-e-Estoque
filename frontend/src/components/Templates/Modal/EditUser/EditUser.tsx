@@ -35,6 +35,28 @@ class EditUser extends React.Component<any, any> {
     this.setState({ [inputName]: value });
   };
 
+  handleAdminChange = (e: any) => {
+    let value: any = parseInt(e.target.value);
+
+    value === 1 ? (value = true) : (value = false);
+
+    this.setState({ isAdmin: value });
+  };
+
+  handleInputType = () => {
+    const input = document.getElementById("password") as HTMLInputElement;
+
+    const icon = document.getElementById("showPasswordIcon")! as HTMLElement;
+
+    if (input.type === "password") {
+      input.type = "text";
+      icon.className = "showPasswordIcon fa fa-eye-slash";
+    } else {
+      input.type = "password";
+      icon.className = "showPasswordIcon fa fa-eye";
+    }
+  };
+
   updateUser = (e: any) => {
     e.preventDefault();
 
@@ -93,30 +115,43 @@ class EditUser extends React.Component<any, any> {
                 type="text"
                 name="username"
                 className="username col-12 ps-3 mb-1"
-                placeholder="Preço de Venda"
+                placeholder="Nome de Usuário"
                 value={this.state.username}
                 required
               />
 
-              <input
-                onChange={this.handleChange}
-                type="password"
-                name="password"
-                className="password col-12 ps-3 mb-1"
-                placeholder="Senha"
-                value={this.state.password}
-                required
-              />
+              <div className="passwordInputArea input-group">
+                <input
+                  onChange={this.handleChange}
+                  type="password"
+                  name="password"
+                  id="password"
+                  className="password form-control col-12 ps-3 mb-1"
+                  placeholder="Senha"
+                  value={this.state.password}
+                  required
+                />
 
-              <input
-                onChange={this.handleChange}
-                type="text"
-                name="admin"
-                className="admin col-12 ps-3 mb-3"
-                placeholder="Cargo"
-                value={this.state.isAdmin}
-                required
-              />
+                <span className="input-group-text">
+                  <i
+                    onClick={this.handleInputType}
+                    id="showPasswordIcon"
+                    className="showPasswordIcon fa fa-eye"
+                  />
+                </span>
+              </div>
+
+              <select
+                className="roleInput col-12 ps-3 mb-2"
+                onChange={this.handleAdminChange}
+                name="Role"
+                id="roleSelect"
+                placeholder="Selecione o cargo:"
+                value={!this.state.isAdmin ? 0 : 1}
+              >
+                <option value={1}>Administrador</option>
+                <option value={0}>Vendedor</option>
+              </select>
 
               <div className="btns d-flex justify-content-end mb-4">
                 <button type="submit" className="btn btnAdd col-4 me-2">

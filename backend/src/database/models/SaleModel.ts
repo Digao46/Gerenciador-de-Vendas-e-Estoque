@@ -20,4 +20,8 @@ export const SaleModel = db.define("sales", {
     type: DataTypes.DOUBLE,
     allowNull: false,
   },
+  idSeller: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
 });

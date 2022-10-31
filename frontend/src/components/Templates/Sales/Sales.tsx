@@ -2,7 +2,7 @@ import React from "react";
 import { DatePicker, Space } from "antd";
 import { toast } from "react-hot-toast";
 
-import { getSales } from "../../../services/api";
+import { getSales, getUsers } from "../../../services/api";
 
 import "./Sales.scss";
 
@@ -18,20 +18,38 @@ class Sales extends React.Component<any, any> {
       total: 0,
       periodBegin: "",
       periodEnd: "",
+      idSeller: "",
     };
   }
 
   componentDidMount(): void {
     this.props.props.setTitle("Vendas");
 
+    getUsers().then((res) => {
+      let data = res.data.users.filter(
+        (user: any) =>
+          user.username === JSON.parse(localStorage.getItem("user")!).username
+      );
+
+      this.setState({ idSeller: data[0].id });
+    });
+
     this.getAllSales();
   }
 
   getAllSales = async () => {
     await getSales().then((res) => {
-      this.setState({
-        sales: res.data.sales.sort((a: any, b: any) => b.id - a.id),
-      });
+      if (JSON.parse(localStorage.getItem("user")!).isAdmin) {
+        this.setState({
+          sales: res.data.sales.sort((a: any, b: any) => b.id - a.id),
+        });
+      } else {
+        this.setState({
+          sales: res.data.sales
+            .filter((sale: any) => sale.idSeller === this.state.idSeller)
+            .sort((a: any, b: any) => b.id - a.id),
+        });
+      }
     });
   };
 

@@ -7,6 +7,7 @@ import {
   editProduct,
   getProduct,
   addSale,
+  getUsers,
 } from "../../../../services/api";
 
 import "./NewSale.scss";
@@ -26,6 +27,7 @@ class NewSale extends React.Component<any, any> {
       name: "",
       price: "",
       storage: "",
+      idSeller: "",
       quantity: 1,
       total: 0,
 
@@ -36,6 +38,15 @@ class NewSale extends React.Component<any, any> {
   componentDidMount(): void {
     getProducts().then((res) => {
       this.setState({ products: res.data.products });
+    });
+
+    getUsers().then((res) => {
+      let data = res.data.users.filter(
+        (user: any) =>
+          user.username === JSON.parse(localStorage.getItem("user")!).username
+      );
+
+      this.setState({ idSeller: data[0].id });
     });
   }
 
@@ -163,8 +174,9 @@ class NewSale extends React.Component<any, any> {
     const products = this.state.names;
     const quantity = this.state.quantities;
     const total = this.state.total;
+    const idSeller = this.state.idSeller;
 
-    addSale({ products, quantity, total })
+    addSale({ products, quantity, total, idSeller })
       .then((res) => {
         toast.success(res.data.message);
         this.setState({ redirectTo: "/sales" });

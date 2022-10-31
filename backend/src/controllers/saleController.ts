@@ -23,12 +23,13 @@ class SaleController {
   }
 
   async addSale(req: Request, res: Response) {
-    const { products, quantity, total } = req.body;
+    const { products, quantity, total, idSeller } = req.body;
 
     const newSale = SaleModel.create({
       products: products,
       quantity: quantity,
       total: total,
+      idSeller: idSeller
     });
 
     try {

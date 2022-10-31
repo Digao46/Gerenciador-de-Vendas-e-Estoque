@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import { getProducts, getSales } from "../../../services/api";
+import { getProducts, getSales, getUsers } from "../../../services/api";
 import { isAuthorizated } from "../../../services/auth";
 
 import "./Home.scss";
@@ -12,6 +12,7 @@ class Home extends React.Component<any, any> {
     this.state = {
       productsLength: 0,
       salesLength: 0,
+      idSeller: "",
     };
   }
 
@@ -21,7 +22,27 @@ class Home extends React.Component<any, any> {
     getProducts().then((res) =>
       this.setState({ productsLength: res.data.products })
     );
-    getSales().then((res) => this.setState({ salesLength: res.data.sales }));
+
+    getUsers().then((res) => {
+      let data = res.data.users.filter(
+        (user: any) =>
+          user.username === JSON.parse(localStorage.getItem("user")!).username
+      );
+
+      this.setState({ idSeller: data[0].id });
+    });
+
+    getSales().then((res) => {
+      if (JSON.parse(localStorage.getItem("user")!).isAdmin) {
+        this.setState({ salesLength: res.data.sales });
+      } else {
+        this.setState({
+          salesLength: res.data.sales.filter(
+            (sale: any) => sale.idSeller === this.state.idSeller
+          ),
+        });
+      }
+    });
   }
 
   render() {

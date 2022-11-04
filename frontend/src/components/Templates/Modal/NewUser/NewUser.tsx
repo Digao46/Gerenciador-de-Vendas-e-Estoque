@@ -166,9 +166,8 @@ class NewUser extends React.Component<any, any> {
                 onChange={this.handleAdminChange}
                 name="Role"
                 id="roleSelect"
-                placeholder="Selecione o cargo:"
               >
-                <option selected>Selecione o cargo:</option>
+                <option value={"Selecione o cargo:"}>Selecione o cargo:</option>
                 <option value={1}>Administrador</option>
                 <option value={0}>Vendedor</option>
               </select>

@@ -2,11 +2,23 @@ import axios from "axios";
 
 const url = "http://localhost:8080";
 
-// Storage
 const apiStorage = axios.create({
   baseURL: url,
 });
 
+const apiSale = axios.create({
+  baseURL: url,
+});
+
+const apiUser = axios.create({
+  baseURL: url,
+});
+
+const apiSign = axios.create({
+  baseURL: url,
+});
+
+// ===================== Storage =====================
 apiStorage.interceptors.request.use(
   (config) => {
     const token = JSON.parse(localStorage.getItem("user")!);
@@ -43,11 +55,7 @@ export async function addProduct(params: any) {
   });
 }
 
-// Sales
-const apiSale = axios.create({
-  baseURL: url,
-});
-
+// ===================== Sales =====================
 apiSale.interceptors.request.use(
   (config) => {
     const token = JSON.parse(localStorage.getItem("user")!);
@@ -64,21 +72,23 @@ export async function getSales() {
   return await apiSale.get("/sales");
 }
 
-export async function getSale(id: any) {
-  return await apiSale.get(`/sales/${id}`);
-}
-
 export async function addSale(params: any) {
   return await apiSale.post("/newSale", {
     ...params,
   });
 }
 
-// Users
-const apiUser = axios.create({
-  baseURL: url,
-});
+export async function getSalesForCash() {
+  return await apiSale.get("/cash");
+}
 
+export async function editProductStorage(id: number, params: any) {
+  return await apiStorage.put(`/newSale/${id}`, {
+    ...params,
+  });
+}
+
+//  ===================== Users =====================
 apiUser.interceptors.request.use(
   (config) => {
     const token = JSON.parse(localStorage.getItem("user")!);
@@ -115,11 +125,7 @@ export async function editUser(id: number, params: any) {
   });
 }
 
-// SignIn/SignUp
-const apiSign = axios.create({
-  baseURL: url,
-});
-
+// ===================== SignIn/SignUp =====================
 export async function logIn(params: any) {
   return await apiSign.post("/login", {
     ...params,

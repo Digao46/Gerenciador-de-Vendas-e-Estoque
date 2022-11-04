@@ -1,11 +1,11 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { toast } from "react-hot-toast";
 
 import { getProducts } from "../../../services/api";
 
 import "./Storage.scss";
-import { isAuthorizated } from "../../../services/auth";
+import { isAuthenticated, isAuthorizated } from "../../../services/auth";
 
 class Storage extends React.Component<any, any> {
   constructor(props: any) {
@@ -18,15 +18,35 @@ class Storage extends React.Component<any, any> {
   }
 
   componentDidMount(): void {
+    if (!isAuthenticated()) {
+      this.setState({ redirectTo: "/login" });
+    }
+
     this.props.props.setTitle("Estoque");
 
     this.getAllProducts();
   }
 
   getAllProducts = async () => {
-    await getProducts().then((res) => {
-      this.setState({ products: res.data.products });
-    });
+    await getProducts()
+      .then((res) => {
+        this.setState({ products: res.data.products });
+      })
+      .catch((err: any) => {
+        if (err.response.status === 401) {
+          toast.error(err.response.data.message);
+
+          this.setState({ redirectTo: "/login" });
+
+          localStorage.removeItem("user");
+
+          return;
+        } else {
+          toast.error(err.response.data.message);
+
+          this.setState({ redirectTo: "/" });
+        }
+      });
   };
 
   getProductId = (productId: any) => {
@@ -67,6 +87,10 @@ class Storage extends React.Component<any, any> {
   };
 
   render() {
+    if (this.state.redirectTo) {
+      return <Redirect to={this.state.redirectTo} />;
+    }
+
     if (!this.state.products) {
       return (
         <section className="container d-flex flex-column align-items-center justify-content-center col-10 pt-3">

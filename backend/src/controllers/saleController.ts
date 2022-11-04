@@ -29,13 +29,13 @@ class SaleController {
       products: products,
       quantity: quantity,
       total: total,
-      idSeller: idSeller
+      idSeller: idSeller,
     });
 
     try {
-      res.json({ newSale, message: "Venda concluída!" });
+      res.status(200).json({ newSale, message: "Venda concluída!" });
     } catch (err) {
-      res.json({ message: "Não foi possível concluir a venda!" });
+      res.status(400).json({ message: "Não foi possível concluir a venda!" });
     }
   }
 }

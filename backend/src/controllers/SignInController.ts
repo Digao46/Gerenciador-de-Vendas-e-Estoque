@@ -23,6 +23,7 @@ class SignInController {
     const payload = {
       username: user.username,
       admin: user.isAdmin,
+      id: user.id,
       iat: now,
       exp: now + 60 * 60 * 6,
     };
@@ -32,6 +33,7 @@ class SignInController {
     res.status(200).json({
       username: payload.username,
       isAdmin: payload.admin,
+      userId: payload.id,
       token: token,
     });
 

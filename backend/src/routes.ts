@@ -5,39 +5,78 @@ import SignInController from "./controllers/SignInController";
 import UserController from "./controllers/UserController";
 
 import { authMiddleware } from "./middlewares/authMiddleware";
+import { adminMiddleware } from "./middlewares/adminMiddleware";
 
 export const routes = express.Router();
+
+// Rotas de Login
+routes.post("/login", SignInController.signIn);
 
 // Rotas dos Produtos
 routes.get("/storage", authMiddleware, ProductController.getProducts);
 
-routes.post("/newProduct", authMiddleware, ProductController.addProduct);
-
 routes.get("/storage/:id", authMiddleware, ProductController.getProductById);
 
-routes.put("/editProduct/:id", authMiddleware, ProductController.updateProduct);
+routes.post(
+  "/newProduct",
+  authMiddleware,
+  adminMiddleware,
+  ProductController.addProduct
+);
 
-routes.delete("/storage/:id", authMiddleware, ProductController.deleteProduct);
+routes.put(
+  "/editProduct/:id",
+  authMiddleware,
+  adminMiddleware,
+  ProductController.updateProduct
+);
+
+routes.delete(
+  "/storage/:id",
+  authMiddleware,
+  adminMiddleware,
+  ProductController.deleteProduct
+);
 
 // Rotas das Vendas
 routes.get("/sales", authMiddleware, SaleController.getSales);
 
-routes.post("/newSale", authMiddleware, SaleController.addSale);
-
-routes.get("/sales/:id", authMiddleware, SaleController.getSaleById);
-
 routes.get("/newSale", authMiddleware, ProductController.getProducts);
 
+routes.post("/newSale", authMiddleware, SaleController.addSale);
+
+routes.put("/newSale/:id", authMiddleware, ProductController.updateProduct); // Editar estoque ao finalizar a venda
+
 // Rotas dos Usuários
-routes.get("/users", authMiddleware, UserController.getUsers);
+routes.get("/users", authMiddleware, adminMiddleware, UserController.getUsers);
 
-routes.post("/newUser", authMiddleware, UserController.addUser);
+routes.get(
+  "/users/:id",
+  authMiddleware,
+  adminMiddleware,
+  UserController.getUserById
+);
 
-routes.get("/users/:id", authMiddleware, UserController.getUserById);
+routes.post(
+  "/newUser",
+  authMiddleware,
+  adminMiddleware,
+  UserController.addUser
+);
 
-routes.put("/editUser/:id", authMiddleware, UserController.updateUser);
+routes.put(
+  "/editUser/:id",
+  authMiddleware,
+  adminMiddleware,
+  UserController.updateUser
+);
 
-routes.delete("/users/:id", authMiddleware, UserController.deleteUser);
+routes.delete(
+  "/users/:id",
+  authMiddleware,
+  adminMiddleware,
+  UserController.deleteUser
+);
 
-// Rotas de Login
-routes.post("/login", SignInController.signIn);
+// Caixa
+routes.get("/cash", authMiddleware, adminMiddleware, SaleController.getSales);

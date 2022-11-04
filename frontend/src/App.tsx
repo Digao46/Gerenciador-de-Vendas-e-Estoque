@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Redirect,
-} from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 
 import "./assets/scss/globals.scss";
@@ -20,25 +15,8 @@ class App extends React.Component<any, any> {
     this.state = {
       title: "Dashboard",
       isActive: false,
-      redirectTo: null,
     };
   }
-
-  componentDidMount = (): void => {
-    setInterval(() => {
-      this.validateToken();
-    }, 10000);
-  };
-
-  validateToken = async () => {
-    const user = JSON.parse(localStorage.getItem("user")!);
-
-    if (!user?.token) {
-      this.setState({ redirectTo: "/login" });
-
-      return;
-    }
-  };
 
   handleNav = () => {
     const app = document.querySelector(".App")!;
@@ -64,8 +42,6 @@ class App extends React.Component<any, any> {
   render() {
     return (
       <Router>
-        {this.state.redirectTo && <Redirect to={this.state.redirectTo} />}
-
         <Switch>
           <Route path="/login">
             <div className="App d-flex justify-content-center align-items-center">

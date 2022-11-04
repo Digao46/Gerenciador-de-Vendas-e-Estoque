@@ -1,8 +1,9 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
+import { Link, Redirect } from "react-router-dom";
 
-import { getProducts, getSales, getUsers } from "../../../services/api";
-import { isAuthorizated } from "../../../services/auth";
+import { getProducts, getSales } from "../../../services/api";
+import { isAuthenticated, isAuthorizated } from "../../../services/auth";
 
 import "./Home.scss";
 
@@ -12,40 +13,71 @@ class Home extends React.Component<any, any> {
     this.state = {
       productsLength: 0,
       salesLength: 0,
-      idSeller: "",
+      redirectTo: null,
     };
   }
 
   componentDidMount(): void {
+    if (!isAuthenticated()) {
+      this.setState({ redirectTo: "/login" });
+    }
+
     this.props.props.setTitle("Dashboard");
 
-    getProducts().then((res) =>
-      this.setState({ productsLength: res.data.products })
-    );
+    getProducts()
+      .then((res) => this.setState({ productsLength: res.data.products }))
+      .catch((err: any) => {
+        if (err.response.status === 401) {
+          toast.error(err.response.data.message);
 
-    getUsers().then((res) => {
-      let data = res.data.users.filter(
-        (user: any) =>
-          user.username === JSON.parse(localStorage.getItem("user")!).username
-      );
+          this.setState({ redirectTo: "/login" });
 
-      this.setState({ idSeller: data[0].id });
-    });
+          localStorage.removeItem("user");
 
-    getSales().then((res) => {
-      if (JSON.parse(localStorage.getItem("user")!).isAdmin) {
-        this.setState({ salesLength: res.data.sales });
-      } else {
-        this.setState({
-          salesLength: res.data.sales.filter(
-            (sale: any) => sale.idSeller === this.state.idSeller
-          ),
-        });
-      }
-    });
+          return;
+        } else {
+          toast.error(err.response.data.message);
+
+          this.setState({ redirectTo: "/" });
+        }
+      });
+
+    getSales()
+      .then((res) => {
+        if (isAuthorizated()) {
+          this.setState({ salesLength: res.data.sales });
+        } else {
+          this.setState({
+            salesLength: res.data.sales.filter(
+              (sale: any) =>
+                sale.idSeller ===
+                JSON.parse(localStorage.getItem("user")!).userId
+            ),
+          });
+        }
+      })
+      .catch((err: any) => {
+        if (err.response.status === 401) {
+          toast.error(err.response.data.message);
+
+          this.setState({ redirectTo: "/login" });
+
+          localStorage.removeItem("user");
+
+          return;
+        } else {
+          toast.error(err.response.data.message);
+
+          this.setState({ redirectTo: "/" });
+        }
+      });
   }
 
   render() {
+    if (this.state.redirectTo) {
+      return <Redirect to={this.state.redirectTo} />;
+    }
+
     return (
       <section className="container d-flex justify-content-around pt-3">
         <div className="card sales d-flex justify-content-center align-items-center col-3">

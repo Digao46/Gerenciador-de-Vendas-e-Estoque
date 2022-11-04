@@ -2,9 +2,11 @@ import React from "react";
 import { DatePicker, Space } from "antd";
 import { toast } from "react-hot-toast";
 
-import { getSales, getUsers } from "../../../services/api";
+import { getSales } from "../../../services/api";
+import { isAuthenticated, isAuthorizated } from "../../../services/auth";
 
 import "./Sales.scss";
+import { Redirect } from "react-router";
 
 const { RangePicker } = DatePicker;
 const dateFormat = "DD/MM/YYYY";
@@ -18,39 +20,53 @@ class Sales extends React.Component<any, any> {
       total: 0,
       periodBegin: "",
       periodEnd: "",
-      idSeller: "",
     };
   }
 
   componentDidMount(): void {
+    if (!isAuthenticated()) {
+      this.setState({ redirectTo: "/login" });
+    }
+
     this.props.props.setTitle("Vendas");
-
-    getUsers().then((res) => {
-      let data = res.data.users.filter(
-        (user: any) =>
-          user.username === JSON.parse(localStorage.getItem("user")!).username
-      );
-
-      this.setState({ idSeller: data[0].id });
-    });
 
     this.getAllSales();
   }
 
   getAllSales = async () => {
-    await getSales().then((res) => {
-      if (JSON.parse(localStorage.getItem("user")!).isAdmin) {
-        this.setState({
-          sales: res.data.sales.sort((a: any, b: any) => b.id - a.id),
-        });
-      } else {
-        this.setState({
-          sales: res.data.sales
-            .filter((sale: any) => sale.idSeller === this.state.idSeller)
-            .sort((a: any, b: any) => b.id - a.id),
-        });
-      }
-    });
+    await getSales()
+      .then((res) => {
+        if (isAuthorizated()) {
+          this.setState({
+            sales: res.data.sales.sort((a: any, b: any) => b.id - a.id),
+          });
+        } else {
+          this.setState({
+            sales: res.data.sales
+              .filter(
+                (sale: any) =>
+                  sale.idSeller ===
+                  JSON.parse(localStorage.getItem("user")!).userId
+              )
+              .sort((a: any, b: any) => b.id - a.id),
+          });
+        }
+      })
+      .catch((err: any) => {
+        if (err.response.status === 401) {
+          toast.error(err.response.data.message);
+
+          this.setState({ redirectTo: "/login" });
+
+          localStorage.removeItem("user");
+
+          return;
+        } else {
+          toast.error(err.response.data.message);
+
+          this.setState({ redirectTo: "/" });
+        }
+      });
   };
 
   filterByCustomPeriod = (e: any) => {
@@ -125,6 +141,10 @@ class Sales extends React.Component<any, any> {
         this.setState({ total: totalvalue });
       }
     }, 0);
+
+    if (this.state.redirectTo) {
+      return <Redirect to={this.state.redirectTo} />;
+    }
 
     if (!this.state.sales) {
       return (

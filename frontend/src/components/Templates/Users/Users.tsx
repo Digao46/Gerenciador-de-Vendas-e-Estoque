@@ -1,7 +1,8 @@
 import React from "react";
 import toast from "react-hot-toast";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { getUsers } from "../../../services/api";
+import { isAuthenticated } from "../../../services/auth";
 
 import "./Users.scss";
 
@@ -11,19 +12,40 @@ class Users extends React.Component<any, any> {
     this.state = {
       users: [],
       filterKey: "",
+      redirectTo: null,
     };
   }
 
   componentDidMount(): void {
+    if (!isAuthenticated()) {
+      this.setState({ redirectTo: "/login" });
+    }
+
     this.props.props.setTitle("Pessoas");
 
     this.getAllUsers();
   }
 
   getAllUsers = async () => {
-    await getUsers().then((res) => {
-      this.setState({ users: res.data.users });
-    });
+    await getUsers()
+      .then((res) => {
+        this.setState({ users: res.data.users });
+      })
+      .catch((err: any) => {
+        if (err.response.status === 401) {
+          toast.error(err.response.data.message);
+
+          this.setState({ redirectTo: "/login" });
+
+          localStorage.removeItem("user");
+
+          return;
+        } else {
+          toast.error(err.response.data.message);
+
+          this.setState({ redirectTo: "/" });
+        }
+      });
   };
 
   getUserId = (userId: any) => {
@@ -64,6 +86,10 @@ class Users extends React.Component<any, any> {
   };
 
   render() {
+    if (this.state.redirectTo) {
+      return <Redirect to={this.state.redirectTo} />;
+    }
+
     if (!this.state.users) {
       return (
         <section className="container d-flex flex-column align-items-center justify-content-center col-10 pt-3">
@@ -107,7 +133,7 @@ class Users extends React.Component<any, any> {
               <th scope="col">Id</th>
               <th scope="col">Nome</th>
               <th scope="col">Apelido</th>
-              <th scope="col">Admin</th>
+              <th scope="col">Cargo</th>
               <th scope="col">Ações</th>
             </tr>
           </thead>
@@ -117,7 +143,11 @@ class Users extends React.Component<any, any> {
                 <td>{user.id}</td>
                 <td>{user.name}</td>
                 <td>{user.username}</td>
-                {user.isAdmin === true ? <td>Sim</td> : <td>Não</td>}
+                {user.isAdmin === true ? (
+                  <td>Administrador(a)</td>
+                ) : (
+                  <td>Vendedor(a)</td>
+                )}
                 <td>
                   <div className="d-flex justify-content-center">
                     <button

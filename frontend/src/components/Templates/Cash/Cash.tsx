@@ -1,10 +1,12 @@
 import React from "react";
 
-import { getSales } from "../../../services/api";
-
 import "./Cash.scss";
 
 import Charts from "../Charts/Charts";
+import { getSalesForCash } from "../../../services/api";
+import { isAuthenticated } from "../../../services/auth";
+import { Redirect } from "react-router";
+import toast from "react-hot-toast";
 
 class Cash extends React.Component<any, any> {
   constructor(props: any) {
@@ -18,13 +20,18 @@ class Cash extends React.Component<any, any> {
       salesLastMonth: 0,
       lastMonthQuantity: 0,
       periods: [7, 30],
+      redirectTo: null,
     };
   }
 
   componentDidMount(): void {
+    if (!isAuthenticated()) {
+      this.setState({ redirectTo: "/login" });
+    }
+
     this.props.props.setTitle("Caixa");
-    
-    getSales()
+
+    getSalesForCash()
       .then((res) => {
         this.setState({ allSales: res.data.sales });
       })
@@ -33,6 +40,21 @@ class Cash extends React.Component<any, any> {
           this.filterToday();
           this.filterPeriod(this.state.periods);
         }, 10);
+      })
+      .catch((err: any) => {
+        if (err.response.status === 401) {
+          toast.error(err.response.data.message);
+
+          this.setState({ redirectTo: "/login" });
+
+          localStorage.removeItem("user");
+
+          return;
+        } else {
+          toast.error(err.response.data.message);
+
+          this.setState({ redirectTo: "/" });
+        }
       });
   }
 
@@ -91,6 +113,10 @@ class Cash extends React.Component<any, any> {
   };
 
   render() {
+    if (this.state.redirectTo) {
+      return <Redirect to={this.state.redirectTo} />;
+    }
+
     if (!this.state.allSales) {
       return (
         <section className="container d-flex flex-column align-items-center justify-content-center col-10 pt-3">

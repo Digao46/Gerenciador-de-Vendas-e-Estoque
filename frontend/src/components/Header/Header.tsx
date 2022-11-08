@@ -27,22 +27,7 @@ class Header extends React.Component<any, any> {
 
   logOut = () => {
     localStorage.removeItem("user");
-
-    // this.setState({ redirectTo: "/login" });
-
-    window.location.href = "/login"
-  };
-
-  handleActive = (class1: string, class2: string) => {
-    this.setState({ isDropdownActive: !this.state.isDropdownActive });
-
-    const element = document.getElementById("toggleButton")!;
-
-    if (this.state.isDropdownActive) {
-      element.className = "toggleButton active";
-    } else {
-      element.className = "toggleButton";
-    }
+    window.location.href = "/login";
   };
 
   handleMenu = () => {
@@ -81,20 +66,11 @@ class Header extends React.Component<any, any> {
               <div className="user me-3">
                 <p>{this.state.username}</p>
               </div>
-              <div className="userImg me-2 d-flex justify-content-center align-items-center">
+              <div className="userImg me-3 d-flex justify-content-center align-items-center">
                 <img src={Logo} alt="Imagem Usuário" />
               </div>
-              <div id="toggleButton" className="toggleButton">
-                <button
-                  id="btn"
-                  className="btn"
-                  onClick={() => {
-                    this.handleActive("toggleButton", "active");
-                    this.logOut();
-                  }}
-                >
-                  <i className="fa fa-angle-right"></i>
-                </button>
+              <div className="leave">
+                <span onClick={this.logOut}>Sair</span>
               </div>
             </div>
           </div>

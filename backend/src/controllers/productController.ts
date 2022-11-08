@@ -1,9 +1,30 @@
-import { Request, Response } from "express";
+import { Response } from "express";
 import { ProductModel } from "../database/models/ProductModel";
 
+import { RequestApp } from "../interfaces/Request";
+
 class productController {
-  async getProducts(req: Request, res: Response) {
-    const products = await ProductModel.findAll();
+  async getProducts(req: RequestApp, res: Response) {
+
+    let response = await ProductModel.findAll();
+    let products: any[] = [];
+
+    if (req.user.isAdmin) {
+      products = response;
+    } else {
+      let anyProducts = JSON.parse(JSON.stringify(response));
+
+      for (let i = 0; i < anyProducts.length; i++) {
+        let obj = {
+          id: anyProducts[i].id,
+          name: anyProducts[i].name,
+          sellPrice: anyProducts[i].sellPrice,
+          storage: anyProducts[i].storage,
+        };
+
+        products.push(obj);
+      }
+    }
 
     try {
       res.status(200).json({ products });
@@ -14,7 +35,7 @@ class productController {
     }
   }
 
-  async getProductById(req: Request, res: Response) {
+  async getProductById(req: RequestApp, res: Response) {
     const product = await ProductModel.findByPk(req.params.id);
 
     try {
@@ -24,7 +45,7 @@ class productController {
     }
   }
 
-  async addProduct(req: Request, res: Response) {
+  async addProduct(req: RequestApp, res: Response) {
     const { name, sellPrice, costPrice, storage } = req.body;
 
     const newProduct = ProductModel.create({
@@ -35,9 +56,7 @@ class productController {
     });
 
     try {
-      res
-        .status(200)
-        .json({ newProduct, message: "Produto adicionado!" });
+      res.status(200).json({ newProduct, message: "Produto adicionado!" });
     } catch (err) {
       res
         .status(400)
@@ -45,7 +64,7 @@ class productController {
     }
   }
 
-  async updateProduct(req: Request, res: Response) {
+  async updateProduct(req: RequestApp, res: Response) {
     const updatedProduct = await ProductModel.update(
       {
         name: req.body.name,
@@ -66,7 +85,7 @@ class productController {
     }
   }
 
-  async deleteProduct(req: Request, res: Response) {
+  async deleteProduct(req: RequestApp, res: Response) {
     const deletedProduct = await ProductModel.destroy({
       where: {
         id: req.params.id,

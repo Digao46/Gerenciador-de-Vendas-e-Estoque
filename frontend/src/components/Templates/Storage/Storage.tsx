@@ -132,10 +132,10 @@ class Storage extends React.Component<any, any> {
             <tr>
               <th scope="col">Produto</th>
               <th scope="col">Estoque</th>
-              {isAuthorizated() && <th scope="col">Preço de Custo</th>}
               <th scope="col">Preço de Venda</th>
-              {isAuthorizated() && <th scope="col">Lucro Unidade</th>}
-              {isAuthorizated() && <th scope="col">Ações</th>}
+              {isAuthorizated() ? <th scope="col">Preço de Custo</th> : null}
+              {isAuthorizated() ? <th scope="col">Lucro Unidade</th> : null}
+              {isAuthorizated() ? <th scope="col">Ações</th> : null}
             </tr>
           </thead>
           <tbody className="text-center">
@@ -151,28 +151,30 @@ class Storage extends React.Component<any, any> {
                   <td>{product.storage} uni</td>
                 )}
 
-                {isAuthorizated() && (
+                <td>
+                  R$
+                  <span>{product.sellPrice.toFixed(2).replace(".", ",")}</span>
+                </td>
+
+                {isAuthorizated() && product.costPrice ? (
                   <td>
                     R$
                     <span>
                       {product.costPrice.toFixed(2).replace(".", ",")}
                     </span>
                   </td>
-                )}
+                ) : null}
 
-                <td>
-                  R$
-                  <span>{product.sellPrice.toFixed(2).replace(".", ",")}</span>
-                </td>
-                {isAuthorizated() && (
+                {isAuthorizated() && product.costPrice ? (
                   <td>
                     R$
                     {(product.sellPrice - product.costPrice)
                       .toFixed(2)
                       .replace(".", ",")}
                   </td>
-                )}
-                {isAuthorizated() && (
+                ) : null}
+
+                {isAuthorizated() && product.costPrice ? (
                   <td>
                     <div className="d-flex justify-content-center">
                       <button
@@ -198,7 +200,7 @@ class Storage extends React.Component<any, any> {
                       </button>
                     </div>
                   </td>
-                )}
+                ) : null}
               </tr>
             ))}
           </tbody>

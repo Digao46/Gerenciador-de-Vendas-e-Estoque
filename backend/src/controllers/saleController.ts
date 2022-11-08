@@ -1,9 +1,26 @@
 import { SaleModel } from "../database/models/SaleModel";
+
+import { RequestApp } from "../interfaces/Request";
+
 import { Request, Response } from "express";
 
 class SaleController {
-  async getSales(req: Request, res: Response) {
-    const sales = await SaleModel.findAll();
+  async getSales(req: RequestApp, res: Response) {
+    const response = await SaleModel.findAll();
+
+    let sales: any[];
+
+    if (req.user.isAdmin) {
+      sales = response;
+    } else {
+      let anySales = JSON.parse(JSON.stringify(response));
+
+      const salesFiltered = anySales.filter(
+        (sale: any) => sale.idSeller === req.user.id
+      );
+
+      sales = salesFiltered;
+    }
 
     try {
       res.status(200).json({ sales });

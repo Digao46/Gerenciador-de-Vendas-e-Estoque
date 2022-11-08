@@ -7,107 +7,117 @@ header {
 
   grid-area: header;
 
-  .logoArea {
-    height: 100%;
+  .container {
+    .logoArea {
+      height: 100%;
 
-    .menu {
-      background-color: transparent;
-      border: none;
-      outline: none;
-      cursor: pointer;
+      .menu {
+        background-color: transparent;
+        border: none;
+        outline: none;
+        cursor: pointer;
 
-      .line {
-        display: block;
-        width: 15px;
-        height: 3px;
-        background-color: var(--white-800);
-        margin-block: 10px;
-        border-radius: 4px;
-        transition: transform 0.5s, opacity 0.25s;
+        .line {
+          display: block;
+          width: 15px;
+          height: 3px;
+          background-color: var(--white-800);
+          margin-block: 10px;
+          border-radius: 4px;
+          transition: transform 0.5s, opacity 0.25s;
 
-        &:nth-child(1) {
-          transform: translateY(11px) rotate(-45deg);
+          &:nth-child(1) {
+            transform: translateY(11px) rotate(-45deg);
+          }
+
+          &:nth-child(2) {
+            transform: translateY(-11px) rotate(45deg);
+          }
         }
 
-        &:nth-child(2) {
-          transform: translateY(-11px) rotate(45deg);
-        }
-      }
+        &.active {
+          .line:nth-child(1) {
+            transform: translateY(11px) rotate(45deg);
+          }
 
-      &.active {
-        .line:nth-child(1) {
-          transform: translateY(11px) rotate(45deg);
-        }
-
-        .line:nth-child(2) {
-          transform: translateY(-11px) rotate(-45deg);
-        }
-      }
-    }
-
-    p {
-      text-decoration: none;
-      font-size: 1.2rem;
-      font-weight: 500;
-      color: var(--white-800);
-
-      padding: 0;
-      margin: 0;
-    }
-  }
-
-  .navArea {
-    height: 100%;
-
-    .user {
-      p {
-        font-weight: 600;
-        margin: 0;
-      }
-    }
-
-    .userImg {
-      overflow: hidden;
-      height: 40px;
-      width: 40px;
-      border-radius: 50%;
-      border: solid 1px var(--white-800);
-      background-color: var(--white-800);
-
-      img {
-        height: 100% !important;
-        width: 100vw !important;
-      }
-    }
-
-    .toggleButton {
-      height: 20px;
-      width: 30px;
-
-      &.active {
-        .btn {
-          width: 20px;
-          transition: transform 0.5s;
-          transform: rotate(90deg);
-
-          i {
-            color: var(--white-800);
+          .line:nth-child(2) {
+            transform: translateY(-11px) rotate(-45deg);
           }
         }
       }
 
-      .btn {
-        margin: 0;
+      p {
+        text-decoration: none;
+        font-size: 1.2rem;
+        font-weight: 500;
+        color: var(--white-800);
+
         padding: 0;
-        width: 20px;
-        border: none;
+        margin: 0;
+      }
+    }
 
-        transition: transform 0.5s;
-        transform: rotate(0deg);
+    .navArea {
+      height: 100%;
 
-        i {
-          color: var(--white-800);
-          font-size: 1rem;
+      .user {
+        p {
+          font-weight: 600;
+          margin: 0;
+        }
+      }
+
+      .userImg {
+        overflow: hidden;
+        height: 40px;
+        width: 40px;
+        border-radius: 50%;
+        border: solid 1px var(--white-800);
+        background-color: var(--white-800);
+
+        img {
+          height: 100% !important;
+          width: 100vw !important;
+        }
+      }
+
+      .toggleButton {
+        height: 20px;
+        width: 30px;
+
+        &.active {
+          .btn {
+            width: 20px;
+            transition: transform 0.5s;
+            transform: rotate(90deg);
+
+            i {
+              color: var(--white-800);
+            }
+          }
+        }
+
+        .btn {
+          margin: 0;
+          padding: 0;
+          width: 20px;
+          border: none;
+
+          transition: transform 0.5s;
+          transform: rotate(0deg);
+
+          i {
+            color: var(--white-800);
+            font-size: 1rem;
+          }
+        }
+      }
+    }
+
+    .leave {
+      span {
+        &:hover {
+          cursor: pointer;
         }
       }
     }

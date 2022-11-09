@@ -8,6 +8,8 @@ import { isAuthenticated } from "../../../services/auth";
 import { Redirect } from "react-router";
 import toast from "react-hot-toast";
 
+let mounted: any;
+
 class Cash extends React.Component<any, any> {
   constructor(props: any) {
     super(props);
@@ -31,6 +33,15 @@ class Cash extends React.Component<any, any> {
 
     this.props.props.setTitle("Caixa");
 
+    if (!mounted) {
+      this.getSales();
+    }
+
+    mounted = !mounted;
+    return;
+  }
+
+  getSales = () => {
     getSalesForCash()
       .then((res) => {
         this.setState({ allSales: res.data.sales });
@@ -48,15 +59,13 @@ class Cash extends React.Component<any, any> {
           this.setState({ redirectTo: "/login" });
 
           localStorage.removeItem("user");
-
-          return;
         } else {
           toast.error(err.response.data.message);
 
           this.setState({ redirectTo: "/" });
         }
       });
-  }
+  };
 
   filterToday = () => {
     let date = new Date();

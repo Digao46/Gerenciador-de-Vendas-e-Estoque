@@ -49,7 +49,6 @@ routes.put("/newSale/:id", authMiddleware, ProductController.updateProduct); // 
 
 // Rotas dos Usuários
 routes.get("/users", authMiddleware, adminMiddleware, UserController.getUsers);
-routes.get("/userAuth/:id", UserController.getUserById);
 
 routes.get(
   "/users/:id",

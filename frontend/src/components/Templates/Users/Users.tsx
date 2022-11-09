@@ -6,6 +6,8 @@ import { isAuthenticated } from "../../../services/auth";
 
 import "./Users.scss";
 
+let mounted: any;
+
 class Users extends React.Component<any, any> {
   constructor(props: any) {
     super(props);
@@ -23,7 +25,13 @@ class Users extends React.Component<any, any> {
 
     this.props.props.setTitle("Pessoas");
 
-    this.getAllUsers();
+    if (!mounted) {
+      this.getAllUsers();
+    }
+
+    mounted = !mounted;
+
+    return;
   }
 
   getAllUsers = async () => {

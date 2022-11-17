@@ -1,5 +1,10 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 
 import "./assets/scss/globals.scss";
@@ -15,7 +20,16 @@ class App extends React.Component<any, any> {
     this.state = {
       title: "Dashboard",
       isActive: false,
+      isLogged: false,
     };
+  }
+
+  componentDidMount(): void {
+    const user = JSON.parse(localStorage.getItem("user")!);
+
+    if (user) {
+      this.setState({ isLogged: true });
+    }
   }
 
   handleNav = () => {
@@ -40,6 +54,10 @@ class App extends React.Component<any, any> {
   };
 
   render() {
+    if (this.state.redirectTo) {
+      return <Redirect to={this.state.redirectTo} />;
+    }
+
     return (
       <Router>
         <Switch>

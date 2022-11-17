@@ -5,7 +5,6 @@
   "main": "index.ts",
   "scripts": {
   },
-  "type": "module",
   "author": "",
   "license": "ISC",
   "dependencies": {

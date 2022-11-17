@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.ts",
   "scripts": {
-    "start": "nodemon index.ts"
   },
+  "type": "commonjs",
   "author": "",
   "license": "ISC",
   "dependencies": {

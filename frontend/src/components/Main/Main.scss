@@ -22,7 +22,7 @@ main {
   grid-area: content;
 
   .dropdownArea {
-    background-color: var(--purple-800);
+    background-color: var(--primary-500);
     border-radius: 15px;
     position: fixed;
     bottom: 17vh;
@@ -61,18 +61,19 @@ main {
 
             &:hover {
               text-decoration: none;
-              color: var(--white-800);
+              color: var(--secondary);
             }
           }
+
           i {
-            color: var(--white-800);
+            color: var(--secondary);
           }
 
           a {
             margin: 0;
             padding: 0;
             text-decoration: none;
-            color: var(--white-800);
+            color: var(--secondary);
 
             &:hover {
               cursor: pointer;
@@ -96,7 +97,7 @@ main {
         transform: rotate(135deg);
 
         i {
-          color: var(--white-800);
+          color: var(--secondary);
           font-size: 2rem;
         }
       }
@@ -108,18 +109,18 @@ main {
 
       border: none;
       border-radius: 50%;
-      background-color: var(--purple-800);
+      background-color: var(--primary-500);
 
       transition: transform 0.8s;
       transform: rotate(0deg);
 
       i {
-        color: var(--white-800);
+        color: var(--secondary);
         font-size: 2rem;
       }
 
       &:hover {
-        background-color: var(--purple-800);
+        background-color: var(--primary-500);
       }
     }
   }

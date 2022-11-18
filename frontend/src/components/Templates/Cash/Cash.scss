@@ -5,9 +5,9 @@ section {
   .cashControl {
     height: 180px;
     border-radius: 5px;
-    color: var(--white-800);
+    color: var(--white);
 
-    background: linear-gradient(to right, var(--purple-800), var(--purple-500));
+    background: linear-gradient(to right, #e6c779a7, #6f591f);
 
     .salesInfo {
       height: 85%;
@@ -26,7 +26,7 @@ section {
     .cardFooter {
       height: 15%;
       width: 100%;
-      background-color: rgba(0, 0, 0, 0.101);
+      background-color: rgba(0, 0, 0, 0.352);
 
       .salesQuantity {
         font-size: 1rem;

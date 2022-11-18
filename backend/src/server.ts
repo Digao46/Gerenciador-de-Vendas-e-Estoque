@@ -1,6 +1,6 @@
 import * as dotenv from "dotenv";
 
-dotenv.config();
+dotenv.config({ path: "../.env"});
 
 import express, { json } from "express";
 import { db } from "./database/db";

@@ -53,13 +53,14 @@ class Login extends React.Component<any, any> {
 
     return (
       <section className="d-flex justify-content-center align-items-center">
-        <div className="header d-flex justify-content-center align-items-center">
-          Gerenciador de Vendas e Estoque
-        </div>
+        {/* <div className="header d-flex justify-content-center align-items-center">
+          Dn Smoke Bar
+        </div> */}
 
         <div className="formLoginArea container d-flex flex-column justify-content-center align-items-center col-4">
-          <div>
-            <h1>Login</h1>
+          <div className="mb-4">
+            <span className="access">acessar e gerenciar:</span>
+            <h1 className="text">Dn Smoke Bar</h1>
           </div>
 
           <form onSubmit={this.logIn}>

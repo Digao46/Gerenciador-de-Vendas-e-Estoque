@@ -1,9 +1,9 @@
 header {
   width: 100%;
   height: 100%;
-  background-color: var(--purple-800);
+  background-color: var(--primary-800);
 
-  color: var(--white-800);
+  color: var(--white);
 
   grid-area: header;
 
@@ -21,7 +21,7 @@ header {
           display: block;
           width: 15px;
           height: 3px;
-          background-color: var(--white-800);
+          background-color: var(--secondary);
           margin-block: 10px;
           border-radius: 4px;
           transition: transform 0.5s, opacity 0.25s;
@@ -50,7 +50,7 @@ header {
         text-decoration: none;
         font-size: 1.2rem;
         font-weight: 500;
-        color: var(--white-800);
+        color: var(--secondary);
 
         padding: 0;
         margin: 0;
@@ -72,44 +72,12 @@ header {
         height: 40px;
         width: 40px;
         border-radius: 50%;
-        border: solid 1px var(--white-800);
-        background-color: var(--white-800);
+        border: solid 2px var(--primary-500);
+        background-color: var(--primary-500);
 
         img {
           height: 100% !important;
           width: 100vw !important;
-        }
-      }
-
-      .toggleButton {
-        height: 20px;
-        width: 30px;
-
-        &.active {
-          .btn {
-            width: 20px;
-            transition: transform 0.5s;
-            transform: rotate(90deg);
-
-            i {
-              color: var(--white-800);
-            }
-          }
-        }
-
-        .btn {
-          margin: 0;
-          padding: 0;
-          width: 20px;
-          border: none;
-
-          transition: transform 0.5s;
-          transform: rotate(0deg);
-
-          i {
-            color: var(--white-800);
-            font-size: 1rem;
-          }
         }
       }
     }

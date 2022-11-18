@@ -4,10 +4,16 @@ import { isAuthorizated } from "../../services/auth";
 
 import "./Nav.scss";
 
+const Logo = require("../../assets/imgs/logoReal.png");
+
 class Nav extends React.Component<any, any> {
   render() {
     return (
       <aside className="navMenu d-none">
+        <div className=" navHeader my-4 d-flex  flex-column align-items-center">
+          <img src={Logo} alt="logo" />
+        </div>
+
         <ul className="text-start">
           <li className="my-4 d-flex justify-content-start">
             <div className="iconArea d-flex justify-content-center">

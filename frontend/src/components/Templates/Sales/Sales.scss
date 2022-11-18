@@ -3,7 +3,7 @@ section {
   width: 100%;
 
   .cardTotal {
-    background: linear-gradient(to right, var(--purple-800), var(--purple-500));
+    background-color: var(--primary-500);
     height: 80vh !important;
 
     .totalLabel {
@@ -27,8 +27,8 @@ section {
           width: 100%;
 
           .btn {
-            background-color: var(--purple-500);
-            border: solid 2px green;
+            background-color: var(--primary-500);
+            border: solid 2px var(--secondary);
             color: var(--white-800);
 
             i {
@@ -36,7 +36,7 @@ section {
             }
 
             &:hover {
-              box-shadow: 1px 1px 10px green;
+              box-shadow: .5px .5px 3px var(--secondary);
             }
           }
         }
@@ -80,18 +80,18 @@ section {
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: var(--purple-500);
+    background-color: var(--primary-500);
     border: none;
     border-radius: 20px;
   }
 
   .sale {
-    background: linear-gradient(to right, var(--purple-800), var(--purple-500));
+    background-color: var(--primary-800);
     height: 110px;
 
     .saleId {
       h3 {
-        color: var(--white-800);
+        color: var(--white);
         font-size: 3rem;
         font-weight: 800;
       }
@@ -113,7 +113,7 @@ section {
   }
 
   .products {
-    background: linear-gradient(to right, var(--purple-500), var(--purple-800));
+    background-color: var(--secondary)ar(--purple-500);
     height: 110px;
 
     .title {
@@ -136,7 +136,7 @@ section {
       }
 
       &::-webkit-scrollbar-thumb {
-        background-color: var(--white-800);
+        background-color: var(--white);
         border: none;
         border-radius: 20px;
       }

@@ -5,32 +5,53 @@ section {
     position: fixed;
     top: 0;
 
-    background-color: var(--purple-500);
-    color: var(--white-800);
+    background-color: var(--primary-500);
+    color: var(--white);
   }
 
   .formLoginArea {
     height: auto;
     padding: 20px 0;
-    background-color: var(--white-800);
-    box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.15);
+    background-color: var(--primary-500);
+    box-shadow: 0px 1px 5px rgba(112, 111, 111, 0.15);
+
+    border-radius: 8px;
+
+    span {
+      color: var(--secondary);
+    }
+
+    h1 {
+      background: linear-gradient(var(--secondary), #fad580);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+
+      font-size: 54px;
+    }
 
     form {
+      max-width: 300px;
+      width: 100%;
+
       .formContainer {
         position: relative;
 
         input {
-          border-radius: 4px;
-          width: 300px;
+          border-radius: 8px;
+          width: 100%;
           padding: 10px;
           font-size: 1rem;
-          color: var(--black-800);
+
+          background-color: var(--primary-500);
+          color: var(--black);
+
           outline: none;
-          border: 2px solid var(--black-800);
+          border: 2px solid var(--secondary);
 
           &:focus {
             border: none;
-            outline: 2px solid var(--black-800);
+            outline: 2px solid var(--secondary);
           }
 
           &:focus + span,
@@ -39,7 +60,8 @@ section {
             left: 14px;
             font-size: 1.1rem;
             padding: 0 10px;
-            background-color: var(--white-800);
+            color: var(--secondary);
+            background-color: var(--primary-500);
           }
         }
 
@@ -53,19 +75,29 @@ section {
           font-weight: 600;
           font-family: sans-serif;
           transition: 0.4s;
-          color: var(--black-800);
+          color: var(--secondary);
         }
       }
     }
 
     .buttons {
       .btn {
-        background-color: var(--purple-800);
-        color: var(--white-800);
+        background-color: var(--secondary);
+        color: var(--primary-500);
+
+        &:hover {
+          color: var(--black);
+        }
       }
 
       .separation {
-        background: linear-gradient(to right, white, black, white);
+        background: linear-gradient(
+          to right,
+          var(--primary-500),
+          var(--secondary),
+          var(--primary-500)
+        );
+        border-radius: 10px !important;
         height: 2px;
         width: 100%;
       }

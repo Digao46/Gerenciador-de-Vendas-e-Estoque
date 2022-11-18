@@ -89,7 +89,11 @@ class Charts extends React.Component<any, any> {
 
   render() {
     let optionsPeriod = {
-      chart: { title: "Vendas", subtitle: "Vendas (Período)" },
+      chart: {
+        title: "Vendas",
+        subtitle: "Vendas (Período)",
+        colors: ["#24212a", "#24212a", "#24212a", "#24212a", "#24212a"],
+      },
     };
 
     let dataPeriod = [
@@ -101,14 +105,18 @@ class Charts extends React.Component<any, any> {
     ];
 
     let optionsToday = {
-      chart: { title: "Vendas", subtitle: "Vendas (Hoje)" },
+      chart: {
+        title: "Vendas",
+        subtitle: "Vendas (Hoje)",
+      },
     };
+
     let dataToday = this.state.todayData;
 
     return (
       <section className="container d-flex justify-content-center align-items-center mt-4">
         <div className="d-flex justify-content-center col-5">
-          <Chart
+          <Chart className="dark"
             chartType="Bar"
             data={dataPeriod}
             options={optionsPeriod}

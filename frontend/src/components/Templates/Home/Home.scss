@@ -5,7 +5,7 @@ section {
   .card {
     height: 180px;
     border-radius: 5px;
-    color: var(--white-800);
+    color: var(--white);
 
     .counter {
       font-size: 3rem;
@@ -22,20 +22,20 @@ section {
     .btn {
       width: 100px;
       border-radius: 20px;
-      background-color: var(--white-800);
+      background-color: var(--secondary);
 
       a {
         text-decoration: none;
-        color: var(--black-800);
+        color: var(--black);
         font-size: 1rem;
 
         &:hover &:active &::after {
-          color: var(--black-800);
+          color: var(--black);
         }
       }
 
       &:hover {
-        background-color: var(--white-800);
+        background-color: var(--white);
 
         a {
           font-weight: 500;
@@ -49,7 +49,7 @@ section {
   }
 
   .sales {
-    background: linear-gradient(to right, rgb(170, 121, 62), rgb(255, 169, 20));
+    background: linear-gradient(to right, #e6c779a7, #826314);
   }
 
   .storage {

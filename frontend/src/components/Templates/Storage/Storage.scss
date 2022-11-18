@@ -6,33 +6,47 @@ section {
     form {
       input {
         border: none;
-        border-radius: 2px;
-        box-shadow: 1px 1px 10px rgb(184, 184, 184);
+        border-radius: 4px;
+
+        background-color: var(--primary-500);
+        color: var(--secondary);
+
+        &::placeholder {
+          color: var(--secondary);
+        }
       }
 
       .btn {
-        background-color: var(--purple-500);
-        box-shadow: 1px 1px 10px rgb(184, 184, 184);
-        color: var(--white-800);
+        border: none;
+        border-radius: 4px;
+
+        background-color: var(--primary-500);
+        color: var(--secondary);
 
         i {
           font-size: 1rem;
         }
 
         &:hover {
-          box-shadow: 1px 1px 10px rgb(79, 79, 79);
-          color: var(--white-800);
+          color: #dfb64f;
 
-          background-color: var(--purple-500);
+          background-color: var(--primary-500);
         }
       }
     }
   }
 
   .table {
+    th {
+      color: var(--white) !important;
+      border: solid 1px var(--secondary);
+    }
     tbody {
       tr {
         td {
+          color: var(--white) !important;
+          border: solid 1px var(--secondary);
+
           .action {
             height: 100%;
           }
@@ -42,7 +56,7 @@ section {
             }
 
             .edit {
-              color: var(--black-800);
+              color: green;
             }
 
             .delete {

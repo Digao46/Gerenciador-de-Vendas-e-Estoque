@@ -11,10 +11,12 @@
 }
 
 :root {
-  --purple-500: #25104d;
-  --purple-800: #230654;
-  --white-800: #fff;
-  --black-800: rgb(0, 0, 0);
+  --primary-500: #24212a;
+  --primary-800: #1b181f;
+  --secondary: #e6c779;
+
+  --white: rgb(247, 239, 239);
+  --black: #000;
 }
 
 body,
@@ -23,6 +25,8 @@ html {
   padding: 0%;
   height: 100vh;
   width: 100%;
+
+  background-color: var(--primary-800) !important;
 }
 
 .App {
@@ -50,7 +54,7 @@ html {
   right: 14.5vh;
 
   i {
-    color: var(--purple-800);
+    color: var(--primary-800);
     font-size: 1.5rem;
     animation: floating 2s infinite;
   }

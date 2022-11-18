@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.db = void 0;
 const sequelize_1 = require("sequelize");
+require('dotenv').config();
 const dbName = process.env.DATABASE_NAME;
 const dbUser = process.env.DATABASE_USER;
 const dbPassword = process.env.DATABASE_PASSWORD;

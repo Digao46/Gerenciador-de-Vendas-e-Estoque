@@ -2,10 +2,10 @@ import { UserModel } from "./../database/models/UserModel";
 import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
 
-let secret = "kbcademel159";
-
 class SignInController {
   async signIn(req: Request, res: Response) {
+    const secret = "kbcademel159";
+
     const getUser = await UserModel.findOne({
       where: { username: req.body.username },
     });
@@ -32,12 +32,14 @@ class SignInController {
 
     let token = jwt.sign(payload, secret);
 
-    res.status(200).json({
-      username: payload.username,
-      isAdmin: payload.admin,
-      userId: payload.id,
-      token: token,
-    });
+    console.log(token)
+
+    // res.status(200).json({
+    //   username: payload.username,
+    //   isAdmin: payload.admin,
+    //   userId: payload.id,
+    //   token: token,
+    // });
 
     return;
   }

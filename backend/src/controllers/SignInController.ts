@@ -4,8 +4,6 @@ import jwt from "jsonwebtoken";
 
 class SignInController {
   async signIn(req: Request, res: Response) {
-    const secret = "kbcademel159";
-
     const getUser = await UserModel.findOne({
       where: { username: req.body.username },
     });
@@ -30,16 +28,14 @@ class SignInController {
       exp: now + 60 * 60 * 6,
     };
 
-    let token = jwt.sign(payload, secret);
+    let token = jwt.sign(payload, process.env.SECRET!);
 
-    console.log(token)
-
-    // res.status(200).json({
-    //   username: payload.username,
-    //   isAdmin: payload.admin,
-    //   userId: payload.id,
-    //   token: token,
-    // });
+    res.status(200).json({
+      username: payload.username,
+      isAdmin: payload.admin,
+      userId: payload.id,
+      token: token,
+    });
 
     return;
   }

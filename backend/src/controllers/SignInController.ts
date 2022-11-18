@@ -28,7 +28,9 @@ class SignInController {
       exp: now + 60 * 60 * 6,
     };
 
-    let token = jwt.sign(payload, "KBCADMEL1029");
+    let secret = "KBCADMEL1029"
+
+    let token = jwt.sign(payload, `${secret}`);
 
     res.status(200).json({
       username: payload.username,

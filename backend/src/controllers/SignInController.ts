@@ -2,8 +2,7 @@ import { UserModel } from "./../database/models/UserModel";
 import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
 
-import * as dotenv from 'dotenv';
-dotenv.config();
+let secret = "kbcademel159";
 
 class SignInController {
   async signIn(req: Request, res: Response) {
@@ -31,7 +30,7 @@ class SignInController {
       exp: now + 60 * 60 * 6,
     };
 
-    let token = jwt.sign(payload, `${process.env.SECRET}`!);
+    let token = jwt.sign(payload, secret);
 
     res.status(200).json({
       username: payload.username,

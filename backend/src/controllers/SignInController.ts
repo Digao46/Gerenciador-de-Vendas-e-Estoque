@@ -2,6 +2,9 @@ import { UserModel } from "./../database/models/UserModel";
 import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
 
+import * as dotenv from 'dotenv';
+dotenv.config();
+
 class SignInController {
   async signIn(req: Request, res: Response) {
     const getUser = await UserModel.findOne({
@@ -28,9 +31,7 @@ class SignInController {
       exp: now + 60 * 60 * 6,
     };
 
-    let secret = "KBCADMEL1029"
-
-    let token = jwt.sign(payload, `${secret}`);
+    let token = jwt.sign(payload, `${process.env.SECRET}`!);
 
     res.status(200).json({
       username: payload.username,

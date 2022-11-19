@@ -8,6 +8,10 @@ export const UserModel = db.define("user", {
     autoIncrement: true,
     allowNull: false,
   },
+  avatar: {
+    type: DataTypes.BLOB,
+    allowNull: true,
+  },
   name: {
     type: DataTypes.CHAR,
     allowNull: false,

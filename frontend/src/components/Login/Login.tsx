@@ -70,6 +70,7 @@ class Login extends React.Component<any, any> {
                 type="text"
                 name="username"
                 required
+                autoFocus
               />
               <span>Usuário</span>
             </div>

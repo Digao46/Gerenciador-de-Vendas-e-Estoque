@@ -6,6 +6,8 @@ import { toast } from "react-hot-toast";
 
 import "./NewUser.scss";
 
+const defaultImg = require("../../../../assets/imgs/camera.png");
+
 class NewUser extends React.Component<any, any> {
   constructor(props: any) {
     super(props);
@@ -32,6 +34,22 @@ class NewUser extends React.Component<any, any> {
     value === 1 ? (value = true) : (value = false);
 
     this.setState({ isAdmin: value });
+  };
+
+  handleAvatarChange = (e: any) => {
+    const photo = document.getElementById("photoArea") as HTMLImageElement;
+
+    if (e.target.files.length > 0) {
+      let reader: any = new FileReader();
+
+      reader.onload = () => {
+        photo.src = reader.result;
+      };
+
+      reader.readAsDataURL(e.target.files[0]);
+
+      this.setState({ avatar: e.target.files[0]})
+    }
   };
 
   handleInputType = (e: any) => {
@@ -79,6 +97,14 @@ class NewUser extends React.Component<any, any> {
       });
   };
 
+  click = (e: any) => {
+    e.preventDefault();
+
+    const inputFile = document.getElementById("avatar") as HTMLInputElement;
+
+    inputFile.click();
+  };
+
   cancel = (e: any) => {
     e.preventDefault();
 
@@ -100,9 +126,25 @@ class NewUser extends React.Component<any, any> {
 
           <form
             onSubmit={this.addNewUser}
-            className="form d-flex justify-content-center align-items-center col-12"
+            className="form d-flex justify-content-center align-items-center flex-column col-12"
           >
-            <div className="col-6">
+            <div className="col-6 d-flex flex-column justify-content-center align-items-center">
+              <input
+                style={{ display: "none" }}
+                type="file"
+                id="avatar"
+                name="avatar"
+                accept="image/*"
+                onChange={this.handleAvatarChange}
+              />
+
+              <div
+                onClick={this.click}
+                className="photoArea d-flex justify-content-center align-items-center mb-4"
+              >
+                <img id="photoArea" src={defaultImg} alt="" />
+              </div>
+
               <input
                 onChange={this.handleChange}
                 type="text"
@@ -171,18 +213,18 @@ class NewUser extends React.Component<any, any> {
                 <option value={1}>Administrador</option>
                 <option value={0}>Vendedor</option>
               </select>
+            </div>
 
-              <div className="btns d-flex justify-content-end mb-4">
-                <button type="submit" className="btn btnAdd col-4 me-2">
-                  Adicionar
-                </button>
-                <button
-                  onClick={this.cancel}
-                  className="btn btnCancel col-4 me-2"
-                >
-                  Cancelar
-                </button>
-              </div>
+            <div className="btns d-flex justify-content-end mb-4">
+              <button type="submit" className="btn btnAdd col-6 me-2">
+                Adicionar
+              </button>
+              <button
+                onClick={this.cancel}
+                className="btn btnCancel col-6 me-2"
+              >
+                Cancelar
+              </button>
             </div>
           </form>
         </div>

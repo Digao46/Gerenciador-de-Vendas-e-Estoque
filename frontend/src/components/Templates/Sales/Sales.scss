@@ -9,10 +9,12 @@ section {
     .totalLabel {
       font-size: 0.8rem;
       font-weight: 400;
+      color: var(--secondary);
     }
 
     .totalValue {
       font-size: 2rem;
+      color: var(--secondary);
 
       .moneyLabel {
         font-size: 1rem;
@@ -21,22 +23,40 @@ section {
     }
 
     .filter {
+      span {
+        color: var(--secondary);
+      }
+
       .formFilter {
         form {
           height: 100%;
           width: 100%;
 
+          .ant-picker {
+            background-color: var(--primary-500);
+            border: 1px solid var(--secondary);
+            border-radius: 4px;
+          }
+
+          input {
+            background-color: var(--primary-500);
+
+            &::placeholder {
+              color: var(--secondary);
+            }
+          }
+
           .btn {
             background-color: var(--primary-500);
             border: solid 2px var(--secondary);
-            color: var(--white-800);
+            color: var(--white);
 
             i {
               font-size: 1rem;
             }
 
             &:hover {
-              box-shadow: .5px .5px 3px var(--secondary);
+              box-shadow: 0.5px 0.5px 3px var(--secondary);
             }
           }
         }
@@ -86,12 +106,14 @@ section {
   }
 
   .sale {
-    background-color: var(--primary-800);
+    background-color: var(--primary-500);
     height: 110px;
+
+    color: var(--secondary);
 
     .saleId {
       h3 {
-        color: var(--white);
+        color: var(--secondary);
         font-size: 3rem;
         font-weight: 800;
       }
@@ -113,13 +135,14 @@ section {
   }
 
   .products {
-    background-color: var(--secondary)ar(--purple-500);
+    background-color: var(--primary-500);
     height: 110px;
 
     .title {
       .itemsLabel {
         font-size: 0.8rem;
         font-weight: 400;
+        color: var(--secondary);
       }
     }
 
@@ -146,6 +169,7 @@ section {
 
         .productName {
           font-size: 0.8rem;
+          color: var(--secondary);
           white-space: nowrap;
           text-overflow: ellipsis;
           overflow: hidden;
@@ -154,6 +178,7 @@ section {
         .soldQuantity {
           font-weight: 700;
           font-size: 0.9rem;
+          color: var(--secondary);
 
           .unity {
             font-weight: 400;

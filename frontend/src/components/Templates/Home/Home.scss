@@ -22,11 +22,11 @@ section {
     .btn {
       width: 100px;
       border-radius: 20px;
-      background-color: var(--secondary);
+      background-color: var(--primary-500);
 
       a {
         text-decoration: none;
-        color: var(--black);
+        color: var(--secondary);
         font-size: 1rem;
 
         &:hover &:active &::after {
@@ -35,7 +35,7 @@ section {
       }
 
       &:hover {
-        background-color: var(--white);
+        background-color: var(--primary-800);
 
         a {
           font-weight: 500;

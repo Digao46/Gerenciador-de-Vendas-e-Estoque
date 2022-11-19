@@ -296,14 +296,15 @@ class NewSale extends React.Component<any, any> {
                         <i className="fa fa-trash" />
                       </button>
                     </div>
-                    <div>
+
+                    <div className="itemInfo">
                       <span>Preço = R$</span>
                       {product.price} *{" "}
                       <span className="quantity">
                         Qtd = {product.quantity}{" "}
                       </span>
                     </div>
-                    <div className="text-end me-1">
+                    <div className="itemPrices text-end me-1">
                       <span className="subtotal">Subtotal </span>= R$
                       <span className="totalValue">
                         {(product.price * product.quantity).toFixed(2)}

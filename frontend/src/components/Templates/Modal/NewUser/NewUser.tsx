@@ -16,6 +16,8 @@ class NewUser extends React.Component<any, any> {
       username: "",
       password: "",
       passwordConfirm: "",
+      avatar: "",
+      avatarName: "",
       isAdmin: false,
       redirectTo: null,
     };
@@ -48,7 +50,9 @@ class NewUser extends React.Component<any, any> {
 
       reader.readAsDataURL(e.target.files[0]);
 
-      this.setState({ avatar: e.target.files[0]})
+      this.setState({ avatar: e.target.files[0] });
+
+      this.setState({ avatarName: e.target.files[0].name });
     }
   };
 
@@ -86,8 +90,12 @@ class NewUser extends React.Component<any, any> {
     const username = this.state.username;
     const password = this.state.password;
     const isAdmin = this.state.isAdmin;
+    const avatar = this.state.avatar;
+    const avatarName = this.state.avatarName;
 
-    addUser({ name, username, password, isAdmin })
+    let avatarObj = { avatar, avatarName };
+
+    addUser({ name, username, password, isAdmin, avatarObj })
       .then((res) => {
         toast.success(res.data.message);
         this.setState({ redirectTo: "/users" });

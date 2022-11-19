@@ -25,13 +25,14 @@ class userController {
   }
 
   async addUser(req: Request, res: Response) {
-    const { name, username, password, isAdmin } = req.body;
+    const { name, username, password, isAdmin, avatarObj } = req.body;
 
     const newUser = UserModel.create({
       name: name,
       username: username,
       password: password,
       isAdmin: isAdmin,
+      avatar: avatarObj,
     });
 
     try {

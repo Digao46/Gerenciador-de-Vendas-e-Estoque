@@ -84,9 +84,8 @@
     }
 
     &:hover {
-      background-color: green;
-      color: var(--white);
-      font-weight: 600;
+      background-color: green !important;
+      color: var(--white) !important;
     }
   }
 

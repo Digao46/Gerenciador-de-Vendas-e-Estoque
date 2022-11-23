@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/Gerenciador-de-Vendas-e-Estoque/login/static/css/main.095be3c7.css",
-    "main.js": "/Gerenciador-de-Vendas-e-Estoque/login/static/js/main.238fef75.js",
-    "static/media/logoReal.png": "/Gerenciador-de-Vendas-e-Estoque/login/static/media/logoReal.cfcd0a812bb723161a78.png",
-    "static/media/logo.png": "/Gerenciador-de-Vendas-e-Estoque/login/static/media/logo.2133e4113d05310e8027.png",
-    "index.html": "/Gerenciador-de-Vendas-e-Estoque/login/index.html",
-    "main.095be3c7.css.map": "/Gerenciador-de-Vendas-e-Estoque/login/static/css/main.095be3c7.css.map",
-    "main.238fef75.js.map": "/Gerenciador-de-Vendas-e-Estoque/login/static/js/main.238fef75.js.map"
+    "main.css": "/Gerenciador-de-Vendas-e-Estoque/static/css/main.095be3c7.css",
+    "main.js": "/Gerenciador-de-Vendas-e-Estoque/static/js/main.5ac000a9.js",
+    "static/media/logoReal.png": "/Gerenciador-de-Vendas-e-Estoque/static/media/logoReal.cfcd0a812bb723161a78.png",
+    "static/media/logo.png": "/Gerenciador-de-Vendas-e-Estoque/static/media/logo.2133e4113d05310e8027.png",
+    "index.html": "/Gerenciador-de-Vendas-e-Estoque/index.html",
+    "main.095be3c7.css.map": "/Gerenciador-de-Vendas-e-Estoque/static/css/main.095be3c7.css.map",
+    "main.5ac000a9.js.map": "/Gerenciador-de-Vendas-e-Estoque/static/js/main.5ac000a9.js.map"
   },
   "entrypoints": [
     "static/css/main.095be3c7.css",
-    "static/js/main.238fef75.js"
+    "static/js/main.5ac000a9.js"
   ]
 }

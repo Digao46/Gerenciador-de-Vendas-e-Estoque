@@ -48,13 +48,19 @@ html {
   }
 }
 
+.infoText {
+  p {
+    color: var(--secondary) !important;
+  }
+}
+
 .info {
+  color: var(--secondary) !important;
   position: absolute;
   bottom: 15vh;
-  right: 14.5vh;
+  right: 7.5vw;
 
   i {
-    color: var(--primary-800);
     font-size: 1.5rem;
     animation: floating 2s infinite;
   }

@@ -1,4 +1,5 @@
 {
+  "homepage": "https://digao46.github.io/Gerenciador-de-Vendas-e-Estoque/login",
   "name": "frontend",
   "version": "0.1.0",
   "private": true,
@@ -20,7 +21,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -41,6 +44,7 @@
     ]
   },
   "devDependencies": {
+    "gh-pages": "^4.0.0",
     "@types/react": "^18.0.19",
     "@types/react-dom": "^18.0.6",
     "@types/react-router-dom": "^5.3.3"

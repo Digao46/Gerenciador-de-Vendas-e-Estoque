@@ -3,7 +3,7 @@ import { DatePicker, Space } from "antd";
 import { toast } from "react-hot-toast";
 
 import { getSales } from "../../../services/api";
-import { isAuthenticated, isAuthorizated } from "../../../services/auth";
+import { isAuthenticated } from "../../../services/auth";
 
 import "./Sales.scss";
 import { Redirect } from "react-router";
@@ -30,27 +30,23 @@ class Sales extends React.Component<any, any> {
 
     this.props.props.setTitle("Vendas");
 
-    this.getAllSales();
+    this.getAllSales().then(() => {
+      let total = 0;
+
+      for (let i = 0; i < this.state.sales.length; i++) {
+        total += this.state.sales[i].total;
+      }
+
+      this.setState({ total: total });
+    });
   }
 
   getAllSales = async () => {
     await getSales()
       .then((res) => {
-        if (isAuthorizated()) {
-          this.setState({
-            sales: res.data.sales.sort((a: any, b: any) => b.id - a.id),
-          });
-        } else {
-          this.setState({
-            sales: res.data.sales
-              .filter(
-                (sale: any) =>
-                  sale.idSeller ===
-                  JSON.parse(localStorage.getItem("user")!).userId
-              )
-              .sort((a: any, b: any) => b.id - a.id),
-          });
-        }
+        this.setState({
+          sales: res.data.sales.sort((a: any, b: any) => b.id - a.id),
+        });
       })
       .catch((err: any) => {
         if (err.response.status === 401) {
@@ -94,6 +90,17 @@ class Sales extends React.Component<any, any> {
         }, 0);
       })
       .then(() => {
+        setTimeout(() => {
+          let total = 0;
+
+          for (let i = 0; i < this.state.sales.length; i++) {
+            total += this.state.sales[i].total;
+          }
+
+          this.setState({ total: total });
+        }, 20);
+      })
+      .then(() => {
         toast.success("Filtro Aplicado");
       })
       .catch(() => {
@@ -102,14 +109,24 @@ class Sales extends React.Component<any, any> {
   };
 
   handleChange = (e: any) => {
-    this.getAllSales();
-    if (e) {
-      const dateBegin = this.getDate(e[0]._d);
-      const dateEnd = this.getDate(e[1]._d);
+    this.getAllSales().then(() => {
+      if (e) {
+        const dateBegin = this.getDate(e[0]._d);
+        const dateEnd = this.getDate(e[1]._d);
 
-      this.setState({ periodBegin: dateBegin });
-      this.setState({ periodEnd: dateEnd });
-    }
+        this.setState({ periodBegin: dateBegin });
+        this.setState({ periodEnd: dateEnd });
+      }
+      setTimeout(() => {
+        let total = 0;
+
+        for (let i = 0; i < this.state.sales.length; i++) {
+          total += this.state.sales[i].total;
+        }
+
+        this.setState({ total: total });
+      }, 20);
+    });
   };
 
   getDate = (date: any) => {
@@ -130,18 +147,6 @@ class Sales extends React.Component<any, any> {
   };
 
   render() {
-    setTimeout(() => {
-      const totals = document.querySelectorAll("span.total");
-      let total = 0;
-
-      for (let i = 0; i < totals.length; i++) {
-        let value: number = parseFloat(totals[i].textContent!);
-        let totalvalue = (total += value);
-
-        this.setState({ total: totalvalue });
-      }
-    }, 0);
-
     if (this.state.redirectTo) {
       return <Redirect to={this.state.redirectTo} />;
     }
@@ -149,7 +154,7 @@ class Sales extends React.Component<any, any> {
     if (!this.state.sales) {
       return (
         <section className="container d-flex flex-column align-items-center justify-content-center col-10 pt-3">
-          <div>
+          <div className="infoText">
             <p> Ainda não existem registros para serem exibidos! </p>
           </div>
 
@@ -269,6 +274,7 @@ class Sales extends React.Component<any, any> {
                               {sale.products[i]}
                             </p>
                           )}
+
                           <p className="d-flex justify-content-center align-items-center col-1">
                             |
                           </p>

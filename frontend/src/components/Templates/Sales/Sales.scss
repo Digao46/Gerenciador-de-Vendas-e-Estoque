@@ -38,8 +38,14 @@ section {
             border-radius: 4px;
           }
 
+          .ant-picker-clear {
+            background-color: var(--primary-500) !important;
+          }
+
           input {
             background-color: var(--primary-500);
+            color: var(--secondary);
+            font-size: 0.7rem;
 
             &::placeholder {
               color: var(--secondary);
@@ -165,14 +171,17 @@ section {
       }
 
       .productArea {
+
         height: 20px;
 
+        
         .productName {
           font-size: 0.8rem;
           color: var(--secondary);
-          white-space: nowrap;
-          text-overflow: ellipsis;
-          overflow: hidden;
+          
+          white-space: nowrap !important;
+          overflow: hidden !important;
+          text-overflow: ellipsis !important;
         }
 
         .soldQuantity {

@@ -1,5 +1,4 @@
 {
-  "homepage": "https://digao46.github.io/Gerenciador-de-Vendas-e-Estoque",
   "name": "frontend",
   "version": "0.1.0",
   "private": true,
@@ -17,6 +16,7 @@
     "react-scripts": "5.0.1",
     "reactstrap": "^9.1.4"
   },
+  "homepage": "https://Digao46.github.io/Gerenciador-de-Vendas-e-Estoque",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

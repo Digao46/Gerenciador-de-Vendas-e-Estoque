@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // const url = "http://localhost:8080";
-const url = "http://18.230.88.124:8080";
+const url = "https://18.230.88.124:8080";
 
 const apiStorage = axios.create({
   baseURL: url,

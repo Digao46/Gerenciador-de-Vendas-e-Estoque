@@ -64,9 +64,9 @@ class App extends React.Component<any, any> {
           <Route path="/login">
             <div className="App d-flex justify-content-center align-items-center">
               <Login />
-            </div>
 
-            <Toaster />
+              <Toaster />
+            </div>
           </Route>
 
           <Route path="/">

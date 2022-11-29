@@ -1,5 +1,10 @@
 import React from "react";
-import { Switch, Route, Link } from "react-router-dom";
+import {
+  HashRouter,
+  // Switch,
+  Route,
+  Link,
+} from "react-router-dom";
 import { isAuthorizated } from "../../services/auth";
 
 import "./Main.scss";
@@ -67,7 +72,7 @@ class Main extends React.Component<any, any> {
   render() {
     return (
       <main>
-        <Switch>
+        <HashRouter basename="/">
           <Route path="/sales">
             <Sales props={this.props} />
           </Route>
@@ -122,7 +127,7 @@ class Main extends React.Component<any, any> {
           <Route path="/">
             <Home props={this.props} />
           </Route>
-        </Switch>
+        </HashRouter>
 
         <div>
           <div id="dropdownArea" className="dropdownArea d-none">

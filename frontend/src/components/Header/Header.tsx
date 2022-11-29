@@ -5,6 +5,8 @@ import "./Header.scss";
 
 const Logo = require("../../assets/imgs/logo.png");
 
+const localStorageItem = localStorage.getItem("user")!;
+
 class Header extends React.Component<any, any> {
   constructor(props: any) {
     super(props);
@@ -12,16 +14,16 @@ class Header extends React.Component<any, any> {
       isDropdownActive: true,
       isMenuActive: true,
       username: "Usuário",
+      user: "",
       redirectTo: null,
     };
   }
 
   componentDidMount(): void {
-    const localStorageItem = localStorage.getItem("user")!;
     const user = JSON.parse(localStorageItem);
 
     if (user) {
-      this.setState({ username: user.username });
+      this.setState({ user: user.username });
     }
   }
 
@@ -29,7 +31,9 @@ class Header extends React.Component<any, any> {
     localStorage.removeItem("user");
     this.setState({ redirectTo: "login" });
 
-    // window.location.href = "#login";
+    setTimeout(() => {
+      window.location.reload();
+    }, 100);
   };
 
   handleMenu = () => {
@@ -66,7 +70,10 @@ class Header extends React.Component<any, any> {
           <div className="navArea container col-6">
             <div className="d-flex me-5 justify-content-end align-items-center">
               <div className="user me-3">
-                <p>{this.state.username}</p>
+                <p>
+                  <span>Seja bem-vindo </span>
+                  {this.state.user ? this.state.user : this.state.username}
+                </p>
               </div>
               <div className="userImg me-3 d-flex justify-content-center align-items-center">
                 <img src={Logo} alt="Imagem Usuário" />

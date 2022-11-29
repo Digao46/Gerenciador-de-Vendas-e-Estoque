@@ -36,6 +36,11 @@ class Login extends React.Component<any, any> {
         localStorage.setItem("user", JSON.stringify(res.data));
 
         this.setState({ redirectTo: "/" });
+
+        setTimeout(() => {
+
+          window.location.reload();
+        }, 0)
       })
       .catch((err) => {
         if (err.response.status === 404) {
@@ -66,7 +71,6 @@ class Login extends React.Component<any, any> {
                 type="text"
                 name="username"
                 required
-                autoFocus
               />
               <span>Usuário</span>
             </div>

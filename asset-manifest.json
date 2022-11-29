@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/Gerenciador-de-Vendas-e-Estoque/static/css/main.e1638eae.css",
-    "main.js": "/Gerenciador-de-Vendas-e-Estoque/static/js/main.d25fa516.js",
+    "main.css": "/Gerenciador-de-Vendas-e-Estoque/static/css/main.0a6e8279.css",
+    "main.js": "/Gerenciador-de-Vendas-e-Estoque/static/js/main.52fadee5.js",
     "static/media/logoReal.png": "/Gerenciador-de-Vendas-e-Estoque/static/media/logoReal.cfcd0a812bb723161a78.png",
     "static/media/logo.png": "/Gerenciador-de-Vendas-e-Estoque/static/media/logo.2133e4113d05310e8027.png",
     "index.html": "/Gerenciador-de-Vendas-e-Estoque/index.html",
-    "main.e1638eae.css.map": "/Gerenciador-de-Vendas-e-Estoque/static/css/main.e1638eae.css.map",
-    "main.d25fa516.js.map": "/Gerenciador-de-Vendas-e-Estoque/static/js/main.d25fa516.js.map"
+    "main.0a6e8279.css.map": "/Gerenciador-de-Vendas-e-Estoque/static/css/main.0a6e8279.css.map",
+    "main.52fadee5.js.map": "/Gerenciador-de-Vendas-e-Estoque/static/js/main.52fadee5.js.map"
   },
   "entrypoints": [
-    "static/css/main.e1638eae.css",
-    "static/js/main.d25fa516.js"
+    "static/css/main.0a6e8279.css",
+    "static/js/main.52fadee5.js"
   ]
 }

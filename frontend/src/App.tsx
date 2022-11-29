@@ -1,8 +1,6 @@
 import React from "react";
 import {
   HashRouter,
-  // BrowserRouter as Router,
-  // Switch,
   Route,
   Redirect,
 } from "react-router-dom";
@@ -64,6 +62,7 @@ class App extends React.Component<any, any> {
         <Route path="/login">
           <div className="App d-flex justify-content-center align-items-center">
             <Login />
+
             <Toaster />
           </div>
         </Route>
@@ -82,32 +81,6 @@ class App extends React.Component<any, any> {
           </div>
         </Route>
       </HashRouter>
-
-      // <Router>
-      //   <Switch>
-      //     <Route path="/login">
-      //       <div className="App d-flex justify-content-center align-items-center">
-      //         <Login />
-
-      //         <Toaster />
-      //       </div>
-      //     </Route>
-
-      //     <Route path="/">
-      //       <div className="App">
-      //         <Header
-      //           title={this.state.title}
-      //           getActive={this.getActive}
-      //           handleNav={this.handleNav}
-      //         />
-      //         <Nav active={this.state.isActive} handleNav={this.handleNav} />
-      //         <Main setTitle={this.setTitle} state={this.state} />
-
-      //         <Toaster />
-      //       </div>
-      //     </Route>
-      //   </Switch>
-      // </Router>
     );
   }
 }

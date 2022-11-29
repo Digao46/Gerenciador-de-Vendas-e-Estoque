@@ -21,6 +21,18 @@ main {
   width: 100%;
   grid-area: content;
 
+  section {
+    h3 {
+      color: var(--secondary);
+      font-size: 3rem;
+    }
+
+    .letsWork {
+      color: var(--secondary);
+      font-size: 1.5rem;
+    }
+  }
+
   .dropdownArea {
     background-color: var(--primary-500);
     border-radius: 15px;

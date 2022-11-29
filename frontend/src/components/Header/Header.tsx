@@ -27,7 +27,7 @@ class Header extends React.Component<any, any> {
 
   logOut = () => {
     localStorage.removeItem("user");
-    window.location.href = "/login";
+    window.location.href = "#login";
   };
 
   handleMenu = () => {

@@ -1,7 +1,6 @@
 import React from "react";
 import {
   HashRouter,
-  // Switch,
   Route,
   Link,
 } from "react-router-dom";
@@ -72,7 +71,7 @@ class Main extends React.Component<any, any> {
   render() {
     return (
       <main>
-        <HashRouter basename="/">
+        <HashRouter>
           <Route path="/sales">
             <Sales props={this.props} />
           </Route>
@@ -124,7 +123,7 @@ class Main extends React.Component<any, any> {
             <EditUser userId={this.state.id} />
           </Route>
 
-          <Route path="/">
+          <Route path="/" exact>
             <Home props={this.props} />
           </Route>
         </HashRouter>

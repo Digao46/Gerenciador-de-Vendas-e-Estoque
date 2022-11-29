@@ -67,7 +67,7 @@ class App extends React.Component<any, any> {
           </div>
         </Route>
 
-        <Route path="/">
+        <Route path="/" exact>
           <div className="App">
             <Header
               title={this.state.title}

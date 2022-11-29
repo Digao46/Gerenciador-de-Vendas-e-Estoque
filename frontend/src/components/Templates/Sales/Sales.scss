@@ -117,12 +117,10 @@ section {
 
     color: var(--secondary);
 
-    .saleId {
-      h3 {
-        color: var(--secondary);
-        font-size: 3rem;
-        font-weight: 800;
-      }
+    .dateLabel,
+    .hourLabel {
+      font-size: 0.8rem;
+      font-weight: 400;
     }
 
     .totalLabel {
@@ -171,14 +169,12 @@ section {
       }
 
       .productArea {
-
         height: 20px;
 
-        
         .productName {
           font-size: 0.8rem;
           color: var(--secondary);
-          
+
           white-space: nowrap !important;
           overflow: hidden !important;
           text-overflow: ellipsis !important;

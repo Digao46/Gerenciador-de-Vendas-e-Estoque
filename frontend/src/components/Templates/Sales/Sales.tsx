@@ -117,20 +117,21 @@ class Sales extends React.Component<any, any> {
         this.setState({ periodBegin: dateBegin });
         this.setState({ periodEnd: dateEnd });
       }
-      setTimeout(() => {
-        let total = 0;
+      // setTimeout(() => {
+      let total = 0;
 
-        for (let i = 0; i < this.state.sales.length; i++) {
-          total += this.state.sales[i].total;
-        }
+      for (let i = 0; i < this.state.sales.length; i++) {
+        total += this.state.sales[i].total;
+      }
 
-        this.setState({ total: total });
-      }, 20);
+      this.setState({ total: total });
+      // }, 200);
     });
   };
 
   getDate = (date: any) => {
     const newDate = new Date(date);
+
     return newDate;
   };
 
@@ -138,12 +139,31 @@ class Sales extends React.Component<any, any> {
     const newDate = this.getDate(date);
 
     const day = newDate.getDate();
-    const month = newDate.getMonth() + 1;
+    let month: any = newDate.getMonth() + 1;
     const year = newDate.getFullYear();
+
+    if (month < 10) {
+      month = `0${month}`;
+    }
 
     const shownDate = `${day}/${month}/${year}`;
 
     return shownDate;
+  };
+
+  formatHour = (date: any) => {
+    const newDate = this.getDate(date);
+
+    const hours = newDate.getHours();
+    let minutes: any = newDate.getMinutes();
+
+    if (minutes < 10) {
+      minutes = `0${minutes}`;
+    }
+
+    const shownHours = `${hours}:${minutes}`;
+
+    return shownHours;
   };
 
   render() {
@@ -214,18 +234,13 @@ class Sales extends React.Component<any, any> {
                   key={sale.id}
                 >
                   <div className="sale card col-7 d-flex flex-row justify-content-center align-items-center mb-2 me-2">
-                    <div className="saleId col-4 d-flex justify-content-center align-items-center">
-                      <h3>#{sale.id}</h3>
-                    </div>
                     <div className="col-8">
                       <div className="d-flex justify-content-between">
-                        <span
-                          onClick={() => {
-                            this.getDate(sale.createdAt);
-                          }}
-                          className="totalLabel me-2"
-                        >
+                        <span className="dateLabel me-2">
                           Data: {this.formatDate(sale.createdAt)}
+                        </span>
+                        <span className="hourLabel me-2">
+                          Hora: {this.formatHour(sale.createdAt)}
                         </span>
                       </div>
                       <div className="totalValue d-flex justify-content-between align-items-end me-4">

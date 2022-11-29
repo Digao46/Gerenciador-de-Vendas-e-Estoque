@@ -27,7 +27,7 @@ class Header extends React.Component<any, any> {
 
   logOut = () => {
     localStorage.removeItem("user");
-this.setState({ redirectTo: "/login"})
+this.setState({ redirectTo: "#/login"})
 
     // window.location.href = "#login";
   };

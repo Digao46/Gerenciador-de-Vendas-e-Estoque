@@ -1,5 +1,5 @@
 import React from "react";
-import { HashRouter, Route, Redirect } from "react-router-dom";
+import { HashRouter, Route, Redirect, Switch } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 
 import "./assets/scss/globals.scss";
@@ -28,15 +28,15 @@ class App extends React.Component<any, any> {
   }
 
   handleNav = () => {
-    const app = document.querySelector(".App")!;
+    const app = document.querySelector(".interface")!;
     const element = document.querySelector(".navMenu")!;
 
     if (!this.state.isActive) {
       element.className = "navMenu d-block";
-      app.className = "App menu";
+      app.className = "interface menu";
     } else {
       element.className = "navMenu d-none";
-      app.className = "App";
+      app.className = "interface";
     }
   };
 
@@ -54,28 +54,30 @@ class App extends React.Component<any, any> {
     }
 
     return (
-      <HashRouter basename="/">
-        <Route path="/login">
-          <div className="App d-flex justify-content-center align-items-center">
-            <Login />
+      <HashRouter>
+        <div className="App">
+          <Switch>
+            <Route path="/login">
+              <Login />
 
-            <Toaster />
-          </div>
-        </Route>
+              <Toaster />
+            </Route>
 
-        <Route path="/" exact>
-          <div className="App">
-            <Header
-              title={this.state.title}
-              getActive={this.getActive}
-              handleNav={this.handleNav}
-            />
-            <Nav active={this.state.isActive} handleNav={this.handleNav} />
-            <Main setTitle={this.setTitle} state={this.state} />
+            <Route path="/">
+              <div className="interface">
+                <Header
+                  title={this.state.title}
+                  getActive={this.getActive}
+                  handleNav={this.handleNav}
+                />
+                <Nav active={this.state.isActive} handleNav={this.handleNav} />
+                <Main setTitle={this.setTitle} state={this.state} />
 
-            <Toaster />
-          </div>
-        </Route>
+                <Toaster />
+              </div>
+            </Route>
+          </Switch>
+        </div>
       </HashRouter>
     );
   }

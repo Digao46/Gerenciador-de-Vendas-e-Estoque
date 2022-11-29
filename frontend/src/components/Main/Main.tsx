@@ -1,9 +1,5 @@
 import React from "react";
-import {
-  HashRouter,
-  Route,
-  Link,
-} from "react-router-dom";
+import { HashRouter, Route, Link } from "react-router-dom";
 import { isAuthorizated } from "../../services/auth";
 
 import "./Main.scss";
@@ -71,7 +67,7 @@ class Main extends React.Component<any, any> {
   render() {
     return (
       <main>
-        <HashRouter>
+        <HashRouter basename="/">
           <Route path="/sales">
             <Sales props={this.props} />
           </Route>

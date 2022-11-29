@@ -29,11 +29,8 @@ class Header extends React.Component<any, any> {
 
   logOut = () => {
     localStorage.removeItem("user");
-    this.setState({ redirectTo: "login" });
 
-    setTimeout(() => {
-      window.location.reload();
-    }, 100);
+    this.setState({ redirectTo: "login" });
   };
 
   handleMenu = () => {

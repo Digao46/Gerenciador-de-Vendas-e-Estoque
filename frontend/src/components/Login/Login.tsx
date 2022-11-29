@@ -38,9 +38,8 @@ class Login extends React.Component<any, any> {
         this.setState({ redirectTo: "/" });
 
         setTimeout(() => {
-
           window.location.reload();
-        }, 0)
+        }, 0);
       })
       .catch((err) => {
         if (err.response.status === 404) {

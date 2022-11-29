@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/Gerenciador-de-Vendas-e-Estoque/static/css/main.e1638eae.css",
-    "main.js": "/Gerenciador-de-Vendas-e-Estoque/static/js/main.def22b92.js",
+    "main.js": "/Gerenciador-de-Vendas-e-Estoque/static/js/main.4192d789.js",
     "static/media/logoReal.png": "/Gerenciador-de-Vendas-e-Estoque/static/media/logoReal.cfcd0a812bb723161a78.png",
     "static/media/logo.png": "/Gerenciador-de-Vendas-e-Estoque/static/media/logo.2133e4113d05310e8027.png",
     "index.html": "/Gerenciador-de-Vendas-e-Estoque/index.html",
     "main.e1638eae.css.map": "/Gerenciador-de-Vendas-e-Estoque/static/css/main.e1638eae.css.map",
-    "main.def22b92.js.map": "/Gerenciador-de-Vendas-e-Estoque/static/js/main.def22b92.js.map"
+    "main.4192d789.js.map": "/Gerenciador-de-Vendas-e-Estoque/static/js/main.4192d789.js.map"
   },
   "entrypoints": [
     "static/css/main.e1638eae.css",
-    "static/js/main.def22b92.js"
+    "static/js/main.4192d789.js"
   ]
 }

@@ -1,9 +1,5 @@
 import React from "react";
-import {
-  HashRouter,
-  Route,
-  Redirect,
-} from "react-router-dom";
+import { HashRouter, Route, Redirect } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 
 import "./assets/scss/globals.scss";
